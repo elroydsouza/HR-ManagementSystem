@@ -17,10 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     loginScreen.cpp \
-    main.cpp
+    main.cpp \
+    menuScreen.cpp \
+    user.cpp
 
 HEADERS += \
-    loginScreen.h
+    loginScreen.h \
+    menuScreen.h \
+    user.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -28,4 +32,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
-    loginScreen.ui
+    loginScreen.ui \
+    menuScreen.ui
