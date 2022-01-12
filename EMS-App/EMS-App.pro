@@ -16,12 +16,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    employeeScreen.cpp \
     loginScreen.cpp \
     main.cpp \
     menuScreen.cpp \
     user.cpp
 
 HEADERS += \
+    employeeScreen.h \
     loginScreen.h \
     menuScreen.h \
     user.h
@@ -32,5 +34,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
+    employeeScreen.ui \
     loginScreen.ui \
     menuScreen.ui

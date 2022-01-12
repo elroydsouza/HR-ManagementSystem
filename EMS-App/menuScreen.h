@@ -1,6 +1,7 @@
 #ifndef MENUSCREEN_H
 #define MENUSCREEN_H
 
+#include "employeeScreen.h"
 #include "user.h"
 #include <QWidget>
 

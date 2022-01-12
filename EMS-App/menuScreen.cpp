@@ -23,5 +23,9 @@ menuScreen::~menuScreen()
 
 void menuScreen::on_btn_User_clicked()
 {
-
+    employeeScreen *openChat = new employeeScreen;
+    openChat->acceptUser(user);
+    openChat->show();
+    openChat->run();
+    close();
 }
