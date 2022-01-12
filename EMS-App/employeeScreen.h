@@ -21,6 +21,9 @@ public:
     void run();
     ~employeeScreen();
 
+private slots:
+    void on_le_search_returnPressed();
+
 private:
     User user;
     Ui::employeeScreen *ui;
