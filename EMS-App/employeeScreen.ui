@@ -121,7 +121,7 @@
         </size>
        </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Update Employee</string>
        </property>
       </widget>
      </item>

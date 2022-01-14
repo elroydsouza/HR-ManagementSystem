@@ -109,21 +109,44 @@ void employeeScreen::on_btn_submit_clicked()
 
     int departmentID = query.value(0).toInt();
 
+    QString username = ui->le_username->text();
+    QString password = ui->le_password->text();
+    QString firstName = ui->le_firstName->text();
+    QString lastName = ui->le_lastName->text();
+    QString DOB = ui->de_DOB->text();
+    QString gender = ui->le_gender->text();
+    QString email = ui->le_email->text();
+    QString employDate = ui->de_employDate->text();
+
+//    ui->le_username->setText(username);
+//    ui->le_password->setText(password);
+//    ui->le_firstName->setText(firstName);
+//    ui->le_lastName->setText(lastName);
+//    ui->btn_clear->setText(DOB);
+//    ui->le_gender->setText(gender);
+//    ui->le_email->setText(email);
+//    ui->btn_submit->setText(employDate);
+
     query.prepare("INSERT INTO users (departmentID, username, password, firstName, lastName, DOB, gender, email, employDate) "
                   "VALUES (:departmentID, :username, :password, :firstName, :lastName, :DOB, :gender, :email, :employDate)");
-    query.bindValue(":firstName", ui->le_firstName->text());
-    query.bindValue(":lastName", ui->le_lastName->text());
-    query.bindValue(":DOB", ui->de_DOB->text());
-    query.bindValue(":gender", ui->le_gender->text());
     query.bindValue(":departmentID", departmentID);
-    query.bindValue(":employDate", ui->de_employDate->text());
-    query.bindValue(":email", ui->le_email->text());
-    query.bindValue(":username", ui->le_username->text());
-    query.bindValue(":password", ui->le_password->text());
+    query.bindValue(":username", username);
+    query.bindValue(":password", password);
+    query.bindValue(":firstName", firstName);
+    query.bindValue(":lastName", lastName);
+    query.bindValue(":DOB", DOB);
+    query.bindValue(":gender", gender);
+    query.bindValue(":email", email);
+    query.bindValue(":employDate", employDate);
 
-    query.exec();
+    if(query.exec()){
+        clearAllInsert();
+        QMessageBox::information(this,"Registration successful","Account has been created");
+    }else{
+        QMessageBox::information(this,"Registration unsuccessful","Account has not been created");
+    }
 
-    clearAllInsert();
+
 }
 
 void employeeScreen::clearAllInsert(){
@@ -137,4 +160,9 @@ void employeeScreen::clearAllInsert(){
     ui->le_username->clear();
     ui->le_password->clear();
 
+}
+
+void employeeScreen::on_btn_clear_clicked()
+{
+    clearAllInsert();
 }

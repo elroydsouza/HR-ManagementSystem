@@ -32,6 +32,8 @@ private slots:
 
     void clearAllInsert();
 
+    void on_btn_clear_clicked();
+
 private:
     User user;
     Ui::employeeScreen *ui;
