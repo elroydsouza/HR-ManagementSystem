@@ -16,10 +16,10 @@ employeeScreen::employeeScreen(QWidget *parent) :
 
 void employeeScreen::run(){
     ui->lbl_name->setText("Logged in as: " + user.getFullName());
+    QDate date = QDate::currentDate();
+    ui->de_employDate->setDate(date);
 
-
-//    QAction *myAction = ui->le_employeeID->addAction(QIcon("test.png"), QLineEdit::TrailingPosition);
-//    connect(myAction, &QAction::triggered, this, &employeeScreen::)
+    // Add info box to every stacked widget page explaining how to use
 
     QSqlQueryModel *model = new QSqlQueryModel();
 
@@ -57,7 +57,7 @@ void employeeScreen::run(){
 //            ui->tbl_users->setColumnWidth(6,95);
 
         } catch (std::invalid_argument& ia) {
-            QMessageBox::information(this,"Error","Invalid character in password!");
+            QMessageBox::information(this,"Error","Employee table could not be displayed");
         }
 
     } else {
@@ -82,7 +82,22 @@ void employeeScreen::on_le_search_returnPressed()
 
 void employeeScreen::on_btn_search_clicked()
 {
+    QSqlQueryModel *model = new QSqlQueryModel();
+
+    QSqlQuery query;
+    query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
+
+    query.exec();
+
+    model->setQuery(query);
+    ui->tbl_users->setModel(model);
+    ui->tbl_users->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+    ui->tbl_users->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    ui->tbl_users->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     ui->stackedWidget->setCurrentIndex(0);
+
+    ui->btn_search->setDown(true);
 }
 
 void employeeScreen::on_btn_insert_clicked()
@@ -103,6 +118,8 @@ void employeeScreen::on_btn_insert_clicked()
     }
 
     ui->stackedWidget->setCurrentIndex(1);
+
+    ui->btn_insert->setDown(true);
 }
 
 
@@ -148,16 +165,18 @@ void employeeScreen::on_btn_submit_clicked()
     }else{
         QMessageBox::information(this,"Registration unsuccessful","Account has not been created");
     }
-
 }
 
 void employeeScreen::clearAllInsert(){
     ui->le_firstName->clear();
     ui->le_lastName->clear();
-    ui->de_DOB->clear();
+    ui->de_DOB->setDate(QDate::fromString("2000-01-01", "yyyy-MM-dd"));
     ui->le_gender->clear();
     ui->cb_department->setCurrentIndex(0);
-    ui->de_employDate->clear();
+
+    QDate date = QDate::currentDate();
+    ui->de_employDate->setDate(date);
+
     ui->le_email->clear();
     ui->le_address->clear();
     ui->le_phoneNo->clear();
@@ -183,6 +202,15 @@ void employeeScreen::on_btn_update_clicked()
     ui->tbl_usersUpdate->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     ui->tbl_usersUpdate->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
+    ui->Ule_employeeID->clear();
+    ui->Ule_firstName->clear();
+    ui->Ule_lastName->clear();
+    ui->Ule_email->clear();
+    ui->Ucb_department->setCurrentIndex(0);
+    ui->Ule_gender->clear();
+    ui->Ule_phoneNo->clear();
+    ui->Ule_address->clear();
+
     ui->Ucb_department->clear();
 
     QString departmentName;
@@ -197,6 +225,8 @@ void employeeScreen::on_btn_update_clicked()
     }
 
     ui->stackedWidget->setCurrentIndex(2);
+
+    ui->btn_update->setDown(true);
 }
 
 void employeeScreen::on_btn_back_clicked()
@@ -216,10 +246,8 @@ void employeeScreen::on_btn_generateID_clicked()
     ui->le_employeeID->setText(randomID);
 }
 
-void employeeScreen::on_tbl_usersUpdate_activated(const QModelIndex &index)
+void employeeScreen::on_tbl_usersUpdate_activated()
 {
-    QString val = ui->tbl_usersUpdate->model()->data(index).toString();
-
     QModelIndex selectedRow = ui->tbl_usersUpdate->selectionModel()->currentIndex();
     QVariant selectedID = selectedRow.sibling(selectedRow.row(),0).data();
     QString selectedEmployeeID = selectedID.toString();
@@ -286,3 +314,86 @@ void employeeScreen::on_Ubtn_update_clicked()
         QMessageBox::information(this,"Error","Employee could not be updated");
     }
 }
+
+void employeeScreen::on_btn_delete_clicked()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+
+    QSqlQuery query;
+    query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
+
+    query.exec();
+
+    model->setQuery(query);
+    ui->Dtbl_users->setModel(model);
+    ui->Dtbl_users->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+    ui->Dtbl_users->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    ui->Dtbl_users->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    clearAllDelete();
+
+    ui->stackedWidget->setCurrentIndex(3);
+
+    ui->btn_delete->setDown(true);
+}
+
+void employeeScreen::on_Dtbl_users_activated()
+{
+    QModelIndex selectedRow = ui->Dtbl_users->selectionModel()->currentIndex();
+    QVariant selectedID = selectedRow.sibling(selectedRow.row(),0).data();
+    QString selectedEmployeeID = selectedID.toString();
+
+    QSqlQuery query;
+    query.prepare(QString("SELECT firstName, lastName FROM users "
+                          "WHERE employeeID = '"+selectedEmployeeID+"'"));
+
+    if(query.exec()){
+        while(query.next()){
+            ui->Dle_employeeID->setText(selectedEmployeeID);
+            ui->Dle_firstName->setText(query.value(0).toString());
+            ui->Dle_lastName->setText(query.value(1).toString());
+        }
+    }
+}
+
+void employeeScreen::on_Dbtn_delete_clicked()
+{
+    QString selectedID = ui->Dle_employeeID->text();
+    QString selectedFirstName = ui->Dle_firstName->text();
+    QString selectedLastName = ui->Dle_lastName->text();
+
+    QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to delete ("+ selectedID + ") "+ selectedFirstName +" "+ selectedLastName+"?",
+                                                                 QMessageBox::Yes|QMessageBox::No);
+    if(question == QMessageBox::Yes){
+        QSqlQuery query;
+        query.prepare(QString("DELETE FROM users WHERE employeeID = '"+selectedID+"'"));
+
+        if(query.exec()){
+            QMessageBox::information(this,"Success","Employee has been successfully deleted");
+        } else {
+            QMessageBox::information(this,"Error","Employee could not be deleted");
+        }
+
+        QSqlQueryModel *model = new QSqlQueryModel();
+
+        query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
+
+        query.exec();
+
+        model->setQuery(query);
+        ui->Dtbl_users->setModel(model);
+        ui->Dtbl_users->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+        ui->Dtbl_users->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+        ui->Dtbl_users->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+        clearAllDelete();
+    }
+
+}
+
+void employeeScreen::clearAllDelete(){
+    ui->Dle_employeeID->clear();
+    ui->Dle_firstName->clear();
+    ui->Dle_lastName->clear();
+}
+

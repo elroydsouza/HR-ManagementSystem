@@ -40,9 +40,17 @@ private slots:
 
     void on_btn_generateID_clicked();
 
-    void on_tbl_usersUpdate_activated(const QModelIndex &index);
+    void on_tbl_usersUpdate_activated();
 
     void on_Ubtn_update_clicked();
+
+    void on_btn_delete_clicked();
+
+    void on_Dtbl_users_activated();
+
+    void on_Dbtn_delete_clicked();
+
+    void clearAllDelete();
 
 private:
     User user;

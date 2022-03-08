@@ -31,10 +31,12 @@ public:
     QPushButton *logo;
     QLabel *title;
     QSpacerItem *horizontalSpacer_2;
+    QWidget *container;
     QHBoxLayout *horizontalLayout_8;
     QSpacerItem *horizontalSpacer_9;
     QWidget *loginForm;
     QVBoxLayout *verticalLayout_3;
+    QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_3;
     QLineEdit *le_email;
@@ -60,6 +62,7 @@ public:
         loginScreen->setStyleSheet(QString::fromUtf8("background-color: rgb(243, 243, 243);"));
         verticalLayout_2 = new QVBoxLayout(loginScreen);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, -1, 0, -1);
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
@@ -94,13 +97,17 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        horizontalLayout_8 = new QHBoxLayout();
+        container = new QWidget(loginScreen);
+        container->setObjectName(QString::fromUtf8("container"));
+        container->setStyleSheet(QString::fromUtf8("#container { border: 2px solid;background-color: rgb(48, 152, 185); }"));
+        horizontalLayout_8 = new QHBoxLayout(container);
         horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
+        horizontalLayout_8->setContentsMargins(-1, 15, -1, 15);
         horizontalSpacer_9 = new QSpacerItem(200, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
         horizontalLayout_8->addItem(horizontalSpacer_9);
 
-        loginForm = new QWidget(loginScreen);
+        loginForm = new QWidget(container);
         loginForm->setObjectName(QString::fromUtf8("loginForm"));
         QFont font1;
         font1.setBold(false);
@@ -110,6 +117,10 @@ public:
         verticalLayout_3 = new QVBoxLayout(loginForm);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(9, 9, 9, 9);
+        verticalSpacer = new QSpacerItem(20, 5, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+        verticalLayout_3->addItem(verticalSpacer);
+
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -123,7 +134,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(le_email->sizePolicy().hasHeightForWidth());
         le_email->setSizePolicy(sizePolicy);
-        le_email->setMinimumSize(QSize(200, 0));
+        le_email->setMinimumSize(QSize(200, 30));
         le_email->setFont(font1);
 
         horizontalLayout_2->addWidget(le_email);
@@ -149,7 +160,7 @@ public:
         le_password->setObjectName(QString::fromUtf8("le_password"));
         sizePolicy.setHeightForWidth(le_password->sizePolicy().hasHeightForWidth());
         le_password->setSizePolicy(sizePolicy);
-        le_password->setMinimumSize(QSize(200, 0));
+        le_password->setMinimumSize(QSize(200, 30));
         le_password->setEchoMode(QLineEdit::Password);
         le_password->setReadOnly(false);
 
@@ -175,6 +186,12 @@ public:
 
         btn_login = new QPushButton(loginForm);
         btn_login->setObjectName(QString::fromUtf8("btn_login"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(4);
+        sizePolicy1.setHeightForWidth(btn_login->sizePolicy().hasHeightForWidth());
+        btn_login->setSizePolicy(sizePolicy1);
+        btn_login->setMinimumSize(QSize(100, 30));
         btn_login->setStyleSheet(QString::fromUtf8(""));
 
         horizontalLayout_5->addWidget(btn_login);
@@ -194,7 +211,7 @@ public:
         horizontalLayout_8->addItem(horizontalSpacer_10);
 
 
-        verticalLayout->addLayout(horizontalLayout_8);
+        verticalLayout->addWidget(container);
 
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
@@ -212,7 +229,7 @@ public:
     void retranslateUi(QWidget *loginScreen)
     {
         loginScreen->setWindowTitle(QApplication::translate("loginScreen", "Form", nullptr));
-        logo->setText(QString());
+        logo->setText(QApplication::translate("loginScreen", "B.S. LOGO", nullptr));
         title->setText(QApplication::translate("loginScreen", "Employee Management System", nullptr));
         le_email->setText(QString());
         le_email->setPlaceholderText(QApplication::translate("loginScreen", "email", nullptr));

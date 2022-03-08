@@ -76,30 +76,30 @@ void loginScreen::on_btn_login_clicked()
                 if(query.next()){
                      QMessageBox::information(this,"Success","You are logged in");
 
-                     QSqlQuery query;
-                     query.prepare(QString("SELECT userID, firstName, lastName"
+                     query.prepare(QString("SELECT userID, firstName, lastName "
                                            "FROM users "
                                            "WHERE email = :email"));
 
-                     query.bindValue(":email",email);
+                     query.bindValue(":email", email);
                      query.exec();
-                     query.next();
+                     if(query.next()){
+                         int userID = query.value(0).toInt();
+                         QString firstName = query.value(1).toString();
+                         QString lastName = query.value(2).toString();
 
-                     int userID = query.value(0).toInt();
-                     QString firstName = query.value(1).toString();
-                     QString lastName = query.value(2).toString();
+                         std::cout << firstName.toStdString() << std::endl;
 
-                     std::cout << firstName.toStdString() << std::endl;
+                         User user = User();
+                         user.setUser(userID, email, firstName, lastName);
 
-                     User user = User();
-                     user.setUser(userID, email, firstName, lastName);
-
-                     menuScreen *openChat = new menuScreen;
-                     openChat->acceptUser(user);
-                     openChat->show();
-                     openChat->run();
-                     close();
-
+                         menuScreen *openChat = new menuScreen;
+                         openChat->acceptUser(user);
+                         openChat->show();
+                         openChat->run();
+                         close();
+                     } else {
+                         QMessageBox::information(this,"Error","User credentials could not be stored");
+                     }
                  } else {
                      QMessageBox::information(this,"Error","Wrong password or email");
                  }
