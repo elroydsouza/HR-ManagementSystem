@@ -40,6 +40,10 @@ private slots:
 
     void on_btn_generateID_clicked();
 
+    void on_tbl_usersUpdate_activated(const QModelIndex &index);
+
+    void on_Ubtn_update_clicked();
+
 private:
     User user;
     Ui::employeeScreen *ui;

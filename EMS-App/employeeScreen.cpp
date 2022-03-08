@@ -4,6 +4,8 @@
 
 #include <stdlib.h>
 
+#include <iostream>
+
 employeeScreen::employeeScreen(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::employeeScreen)
@@ -172,7 +174,7 @@ void employeeScreen::on_btn_update_clicked()
 {
     QSqlQueryModel *model = new QSqlQueryModel();
     QSqlQuery query;
-    query.prepare(QString("SELECT firstName, lastName FROM users"));
+    query.prepare(QString("SELECT employeeID, firstName, lastName FROM users"));
 
     query.exec();
     model->setQuery(query);
@@ -180,6 +182,20 @@ void employeeScreen::on_btn_update_clicked()
     ui->tbl_usersUpdate->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
     ui->tbl_usersUpdate->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     ui->tbl_usersUpdate->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    ui->Ucb_department->clear();
+
+    QString departmentName;
+    query.prepare("SELECT departmentName "
+                  "FROM departments");
+
+    query.exec();
+
+    while (query.next()) {
+        departmentName = query.value(0).toString();
+        ui->Ucb_department->addItem(departmentName);
+    }
+
     ui->stackedWidget->setCurrentIndex(2);
 }
 
@@ -198,4 +214,75 @@ void employeeScreen::on_btn_generateID_clicked()
     QString randomID = "BS" + QString::fromStdString(std::to_string(randNo));
 
     ui->le_employeeID->setText(randomID);
+}
+
+void employeeScreen::on_tbl_usersUpdate_activated(const QModelIndex &index)
+{
+    QString val = ui->tbl_usersUpdate->model()->data(index).toString();
+
+    QModelIndex selectedRow = ui->tbl_usersUpdate->selectionModel()->currentIndex();
+    QVariant selectedID = selectedRow.sibling(selectedRow.row(),0).data();
+    QString selectedEmployeeID = selectedID.toString();
+
+    QSqlQuery query;
+    query.prepare(QString("SELECT firstName, lastName, email, departmentID, gender, phoneNo, address FROM users "
+                          "WHERE employeeID = '"+selectedEmployeeID+"'"));
+
+    if(query.exec()){
+        while(query.next()){
+            ui->Ule_employeeID->setText(selectedEmployeeID);
+
+            ui->Ule_firstName->setText(query.value(0).toString());
+            ui->Ule_lastName->setText(query.value(1).toString());
+            ui->Ule_email->setText(query.value(2).toString());
+
+            ui->Ucb_department->setCurrentIndex(query.value(3).toInt() - 1);
+
+            ui->Ule_gender->setText(query.value(4).toString());
+            ui->Ule_phoneNo->setText(query.value(5).toString());
+            ui->Ule_address->setText(query.value(6).toString());
+        }
+    }
+
+}
+
+void employeeScreen::on_Ubtn_update_clicked()
+{
+    QString updatedFirstName = ui->Ule_firstName->text();
+    QString updatedLastName = ui->Ule_lastName->text();
+    QString updatedEmail = ui->Ule_email->text();
+    int updatedDepartmentID = ui->Ucb_department->currentIndex() + 1;
+    QString updatedGender = ui->Ule_gender->text();
+    QString updatedPhoneNo = ui->Ule_phoneNo->text();
+    QString updatedAddress = ui->Ule_address->text();
+
+    QSqlQuery query;
+    query.prepare(QString("UPDATE users "
+                          "SET firstName = :firstName, lastName = :lastName, email = :email, departmentID = :departmentID, gender = :gender, phoneNo = :phoneNo, address = :address "
+                          "WHERE employeeID = :employeeID"));
+
+    query.bindValue(":employeeID", ui->Ule_employeeID->text());
+    query.bindValue(":departmentID", updatedDepartmentID);
+    query.bindValue(":firstName", updatedFirstName);
+    query.bindValue(":lastName", updatedLastName);
+    query.bindValue(":email", updatedEmail);
+    query.bindValue(":gender", updatedGender);
+    query.bindValue(":phoneNo", updatedPhoneNo);
+    query.bindValue(":address", updatedAddress);
+
+    if(query.exec()){
+        ui->Ule_firstName->setText(updatedFirstName);
+        ui->Ule_lastName->setText(updatedLastName);
+        ui->Ule_email->setText(updatedEmail);
+
+        ui->Ucb_department->setCurrentIndex(updatedDepartmentID - 1);
+
+        ui->Ule_gender->setText(updatedGender);
+        ui->Ule_phoneNo->setText(updatedPhoneNo);
+        ui->Ule_address->setText(updatedAddress);
+
+        QMessageBox::information(this,"Success","Employee has been updated");
+    }else{
+        QMessageBox::information(this,"Error","Employee could not be updated");
+    }
 }

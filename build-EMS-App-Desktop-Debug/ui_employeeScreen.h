@@ -100,21 +100,25 @@ public:
     QLabel *label_19;
     QTableView *tbl_usersUpdate;
     QVBoxLayout *verticalLayout_4;
+    QHBoxLayout *horizontalLayout_6;
+    QLabel *label_23;
+    QLineEdit *Ule_employeeID;
     QLabel *label_12;
-    QLineEdit *lineEdit;
+    QLineEdit *Ule_firstName;
     QLabel *label_13;
-    QLineEdit *lineEdit_2;
+    QLineEdit *Ule_lastName;
     QLabel *label_14;
-    QLineEdit *lineEdit_3;
-    QLabel *label_15;
-    QLineEdit *lineEdit_4;
-    QLabel *label_16;
-    QLineEdit *lineEdit_5;
-    QLabel *label_17;
-    QLineEdit *lineEdit_6;
+    QLineEdit *Ule_email;
     QLabel *label_18;
-    QLineEdit *lineEdit_7;
-    QPushButton *pushButton_2;
+    QComboBox *Ucb_department;
+    QLabel *label_15;
+    QLineEdit *Ule_gender;
+    QLabel *label_16;
+    QLineEdit *Ule_phoneNo;
+    QLabel *label_17;
+    QLineEdit *Ule_address;
+    QSpacerItem *verticalSpacer_11;
+    QPushButton *Ubtn_update;
 
     void setupUi(QWidget *employeeScreen)
     {
@@ -520,80 +524,105 @@ public:
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         verticalLayout_4->setContentsMargins(-1, -1, 0, -1);
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
+        label_23 = new QLabel(page_3);
+        label_23->setObjectName(QString::fromUtf8("label_23"));
+        QFont font4;
+        font4.setBold(true);
+        font4.setWeight(75);
+        label_23->setFont(font4);
+
+        horizontalLayout_6->addWidget(label_23);
+
+        Ule_employeeID = new QLineEdit(page_3);
+        Ule_employeeID->setObjectName(QString::fromUtf8("Ule_employeeID"));
+        Ule_employeeID->setReadOnly(true);
+
+        horizontalLayout_6->addWidget(Ule_employeeID);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_6);
+
         label_12 = new QLabel(page_3);
         label_12->setObjectName(QString::fromUtf8("label_12"));
 
         verticalLayout_4->addWidget(label_12);
 
-        lineEdit = new QLineEdit(page_3);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        Ule_firstName = new QLineEdit(page_3);
+        Ule_firstName->setObjectName(QString::fromUtf8("Ule_firstName"));
 
-        verticalLayout_4->addWidget(lineEdit);
+        verticalLayout_4->addWidget(Ule_firstName);
 
         label_13 = new QLabel(page_3);
         label_13->setObjectName(QString::fromUtf8("label_13"));
 
         verticalLayout_4->addWidget(label_13);
 
-        lineEdit_2 = new QLineEdit(page_3);
-        lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
+        Ule_lastName = new QLineEdit(page_3);
+        Ule_lastName->setObjectName(QString::fromUtf8("Ule_lastName"));
 
-        verticalLayout_4->addWidget(lineEdit_2);
+        verticalLayout_4->addWidget(Ule_lastName);
 
         label_14 = new QLabel(page_3);
         label_14->setObjectName(QString::fromUtf8("label_14"));
 
         verticalLayout_4->addWidget(label_14);
 
-        lineEdit_3 = new QLineEdit(page_3);
-        lineEdit_3->setObjectName(QString::fromUtf8("lineEdit_3"));
+        Ule_email = new QLineEdit(page_3);
+        Ule_email->setObjectName(QString::fromUtf8("Ule_email"));
 
-        verticalLayout_4->addWidget(lineEdit_3);
-
-        label_15 = new QLabel(page_3);
-        label_15->setObjectName(QString::fromUtf8("label_15"));
-
-        verticalLayout_4->addWidget(label_15);
-
-        lineEdit_4 = new QLineEdit(page_3);
-        lineEdit_4->setObjectName(QString::fromUtf8("lineEdit_4"));
-
-        verticalLayout_4->addWidget(lineEdit_4);
-
-        label_16 = new QLabel(page_3);
-        label_16->setObjectName(QString::fromUtf8("label_16"));
-
-        verticalLayout_4->addWidget(label_16);
-
-        lineEdit_5 = new QLineEdit(page_3);
-        lineEdit_5->setObjectName(QString::fromUtf8("lineEdit_5"));
-
-        verticalLayout_4->addWidget(lineEdit_5);
-
-        label_17 = new QLabel(page_3);
-        label_17->setObjectName(QString::fromUtf8("label_17"));
-
-        verticalLayout_4->addWidget(label_17);
-
-        lineEdit_6 = new QLineEdit(page_3);
-        lineEdit_6->setObjectName(QString::fromUtf8("lineEdit_6"));
-
-        verticalLayout_4->addWidget(lineEdit_6);
+        verticalLayout_4->addWidget(Ule_email);
 
         label_18 = new QLabel(page_3);
         label_18->setObjectName(QString::fromUtf8("label_18"));
 
         verticalLayout_4->addWidget(label_18);
 
-        lineEdit_7 = new QLineEdit(page_3);
-        lineEdit_7->setObjectName(QString::fromUtf8("lineEdit_7"));
+        Ucb_department = new QComboBox(page_3);
+        Ucb_department->setObjectName(QString::fromUtf8("Ucb_department"));
 
-        verticalLayout_4->addWidget(lineEdit_7);
+        verticalLayout_4->addWidget(Ucb_department);
 
-        pushButton_2 = new QPushButton(page_3);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        label_15 = new QLabel(page_3);
+        label_15->setObjectName(QString::fromUtf8("label_15"));
 
-        verticalLayout_4->addWidget(pushButton_2);
+        verticalLayout_4->addWidget(label_15);
+
+        Ule_gender = new QLineEdit(page_3);
+        Ule_gender->setObjectName(QString::fromUtf8("Ule_gender"));
+
+        verticalLayout_4->addWidget(Ule_gender);
+
+        label_16 = new QLabel(page_3);
+        label_16->setObjectName(QString::fromUtf8("label_16"));
+
+        verticalLayout_4->addWidget(label_16);
+
+        Ule_phoneNo = new QLineEdit(page_3);
+        Ule_phoneNo->setObjectName(QString::fromUtf8("Ule_phoneNo"));
+
+        verticalLayout_4->addWidget(Ule_phoneNo);
+
+        label_17 = new QLabel(page_3);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+
+        verticalLayout_4->addWidget(label_17);
+
+        Ule_address = new QLineEdit(page_3);
+        Ule_address->setObjectName(QString::fromUtf8("Ule_address"));
+
+        verticalLayout_4->addWidget(Ule_address);
+
+        verticalSpacer_11 = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+        verticalLayout_4->addItem(verticalSpacer_11);
+
+        Ubtn_update = new QPushButton(page_3);
+        Ubtn_update->setObjectName(QString::fromUtf8("Ubtn_update"));
+        Ubtn_update->setMinimumSize(QSize(0, 30));
+
+        verticalLayout_4->addWidget(Ubtn_update);
 
 
         horizontalLayout_2->addLayout(verticalLayout_4);
@@ -605,7 +634,7 @@ public:
 
         retranslateUi(employeeScreen);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(employeeScreen);
@@ -641,14 +670,15 @@ public:
         btn_clear->setText(QApplication::translate("employeeScreen", "Clear", nullptr));
         btn_submit->setText(QApplication::translate("employeeScreen", "Submit", nullptr));
         label_19->setText(QApplication::translate("employeeScreen", "Update employees from list", nullptr));
-        label_12->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));
-        label_13->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));
-        label_14->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));
-        label_15->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));
-        label_16->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));
-        label_17->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));
-        label_18->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));
-        pushButton_2->setText(QApplication::translate("employeeScreen", "Submit", nullptr));
+        label_23->setText(QApplication::translate("employeeScreen", "Employee ID:", nullptr));
+        label_12->setText(QApplication::translate("employeeScreen", "First Name", nullptr));
+        label_13->setText(QApplication::translate("employeeScreen", "Last Name", nullptr));
+        label_14->setText(QApplication::translate("employeeScreen", "Email", nullptr));
+        label_18->setText(QApplication::translate("employeeScreen", "Department", nullptr));
+        label_15->setText(QApplication::translate("employeeScreen", "Gender", nullptr));
+        label_16->setText(QApplication::translate("employeeScreen", "Phone Number", nullptr));
+        label_17->setText(QApplication::translate("employeeScreen", "Address", nullptr));
+        Ubtn_update->setText(QApplication::translate("employeeScreen", "Update", nullptr));
     } // retranslateUi
 
 };
