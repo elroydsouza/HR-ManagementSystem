@@ -77,7 +77,6 @@ public:
     QSpacerItem *verticalSpacer_3;
     QLabel *label_21;
     QGridLayout *gridLayout_2;
-    QLineEdit *le_employeeID;
     QLabel *label_5;
     QSpacerItem *horizontalSpacer_6;
     QSpacerItem *horizontalSpacer_5;
@@ -86,6 +85,9 @@ public:
     QLabel *label_10;
     QComboBox *cb_department;
     QSpacerItem *verticalSpacer_9;
+    QHBoxLayout *horizontalLayout_4;
+    QLineEdit *lineEdit_8;
+    QPushButton *pushButton_3;
     QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer;
@@ -386,12 +388,6 @@ public:
 
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        le_employeeID = new QLineEdit(page_2);
-        le_employeeID->setObjectName(QString::fromUtf8("le_employeeID"));
-        le_employeeID->setMinimumSize(QSize(0, 30));
-
-        gridLayout_2->addWidget(le_employeeID, 2, 2, 1, 1);
-
         label_5 = new QLabel(page_2);
         label_5->setObjectName(QString::fromUtf8("label_5"));
         label_5->setFont(font1);
@@ -437,6 +433,24 @@ public:
         verticalSpacer_9 = new QSpacerItem(20, 10, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
         gridLayout_2->addItem(verticalSpacer_9, 0, 2, 1, 1);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        lineEdit_8 = new QLineEdit(page_2);
+        lineEdit_8->setObjectName(QString::fromUtf8("lineEdit_8"));
+        lineEdit_8->setMinimumSize(QSize(0, 30));
+        lineEdit_8->setReadOnly(true);
+
+        horizontalLayout_4->addWidget(lineEdit_8);
+
+        pushButton_3 = new QPushButton(page_2);
+        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
+        pushButton_3->setMinimumSize(QSize(0, 30));
+
+        horizontalLayout_4->addWidget(pushButton_3);
+
+
+        gridLayout_2->addLayout(horizontalLayout_4, 2, 2, 1, 1);
 
 
         verticalLayout_3->addLayout(gridLayout_2);
@@ -623,6 +637,7 @@ public:
         de_employDate->setDisplayFormat(QApplication::translate("employeeScreen", "yyyy-MM-dd", nullptr));
         label_6->setText(QApplication::translate("employeeScreen", "Employment Date", nullptr));
         label_10->setText(QApplication::translate("employeeScreen", "Employee ID", nullptr));
+        pushButton_3->setText(QApplication::translate("employeeScreen", "Generate", nullptr));
         btn_clear->setText(QApplication::translate("employeeScreen", "Clear", nullptr));
         btn_submit->setText(QApplication::translate("employeeScreen", "Submit", nullptr));
         label_19->setText(QApplication::translate("employeeScreen", "Update employees from list", nullptr));

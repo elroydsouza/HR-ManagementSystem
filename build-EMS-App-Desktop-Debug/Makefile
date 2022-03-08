@@ -472,7 +472,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 employeeScreen.o: ../EMS-App/employeeScreen.cpp ../EMS-App/employeeScreen.h \
 		../EMS-App/user.h \
-		ui_employeeScreen.h
+		ui_employeeScreen.h \
+		../EMS-App/menuScreen.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o employeeScreen.o ../EMS-App/employeeScreen.cpp
 
 loginScreen.o: ../EMS-App/loginScreen.cpp ../EMS-App/loginScreen.h \
