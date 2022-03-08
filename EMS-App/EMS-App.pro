@@ -20,12 +20,14 @@ SOURCES += \
     loginScreen.cpp \
     main.cpp \
     menuScreen.cpp \
+    passwordSet.cpp \
     user.cpp
 
 HEADERS += \
     employeeScreen.h \
     loginScreen.h \
     menuScreen.h \
+    passwordSet.h \
     user.h
 
 # Default rules for deployment.
@@ -36,4 +38,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 FORMS += \
     employeeScreen.ui \
     loginScreen.ui \
-    menuScreen.ui
+    menuScreen.ui \
+    passwordSet.ui

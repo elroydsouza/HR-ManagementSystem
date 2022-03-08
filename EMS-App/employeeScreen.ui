@@ -169,7 +169,7 @@
       <string notr="true">background-color: rgb(243, 243, 243);</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -510,7 +510,7 @@ verticalHeader::section{ background-color:rgb(190,1,1) }</string>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="le_Address">
+          <widget class="QLineEdit" name="le_address">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -680,7 +680,7 @@ verticalHeader::section{ background-color:rgb(190,1,1) }</string>
          <item row="2" column="2">
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
-            <widget class="QLineEdit" name="lineEdit_8">
+            <widget class="QLineEdit" name="le_employeeID">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -693,7 +693,7 @@ verticalHeader::section{ background-color:rgb(190,1,1) }</string>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_3">
+            <widget class="QPushButton" name="btn_generateID">
              <property name="minimumSize">
               <size>
                <width>0</width>

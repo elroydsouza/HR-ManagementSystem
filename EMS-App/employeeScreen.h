@@ -38,6 +38,8 @@ private slots:
 
     void on_btn_back_clicked();
 
+    void on_btn_generateID_clicked();
+
 private:
     User user;
     Ui::employeeScreen *ui;

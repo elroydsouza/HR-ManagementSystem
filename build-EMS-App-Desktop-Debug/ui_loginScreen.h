@@ -37,7 +37,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_3;
-    QLineEdit *le_username;
+    QLineEdit *le_email;
     QSpacerItem *horizontalSpacer_4;
     QSpacerItem *verticalSpacer_3;
     QHBoxLayout *horizontalLayout_4;
@@ -116,17 +116,17 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer_3);
 
-        le_username = new QLineEdit(loginForm);
-        le_username->setObjectName(QString::fromUtf8("le_username"));
+        le_email = new QLineEdit(loginForm);
+        le_email->setObjectName(QString::fromUtf8("le_email"));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(le_username->sizePolicy().hasHeightForWidth());
-        le_username->setSizePolicy(sizePolicy);
-        le_username->setMinimumSize(QSize(200, 0));
-        le_username->setFont(font1);
+        sizePolicy.setHeightForWidth(le_email->sizePolicy().hasHeightForWidth());
+        le_email->setSizePolicy(sizePolicy);
+        le_email->setMinimumSize(QSize(200, 0));
+        le_email->setFont(font1);
 
-        horizontalLayout_2->addWidget(le_username);
+        horizontalLayout_2->addWidget(le_email);
 
         horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -214,8 +214,8 @@ public:
         loginScreen->setWindowTitle(QApplication::translate("loginScreen", "Form", nullptr));
         logo->setText(QString());
         title->setText(QApplication::translate("loginScreen", "Employee Management System", nullptr));
-        le_username->setText(QString());
-        le_username->setPlaceholderText(QApplication::translate("loginScreen", "username", nullptr));
+        le_email->setText(QString());
+        le_email->setPlaceholderText(QApplication::translate("loginScreen", "email", nullptr));
         le_password->setPlaceholderText(QApplication::translate("loginScreen", "password", nullptr));
         btn_login->setText(QApplication::translate("loginScreen", "Login", nullptr));
     } // retranslateUi

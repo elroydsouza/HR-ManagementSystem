@@ -8,8 +8,8 @@ int User::getUserID() {
     return currentUserID;
 };
 
-QString User::getUsername() {
-    return currentUsername;
+QString User::getEmail() {
+    return currentEmail;
 };
 
 QString User::getFirstName() {
@@ -19,10 +19,6 @@ QString User::getFirstName() {
 QString User::getLastName() {
     return currentLastName;
 };
-
-int User::getProfilePicture(){
-    return currentProfilePicture;
-}
 
 QString User::getFullName() {
     QString currentFullName = getFirstName() + " " + getLastName();
@@ -36,7 +32,3 @@ void User::updateFirstName(QString name){
 void User::updateLastName(QString name){
     currentLastName = name;
 };
-
-void User::updateProfilePicture(int picture){
-    currentProfilePicture = picture;
-}

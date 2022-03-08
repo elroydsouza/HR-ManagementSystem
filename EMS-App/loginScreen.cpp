@@ -2,6 +2,9 @@
 #include "ui_loginScreen.h"
 #include "menuScreen.h"
 #include "user.h"
+#include "passwordSet.h"
+
+#include <iostream>
 
 loginScreen::loginScreen(QWidget *parent) :
     QWidget(parent),
@@ -24,53 +27,85 @@ void loginScreen::on_btn_login_clicked()
     db.setDatabaseName("emsApp");
 
     if(db.open()){
-        QString username = ui->le_username->text();
+        QString email = ui->le_email->text();
         QString password = ui->le_password->text();
 
-        try {
-            password = encryptPassword(password);
+        if(password == NULL){
+            try {
+                QSqlQuery query;
+                query.prepare(QString("SELECT password FROM users "
+                                      "WHERE email = :email"));
 
-            QSqlQuery query;
-            query.prepare(QString("SELECT * FROM users "
-                                  "WHERE username = :username "
-                                  "AND password = :password"));
+                query.bindValue(":email",email);
 
-            query.bindValue(":username",username);
-            query.bindValue(":password",password);
+                query.exec();
+                if(query.next()){
+                    QString passwordStored = query.value(0).toString();
+                    if(passwordStored == NULL){
+                        User user = User();
+                        user.setUser(999999, email, "firstName", "lastName");
 
-            query.exec();
+                        passwordSet *openChat = new passwordSet;
+                        openChat->acceptUser(user);
+                        openChat->show();
+                        openChat->run();
+                        close();
+                    } else {
+                        QMessageBox::information(this,"Error","Password already set for email!");
+                    }
+                } else {
+                    QMessageBox::information(this,"Error","Wrong password or email!");
+                }
+            } catch (std::invalid_argument& ia) {
+                QMessageBox::information(this,"Error","Invalid character in password!");
+            }
+        } else {
+            try {
+                password = encryptPassword(password);
 
-            if(query.next()){
-                 QMessageBox::information(this,"Success","You are logged in");
+                QSqlQuery query;
+                query.prepare(QString("SELECT * FROM users "
+                                      "WHERE email = :email "
+                                      "AND password = :password"));
 
-                 QSqlQuery query;
-                 query.prepare(QString("SELECT userID, firstName, lastName, pfpNo "
-                                       "FROM users "
-                                       "WHERE username = :username"));
+                query.bindValue(":email",email);
+                query.bindValue(":password",password);
 
-                 query.bindValue(":username",username);
-                 query.exec();
-                 query.next();
+                query.exec();
 
-                 int userID = query.value(0).toInt();
-                 QString firstName = query.value(1).toString();
-                 QString lastName = query.value(2).toString();
-                 int profilePicture = query.value(3).toInt();
+                if(query.next()){
+                     QMessageBox::information(this,"Success","You are logged in");
 
-                 User user = User();
-                 user.setUser(userID, username, firstName, lastName, profilePicture);
+                     QSqlQuery query;
+                     query.prepare(QString("SELECT userID, firstName, lastName"
+                                           "FROM users "
+                                           "WHERE email = :email"));
 
-                 menuScreen *openChat = new menuScreen;
-                 openChat->acceptUser(user);
-                 openChat->show();
-                 openChat->run();
-                 close();
+                     query.bindValue(":email",email);
+                     query.exec();
+                     query.next();
 
-             } else {
-                 QMessageBox::information(this,"Error","Wrong password or username");
-             }
-        } catch (std::invalid_argument& ia) {
-            QMessageBox::information(this,"Error","Invalid character in password!");
+                     int userID = query.value(0).toInt();
+                     QString firstName = query.value(1).toString();
+                     QString lastName = query.value(2).toString();
+
+                     std::cout << firstName.toStdString() << std::endl;
+
+                     User user = User();
+                     user.setUser(userID, email, firstName, lastName);
+
+                     menuScreen *openChat = new menuScreen;
+                     openChat->acceptUser(user);
+                     openChat->show();
+                     openChat->run();
+                     close();
+
+                 } else {
+                     QMessageBox::information(this,"Error","Wrong password or email");
+                 }
+            } catch (std::invalid_argument& ia) {
+                QMessageBox::information(this,"Error","Invalid character in password!");
+            }
         }
 
     } else {

@@ -73,7 +73,7 @@ public:
     QSpacerItem *verticalSpacer_8;
     QVBoxLayout *verticalLayout_5;
     QLabel *label_9;
-    QLineEdit *le_Address;
+    QLineEdit *le_address;
     QSpacerItem *verticalSpacer_3;
     QLabel *label_21;
     QGridLayout *gridLayout_2;
@@ -86,8 +86,8 @@ public:
     QComboBox *cb_department;
     QSpacerItem *verticalSpacer_9;
     QHBoxLayout *horizontalLayout_4;
-    QLineEdit *lineEdit_8;
-    QPushButton *pushButton_3;
+    QLineEdit *le_employeeID;
+    QPushButton *btn_generateID;
     QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer;
@@ -361,11 +361,11 @@ public:
 
         verticalLayout_5->addWidget(label_9);
 
-        le_Address = new QLineEdit(page_2);
-        le_Address->setObjectName(QString::fromUtf8("le_Address"));
-        le_Address->setMinimumSize(QSize(0, 30));
+        le_address = new QLineEdit(page_2);
+        le_address->setObjectName(QString::fromUtf8("le_address"));
+        le_address->setMinimumSize(QSize(0, 30));
 
-        verticalLayout_5->addWidget(le_Address);
+        verticalLayout_5->addWidget(le_address);
 
 
         verticalLayout_3->addLayout(verticalLayout_5);
@@ -436,18 +436,18 @@ public:
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        lineEdit_8 = new QLineEdit(page_2);
-        lineEdit_8->setObjectName(QString::fromUtf8("lineEdit_8"));
-        lineEdit_8->setMinimumSize(QSize(0, 30));
-        lineEdit_8->setReadOnly(true);
+        le_employeeID = new QLineEdit(page_2);
+        le_employeeID->setObjectName(QString::fromUtf8("le_employeeID"));
+        le_employeeID->setMinimumSize(QSize(0, 30));
+        le_employeeID->setReadOnly(true);
 
-        horizontalLayout_4->addWidget(lineEdit_8);
+        horizontalLayout_4->addWidget(le_employeeID);
 
-        pushButton_3 = new QPushButton(page_2);
-        pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
-        pushButton_3->setMinimumSize(QSize(0, 30));
+        btn_generateID = new QPushButton(page_2);
+        btn_generateID->setObjectName(QString::fromUtf8("btn_generateID"));
+        btn_generateID->setMinimumSize(QSize(0, 30));
 
-        horizontalLayout_4->addWidget(pushButton_3);
+        horizontalLayout_4->addWidget(btn_generateID);
 
 
         gridLayout_2->addLayout(horizontalLayout_4, 2, 2, 1, 1);
@@ -637,7 +637,7 @@ public:
         de_employDate->setDisplayFormat(QApplication::translate("employeeScreen", "yyyy-MM-dd", nullptr));
         label_6->setText(QApplication::translate("employeeScreen", "Employment Date", nullptr));
         label_10->setText(QApplication::translate("employeeScreen", "Employee ID", nullptr));
-        pushButton_3->setText(QApplication::translate("employeeScreen", "Generate", nullptr));
+        btn_generateID->setText(QApplication::translate("employeeScreen", "Generate", nullptr));
         btn_clear->setText(QApplication::translate("employeeScreen", "Clear", nullptr));
         btn_submit->setText(QApplication::translate("employeeScreen", "Submit", nullptr));
         label_19->setText(QApplication::translate("employeeScreen", "Update employees from list", nullptr));

@@ -2,6 +2,8 @@
 #include "ui_employeeScreen.h"
 #include "menuScreen.h"
 
+#include <stdlib.h>
+
 employeeScreen::employeeScreen(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::employeeScreen)
@@ -12,6 +14,7 @@ employeeScreen::employeeScreen(QWidget *parent) :
 
 void employeeScreen::run(){
     ui->lbl_name->setText("Logged in as: " + user.getFullName());
+
 
 //    QAction *myAction = ui->le_employeeID->addAction(QIcon("test.png"), QLineEdit::TrailingPosition);
 //    connect(myAction, &QAction::triggered, this, &employeeScreen::)
@@ -29,7 +32,7 @@ void employeeScreen::run(){
         try {
 
             QSqlQuery query;
-            query.prepare(QString("SELECT firstName, lastName, DOB, gender, email, employDate FROM users"));
+            query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
 
             query.exec();
 
@@ -118,26 +121,23 @@ void employeeScreen::on_btn_submit_clicked()
     QString lastName = ui->le_lastName->text();
     QString DOB = ui->de_DOB->text();
     QString gender = ui->le_gender->text();
+    QString phoneNo = ui->le_phoneNo->text();
+    QString address = ui->le_address->text();
     QString email = ui->le_email->text();
+    QString employeeID = ui->le_employeeID->text();
     QString employDate = ui->de_employDate->text();
 
-//    ui->le_username->setText(username);
-//    ui->le_password->setText(password);
-//    ui->le_firstName->setText(firstName);
-//    ui->le_lastName->setText(lastName);
-//    ui->btn_clear->setText(DOB);
-//    ui->le_gender->setText(gender);
-//    ui->le_email->setText(email);
-//    ui->btn_submit->setText(employDate);
-
-    query.prepare("INSERT INTO users (departmentID, firstName, lastName, DOB, gender, email, employDate) "
-                  "VALUES (:departmentID, :firstName, :lastName, :DOB, :gender, :email, :employDate)");
+    query.prepare("INSERT INTO users (departmentID, firstName, lastName, email, gender, phoneNo, DOB, address, employeeID, employDate) "
+                  "VALUES (:departmentID, :firstName, :lastName, :email, :gender, :phoneNo, :DOB, :address, :employeeID, :employDate)");
     query.bindValue(":departmentID", departmentID);
     query.bindValue(":firstName", firstName);
     query.bindValue(":lastName", lastName);
-    query.bindValue(":DOB", DOB);
-    query.bindValue(":gender", gender);
     query.bindValue(":email", email);
+    query.bindValue(":gender", gender);
+    query.bindValue(":phoneNo", phoneNo);
+    query.bindValue(":DOB", DOB);
+    query.bindValue(":address", address);
+    query.bindValue(":employeeID", employeeID);
     query.bindValue(":employDate", employDate);
 
     if(query.exec()){
@@ -157,6 +157,9 @@ void employeeScreen::clearAllInsert(){
     ui->cb_department->setCurrentIndex(0);
     ui->de_employDate->clear();
     ui->le_email->clear();
+    ui->le_address->clear();
+    ui->le_phoneNo->clear();
+    ui->le_employeeID->clear();
 
 }
 
@@ -187,4 +190,12 @@ void employeeScreen::on_btn_back_clicked()
     openChat->show();
     openChat->run();
     close();
+}
+
+void employeeScreen::on_btn_generateID_clicked()
+{
+    int randNo = (rand() % 88888) + 9999;
+    QString randomID = "BS" + QString::fromStdString(std::to_string(randNo));
+
+    ui->le_employeeID->setText(randomID);
 }
