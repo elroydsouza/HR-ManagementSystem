@@ -1,5 +1,6 @@
 #include "employeeScreen.h"
 #include "ui_employeeScreen.h"
+#include "menuScreen.h"
 
 employeeScreen::employeeScreen(QWidget *parent) :
     QWidget(parent),
@@ -11,6 +12,9 @@ employeeScreen::employeeScreen(QWidget *parent) :
 
 void employeeScreen::run(){
     ui->lbl_name->setText("Logged in as: " + user.getFullName());
+
+//    QAction *myAction = ui->le_employeeID->addAction(QIcon("test.png"), QLineEdit::TrailingPosition);
+//    connect(myAction, &QAction::triggered, this, &employeeScreen::)
 
     QSqlQueryModel *model = new QSqlQueryModel();
 
@@ -47,7 +51,6 @@ void employeeScreen::run(){
 //            ui->tbl_users->setColumnWidth(5,100);
 //            ui->tbl_users->setColumnWidth(6,95);
 
-
         } catch (std::invalid_argument& ia) {
             QMessageBox::information(this,"Error","Invalid character in password!");
         }
@@ -79,6 +82,8 @@ void employeeScreen::on_btn_search_clicked()
 
 void employeeScreen::on_btn_insert_clicked()
 {
+    ui->cb_department->clear();
+
     QString departmentName;
 
     QSqlQuery query;
@@ -109,8 +114,6 @@ void employeeScreen::on_btn_submit_clicked()
 
     int departmentID = query.value(0).toInt();
 
-    QString username = ui->le_username->text();
-    QString password = ui->le_password->text();
     QString firstName = ui->le_firstName->text();
     QString lastName = ui->le_lastName->text();
     QString DOB = ui->de_DOB->text();
@@ -127,11 +130,9 @@ void employeeScreen::on_btn_submit_clicked()
 //    ui->le_email->setText(email);
 //    ui->btn_submit->setText(employDate);
 
-    query.prepare("INSERT INTO users (departmentID, username, password, firstName, lastName, DOB, gender, email, employDate) "
-                  "VALUES (:departmentID, :username, :password, :firstName, :lastName, :DOB, :gender, :email, :employDate)");
+    query.prepare("INSERT INTO users (departmentID, firstName, lastName, DOB, gender, email, employDate) "
+                  "VALUES (:departmentID, :firstName, :lastName, :DOB, :gender, :email, :employDate)");
     query.bindValue(":departmentID", departmentID);
-    query.bindValue(":username", username);
-    query.bindValue(":password", password);
     query.bindValue(":firstName", firstName);
     query.bindValue(":lastName", lastName);
     query.bindValue(":DOB", DOB);
@@ -146,7 +147,6 @@ void employeeScreen::on_btn_submit_clicked()
         QMessageBox::information(this,"Registration unsuccessful","Account has not been created");
     }
 
-
 }
 
 void employeeScreen::clearAllInsert(){
@@ -154,15 +154,37 @@ void employeeScreen::clearAllInsert(){
     ui->le_lastName->clear();
     ui->de_DOB->clear();
     ui->le_gender->clear();
-    ui->cb_department->clear();
+    ui->cb_department->setCurrentIndex(0);
     ui->de_employDate->clear();
     ui->le_email->clear();
-    ui->le_username->clear();
-    ui->le_password->clear();
 
 }
 
 void employeeScreen::on_btn_clear_clicked()
 {
     clearAllInsert();
+}
+
+void employeeScreen::on_btn_update_clicked()
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSqlQuery query;
+    query.prepare(QString("SELECT firstName, lastName FROM users"));
+
+    query.exec();
+    model->setQuery(query);
+    ui->tbl_usersUpdate->setModel(model);
+    ui->tbl_usersUpdate->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+    ui->tbl_usersUpdate->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    ui->tbl_usersUpdate->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+void employeeScreen::on_btn_back_clicked()
+{
+    menuScreen *openChat = new menuScreen;
+    openChat->acceptUser(user);
+    openChat->show();
+    openChat->run();
+    close();
 }

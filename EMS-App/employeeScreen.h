@@ -34,6 +34,10 @@ private slots:
 
     void on_btn_clear_clicked();
 
+    void on_btn_update_clicked();
+
+    void on_btn_back_clicked();
+
 private:
     User user;
     Ui::employeeScreen *ui;
