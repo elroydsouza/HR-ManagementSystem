@@ -1,4 +1,5 @@
 #include "menuScreen.h"
+#include "departmentScreen.h"
 #include "ui_menuScreen.h"
 
 menuScreen::menuScreen(QWidget *parent) :
@@ -24,6 +25,15 @@ menuScreen::~menuScreen()
 void menuScreen::on_btn_User_clicked()
 {
     employeeScreen *openChat = new employeeScreen;
+    openChat->acceptUser(user);
+    openChat->show();
+    openChat->run();
+    close();
+}
+
+void menuScreen::on_btn_Department_clicked()
+{
+    departmentScreen *openChat = new departmentScreen;
     openChat->acceptUser(user);
     openChat->show();
     openChat->run();

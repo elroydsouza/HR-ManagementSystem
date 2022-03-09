@@ -43,6 +43,8 @@ public:
     QSpacerItem *horizontalSpacer_10;
     QLabel *lbl_name;
     QSpacerItem *horizontalSpacer_11;
+    QSpacerItem *verticalSpacer_15;
+    QLabel *label_29;
     QSpacerItem *verticalSpacer;
     QPushButton *btn_search;
     QPushButton *btn_insert;
@@ -126,7 +128,10 @@ public:
     QLabel *label_17;
     QLineEdit *Ule_address;
     QSpacerItem *verticalSpacer_11;
+    QHBoxLayout *horizontalLayout_5;
+    QSpacerItem *horizontalSpacer_12;
     QPushButton *Ubtn_update;
+    QSpacerItem *horizontalSpacer_13;
     QWidget *page_4;
     QVBoxLayout *verticalLayout_8;
     QLabel *label_24;
@@ -208,6 +213,22 @@ public:
 
 
         verticalLayout->addLayout(horizontalLayout_12);
+
+        verticalSpacer_15 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer_15);
+
+        label_29 = new QLabel(verticalSidebar);
+        label_29->setObjectName(QString::fromUtf8("label_29"));
+        QFont font1;
+        font1.setPointSize(14);
+        font1.setBold(true);
+        font1.setWeight(75);
+        label_29->setFont(font1);
+        label_29->setStyleSheet(QString::fromUtf8(""));
+        label_29->setAlignment(Qt::AlignCenter);
+
+        verticalLayout->addWidget(label_29);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -309,9 +330,9 @@ public:
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         label_11 = new QLabel(page);
         label_11->setObjectName(QString::fromUtf8("label_11"));
-        QFont font1;
-        font1.setPointSize(15);
-        label_11->setFont(font1);
+        QFont font2;
+        font2.setPointSize(15);
+        label_11->setFont(font2);
 
         verticalLayout_2->addWidget(label_11);
 
@@ -344,7 +365,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
         label_7->setSizePolicy(sizePolicy);
-        label_7->setFont(font1);
+        label_7->setFont(font2);
 
         verticalLayout_3->addWidget(label_7);
 
@@ -360,11 +381,11 @@ public:
 
         label = new QLabel(page_2);
         label->setObjectName(QString::fromUtf8("label"));
-        QFont font2;
-        font2.setPointSize(11);
-        font2.setBold(true);
-        font2.setWeight(75);
-        label->setFont(font2);
+        QFont font3;
+        font3.setPointSize(11);
+        font3.setBold(true);
+        font3.setWeight(75);
+        label->setFont(font3);
 
         gridLayout->addWidget(label, 3, 0, 1, 1);
 
@@ -381,7 +402,7 @@ public:
 
         label_4 = new QLabel(page_2);
         label_4->setObjectName(QString::fromUtf8("label_4"));
-        label_4->setFont(font2);
+        label_4->setFont(font3);
 
         gridLayout->addWidget(label_4, 6, 0, 1, 1);
 
@@ -399,12 +420,12 @@ public:
 
         label_20 = new QLabel(page_2);
         label_20->setObjectName(QString::fromUtf8("label_20"));
-        QFont font3;
-        font3.setPointSize(13);
-        font3.setBold(false);
-        font3.setUnderline(true);
-        font3.setWeight(50);
-        label_20->setFont(font3);
+        QFont font4;
+        font4.setPointSize(13);
+        font4.setBold(false);
+        font4.setUnderline(true);
+        font4.setWeight(50);
+        label_20->setFont(font4);
 
         gridLayout->addWidget(label_20, 1, 0, 1, 1);
 
@@ -420,13 +441,13 @@ public:
 
         label_8 = new QLabel(page_2);
         label_8->setObjectName(QString::fromUtf8("label_8"));
-        label_8->setFont(font2);
+        label_8->setFont(font3);
 
         gridLayout->addWidget(label_8, 3, 4, 1, 1);
 
         label_3 = new QLabel(page_2);
         label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setFont(font2);
+        label_3->setFont(font3);
 
         gridLayout->addWidget(label_3, 6, 4, 1, 1);
 
@@ -442,7 +463,7 @@ public:
 
         label_2 = new QLabel(page_2);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setFont(font2);
+        label_2->setFont(font3);
 
         gridLayout->addWidget(label_2, 3, 2, 1, 1);
 
@@ -458,7 +479,7 @@ public:
 
         label_22 = new QLabel(page_2);
         label_22->setObjectName(QString::fromUtf8("label_22"));
-        label_22->setFont(font2);
+        label_22->setFont(font3);
 
         gridLayout->addWidget(label_22, 6, 2, 1, 1);
 
@@ -473,7 +494,7 @@ public:
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         label_9 = new QLabel(page_2);
         label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setFont(font2);
+        label_9->setFont(font3);
 
         verticalLayout_5->addWidget(label_9);
 
@@ -492,13 +513,13 @@ public:
 
         label_21 = new QLabel(page_2);
         label_21->setObjectName(QString::fromUtf8("label_21"));
-        QFont font4;
-        font4.setFamily(QString::fromUtf8("Ubuntu"));
-        font4.setPointSize(13);
-        font4.setBold(false);
-        font4.setUnderline(true);
-        font4.setWeight(50);
-        label_21->setFont(font4);
+        QFont font5;
+        font5.setFamily(QString::fromUtf8("Ubuntu"));
+        font5.setPointSize(13);
+        font5.setBold(false);
+        font5.setUnderline(true);
+        font5.setWeight(50);
+        label_21->setFont(font5);
 
         verticalLayout_3->addWidget(label_21);
 
@@ -506,7 +527,7 @@ public:
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
         label_5 = new QLabel(page_2);
         label_5->setObjectName(QString::fromUtf8("label_5"));
-        label_5->setFont(font2);
+        label_5->setFont(font3);
 
         gridLayout_2->addWidget(label_5, 1, 0, 1, 1);
 
@@ -528,13 +549,13 @@ public:
 
         label_6 = new QLabel(page_2);
         label_6->setObjectName(QString::fromUtf8("label_6"));
-        label_6->setFont(font2);
+        label_6->setFont(font3);
 
         gridLayout_2->addWidget(label_6, 1, 4, 1, 1);
 
         label_10 = new QLabel(page_2);
         label_10->setObjectName(QString::fromUtf8("label_10"));
-        label_10->setFont(font2);
+        label_10->setFont(font3);
 
         gridLayout_2->addWidget(label_10, 1, 2, 1, 1);
 
@@ -600,6 +621,7 @@ public:
         btn_submit = new QPushButton(page_2);
         btn_submit->setObjectName(QString::fromUtf8("btn_submit"));
         btn_submit->setMinimumSize(QSize(125, 30));
+        btn_submit->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
 
         horizontalLayout_3->addWidget(btn_submit);
 
@@ -616,7 +638,7 @@ public:
         verticalLayout_6->setContentsMargins(-1, -1, 0, -1);
         label_19 = new QLabel(page_3);
         label_19->setObjectName(QString::fromUtf8("label_19"));
-        label_19->setFont(font1);
+        label_19->setFont(font2);
 
         verticalLayout_6->addWidget(label_19);
 
@@ -729,11 +751,25 @@ public:
 
         verticalLayout_4->addItem(verticalSpacer_11);
 
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        horizontalSpacer_12 = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_12);
+
         Ubtn_update = new QPushButton(page_3);
         Ubtn_update->setObjectName(QString::fromUtf8("Ubtn_update"));
         Ubtn_update->setMinimumSize(QSize(0, 30));
+        Ubtn_update->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
 
-        verticalLayout_4->addWidget(Ubtn_update);
+        horizontalLayout_5->addWidget(Ubtn_update);
+
+        horizontalSpacer_13 = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_13);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_5);
 
 
         horizontalLayout_2->addLayout(verticalLayout_4);
@@ -745,7 +781,7 @@ public:
         verticalLayout_8->setObjectName(QString::fromUtf8("verticalLayout_8"));
         label_24 = new QLabel(page_4);
         label_24->setObjectName(QString::fromUtf8("label_24"));
-        label_24->setFont(font1);
+        label_24->setFont(font2);
 
         verticalLayout_8->addWidget(label_24);
 
@@ -840,7 +876,7 @@ public:
 
         retranslateUi(employeeScreen);
 
-        stackedWidget->setCurrentIndex(0);
+        stackedWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(employeeScreen);
@@ -851,6 +887,7 @@ public:
         employeeScreen->setWindowTitle(QApplication::translate("employeeScreen", "Form", nullptr));
         btn_logo->setText(QApplication::translate("employeeScreen", "BRADFORD SWISSPORT", nullptr));
         lbl_name->setText(QApplication::translate("employeeScreen", "Logged in as: User", nullptr));
+        label_29->setText(QApplication::translate("employeeScreen", "User Maintenance", nullptr));
         btn_search->setText(QApplication::translate("employeeScreen", "Search", nullptr));
         btn_insert->setText(QApplication::translate("employeeScreen", "Insert Employee", nullptr));
         btn_update->setText(QApplication::translate("employeeScreen", "Update Employee", nullptr));

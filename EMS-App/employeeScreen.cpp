@@ -2,6 +2,7 @@
 #include "ui_employeeScreen.h"
 #include "menuScreen.h"
 
+#include <unordered_map>
 #include <stdlib.h>
 
 #include <iostream>
@@ -20,6 +21,8 @@ void employeeScreen::run(){
     ui->de_employDate->setDate(date);
 
     // Add info box to every stacked widget page explaining how to use
+
+    // reference the icon geez tuk something
 
     QSqlQueryModel *model = new QSqlQueryModel();
 
@@ -63,6 +66,8 @@ void employeeScreen::run(){
     } else {
         QMessageBox::information(this,"Not Connected","Database is not connected");
     }
+
+    ui->btn_search->setDown(true);
 }
 
 void employeeScreen::acceptUser(User _user){
@@ -120,6 +125,7 @@ void employeeScreen::on_btn_insert_clicked()
     ui->stackedWidget->setCurrentIndex(1);
 
     ui->btn_insert->setDown(true);
+    ui->btn_search->setDown(false);
 }
 
 
@@ -227,6 +233,7 @@ void employeeScreen::on_btn_update_clicked()
     ui->stackedWidget->setCurrentIndex(2);
 
     ui->btn_update->setDown(true);
+    ui->btn_search->setDown(false);
 }
 
 void employeeScreen::on_btn_back_clicked()
@@ -240,10 +247,34 @@ void employeeScreen::on_btn_back_clicked()
 
 void employeeScreen::on_btn_generateID_clicked()
 {
-    int randNo = (rand() % 88888) + 9999;
-    QString randomID = "BS" + QString::fromStdString(std::to_string(randNo));
+    QSqlQuery query;
+    query.prepare(QString("SELECT employeeID FROM users"));
 
-    ui->le_employeeID->setText(randomID);
+    std::unordered_map<std::string, std::string> employeeIDs;
+
+    if(query.exec()){
+        while(query.next()){
+            std::string selectedID = query.value(0).toString().toStdString();
+            employeeIDs.insert({selectedID, "placeholder"});
+        }
+
+        bool check = false;
+
+        while(check == false){
+            int randNo = (rand() % 88888) + 10000;
+            QString randomID = "BS" + QString::fromStdString(std::to_string(randNo));
+
+            if(employeeIDs.find(randomID.toStdString()) != employeeIDs.end()){
+            } else {
+                ui->le_employeeID->setText(randomID);
+
+                check = true;
+            }
+        }
+
+    }else{
+        QMessageBox::information(this,"Error","Employee ID could not be generated");
+    }
 }
 
 void employeeScreen::on_tbl_usersUpdate_activated()
@@ -299,15 +330,15 @@ void employeeScreen::on_Ubtn_update_clicked()
     query.bindValue(":address", updatedAddress);
 
     if(query.exec()){
-        ui->Ule_firstName->setText(updatedFirstName);
-        ui->Ule_lastName->setText(updatedLastName);
-        ui->Ule_email->setText(updatedEmail);
+        QSqlQueryModel *model = new QSqlQueryModel();
+        query.prepare(QString("SELECT employeeID, firstName, lastName FROM users"));
 
-        ui->Ucb_department->setCurrentIndex(updatedDepartmentID - 1);
-
-        ui->Ule_gender->setText(updatedGender);
-        ui->Ule_phoneNo->setText(updatedPhoneNo);
-        ui->Ule_address->setText(updatedAddress);
+        query.exec();
+        model->setQuery(query);
+        ui->tbl_usersUpdate->setModel(model);
+        ui->tbl_usersUpdate->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+        ui->tbl_usersUpdate->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+        ui->tbl_usersUpdate->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
         QMessageBox::information(this,"Success","Employee has been updated");
     }else{
@@ -335,6 +366,7 @@ void employeeScreen::on_btn_delete_clicked()
     ui->stackedWidget->setCurrentIndex(3);
 
     ui->btn_delete->setDown(true);
+    ui->btn_search->setDown(false);
 }
 
 void employeeScreen::on_Dtbl_users_activated()
@@ -369,24 +401,24 @@ void employeeScreen::on_Dbtn_delete_clicked()
         query.prepare(QString("DELETE FROM users WHERE employeeID = '"+selectedID+"'"));
 
         if(query.exec()){
+            QSqlQueryModel *model = new QSqlQueryModel();
+
+            query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
+
+            query.exec();
+
+            model->setQuery(query);
+            ui->Dtbl_users->setModel(model);
+            ui->Dtbl_users->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+            ui->Dtbl_users->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+            ui->Dtbl_users->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+            clearAllDelete();
+
             QMessageBox::information(this,"Success","Employee has been successfully deleted");
         } else {
             QMessageBox::information(this,"Error","Employee could not be deleted");
         }
-
-        QSqlQueryModel *model = new QSqlQueryModel();
-
-        query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
-
-        query.exec();
-
-        model->setQuery(query);
-        ui->Dtbl_users->setModel(model);
-        ui->Dtbl_users->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
-        ui->Dtbl_users->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-        ui->Dtbl_users->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
-        clearAllDelete();
     }
 
 }

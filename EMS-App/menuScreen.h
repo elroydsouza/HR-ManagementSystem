@@ -22,6 +22,8 @@ public:
 private slots:
     void on_btn_User_clicked();
 
+    void on_btn_Department_clicked();
+
 private:
     User user;
     Ui::menuScreen *ui;

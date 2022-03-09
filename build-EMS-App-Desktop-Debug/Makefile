@@ -52,21 +52,25 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../EMS-App/employeeScreen.cpp \
+SOURCES       = ../EMS-App/departmentScreen.cpp \
+		../EMS-App/employeeScreen.cpp \
 		../EMS-App/loginScreen.cpp \
 		../EMS-App/main.cpp \
 		../EMS-App/menuScreen.cpp \
 		../EMS-App/passwordSet.cpp \
-		../EMS-App/user.cpp moc_employeeScreen.cpp \
+		../EMS-App/user.cpp moc_departmentScreen.cpp \
+		moc_employeeScreen.cpp \
 		moc_loginScreen.cpp \
 		moc_menuScreen.cpp \
 		moc_passwordSet.cpp
-OBJECTS       = employeeScreen.o \
+OBJECTS       = departmentScreen.o \
+		employeeScreen.o \
 		loginScreen.o \
 		main.o \
 		menuScreen.o \
 		passwordSet.o \
 		user.o \
+		moc_departmentScreen.o \
 		moc_employeeScreen.o \
 		moc_loginScreen.o \
 		moc_menuScreen.o \
@@ -165,11 +169,13 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		../EMS-App/EMS-App.pro ../EMS-App/employeeScreen.h \
+		../EMS-App/EMS-App.pro ../EMS-App/departmentScreen.h \
+		../EMS-App/employeeScreen.h \
 		../EMS-App/loginScreen.h \
 		../EMS-App/menuScreen.h \
 		../EMS-App/passwordSet.h \
-		../EMS-App/user.h ../EMS-App/employeeScreen.cpp \
+		../EMS-App/user.h ../EMS-App/departmentScreen.cpp \
+		../EMS-App/employeeScreen.cpp \
 		../EMS-App/loginScreen.cpp \
 		../EMS-App/main.cpp \
 		../EMS-App/menuScreen.cpp \
@@ -183,7 +189,7 @@ TARGET        = EMS-App
 first: all
 ####### Build rules
 
-EMS-App: ui_employeeScreen.h ui_loginScreen.h ui_menuScreen.h ui_passwordSet.h $(OBJECTS)  
+EMS-App: ui_departmentScreen.h ui_employeeScreen.h ui_loginScreen.h ui_menuScreen.h ui_passwordSet.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../EMS-App/EMS-App.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -392,9 +398,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../EMS-App/employeeScreen.h ../EMS-App/loginScreen.h ../EMS-App/menuScreen.h ../EMS-App/passwordSet.h ../EMS-App/user.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../EMS-App/employeeScreen.cpp ../EMS-App/loginScreen.cpp ../EMS-App/main.cpp ../EMS-App/menuScreen.cpp ../EMS-App/passwordSet.cpp ../EMS-App/user.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../EMS-App/employeeScreen.ui ../EMS-App/loginScreen.ui ../EMS-App/menuScreen.ui ../EMS-App/passwordSet.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../EMS-App/departmentScreen.h ../EMS-App/employeeScreen.h ../EMS-App/loginScreen.h ../EMS-App/menuScreen.h ../EMS-App/passwordSet.h ../EMS-App/user.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../EMS-App/departmentScreen.cpp ../EMS-App/employeeScreen.cpp ../EMS-App/loginScreen.cpp ../EMS-App/main.cpp ../EMS-App/menuScreen.cpp ../EMS-App/passwordSet.cpp ../EMS-App/user.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../EMS-App/departmentScreen.ui ../EMS-App/employeeScreen.ui ../EMS-App/loginScreen.ui ../EMS-App/menuScreen.ui ../EMS-App/passwordSet.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -426,9 +432,14 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_employeeScreen.cpp moc_loginScreen.cpp moc_menuScreen.cpp moc_passwordSet.cpp
+compiler_moc_header_make_all: moc_departmentScreen.cpp moc_employeeScreen.cpp moc_loginScreen.cpp moc_menuScreen.cpp moc_passwordSet.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_employeeScreen.cpp moc_loginScreen.cpp moc_menuScreen.cpp moc_passwordSet.cpp
+	-$(DEL_FILE) moc_departmentScreen.cpp moc_employeeScreen.cpp moc_loginScreen.cpp moc_menuScreen.cpp moc_passwordSet.cpp
+moc_departmentScreen.cpp: ../EMS-App/departmentScreen.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/ntu-user/Documents/FYP/EmployeeManagementSys/build-EMS-App-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/ntu-user/Documents/FYP/EmployeeManagementSys/EMS-App -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtNetwork -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/9 -I/usr/include/x86_64-linux-gnu/c++/9 -I/usr/include/c++/9/backward -I/usr/lib/gcc/x86_64-linux-gnu/9/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../EMS-App/departmentScreen.h -o moc_departmentScreen.cpp
+
 moc_employeeScreen.cpp: ../EMS-App/employeeScreen.h \
 		../EMS-App/user.h \
 		moc_predefs.h \
@@ -457,9 +468,13 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_employeeScreen.h ui_loginScreen.h ui_menuScreen.h ui_passwordSet.h
+compiler_uic_make_all: ui_departmentScreen.h ui_employeeScreen.h ui_loginScreen.h ui_menuScreen.h ui_passwordSet.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_employeeScreen.h ui_loginScreen.h ui_menuScreen.h ui_passwordSet.h
+	-$(DEL_FILE) ui_departmentScreen.h ui_employeeScreen.h ui_loginScreen.h ui_menuScreen.h ui_passwordSet.h
+ui_departmentScreen.h: ../EMS-App/departmentScreen.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../EMS-App/departmentScreen.ui -o ui_departmentScreen.h
+
 ui_employeeScreen.h: ../EMS-App/employeeScreen.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../EMS-App/employeeScreen.ui -o ui_employeeScreen.h
@@ -485,6 +500,10 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
+
+departmentScreen.o: ../EMS-App/departmentScreen.cpp ../EMS-App/departmentScreen.h \
+		ui_departmentScreen.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o departmentScreen.o ../EMS-App/departmentScreen.cpp
 
 employeeScreen.o: ../EMS-App/employeeScreen.cpp ../EMS-App/employeeScreen.h \
 		../EMS-App/user.h \
@@ -517,6 +536,9 @@ passwordSet.o: ../EMS-App/passwordSet.cpp ../EMS-App/passwordSet.h \
 
 user.o: ../EMS-App/user.cpp ../EMS-App/user.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o user.o ../EMS-App/user.cpp
+
+moc_departmentScreen.o: moc_departmentScreen.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_departmentScreen.o moc_departmentScreen.cpp
 
 moc_employeeScreen.o: moc_employeeScreen.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_employeeScreen.o moc_employeeScreen.cpp

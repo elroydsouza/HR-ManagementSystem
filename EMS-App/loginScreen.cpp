@@ -87,8 +87,6 @@ void loginScreen::on_btn_login_clicked()
                          QString firstName = query.value(1).toString();
                          QString lastName = query.value(2).toString();
 
-                         std::cout << firstName.toStdString() << std::endl;
-
                          User user = User();
                          user.setUser(userID, email, firstName, lastName);
 
