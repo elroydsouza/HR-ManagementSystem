@@ -56,6 +56,11 @@ public:
     QLabel *label_11;
     QLineEdit *le_search;
     QTableView *tbl_departments;
+    QHBoxLayout *horizontalLayout_9;
+    QLabel *label_5;
+    QSpacerItem *horizontalSpacer_12;
+    QComboBox *cb_departments;
+    QTableView *tbl_employees;
     QWidget *page_2;
     QVBoxLayout *verticalLayout_3;
     QLabel *label_7;
@@ -243,7 +248,7 @@ public:
 "\n"
 "QPushButton::pressed { background-color: rgb(48, 152, 185); }"));
         QIcon icon1;
-        icon1.addFile(QString::fromUtf8("../../add-user.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon1.addFile(QString::fromUtf8("../../settings-gear-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         btn_maintenance->setIcon(icon1);
         btn_maintenance->setIconSize(QSize(30, 30));
         btn_maintenance->setCheckable(true);
@@ -299,6 +304,38 @@ public:
         tbl_departments->setCornerButtonEnabled(false);
 
         verticalLayout_2->addWidget(tbl_departments);
+
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
+        label_5 = new QLabel(page);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setFont(font2);
+
+        horizontalLayout_9->addWidget(label_5);
+
+        horizontalSpacer_12 = new QSpacerItem(150, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_9->addItem(horizontalSpacer_12);
+
+        cb_departments = new QComboBox(page);
+        cb_departments->setObjectName(QString::fromUtf8("cb_departments"));
+
+        horizontalLayout_9->addWidget(cb_departments);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_9);
+
+        tbl_employees = new QTableView(page);
+        tbl_employees->setObjectName(QString::fromUtf8("tbl_employees"));
+        tbl_employees->setStyleSheet(QString::fromUtf8("QHeaderView::section { background-color:black; color:white ; font-weight: bold}\n"
+"QTableCornerButton::section { background-color:black }\n"
+"verticalHeader::section{ background-color:rgb(190,1,1) }"));
+        tbl_employees->setAlternatingRowColors(true);
+        tbl_employees->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tbl_employees->setShowGrid(false);
+        tbl_employees->setCornerButtonEnabled(false);
+
+        verticalLayout_2->addWidget(tbl_employees);
 
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
@@ -741,7 +778,7 @@ public:
 
         retranslateUi(departmentScreen);
 
-        stackedWidget->setCurrentIndex(3);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(departmentScreen);
@@ -757,6 +794,7 @@ public:
         btn_maintenance->setText(QApplication::translate("departmentScreen", "Maintenance", nullptr));
         btn_back->setText(QApplication::translate("departmentScreen", "Back", nullptr));
         label_11->setText(QApplication::translate("departmentScreen", "Search through departments", nullptr));
+        label_5->setText(QApplication::translate("departmentScreen", "View employees based on department", nullptr));
         label_7->setText(QApplication::translate("departmentScreen", "Maintain Departments", nullptr));
         lbl_deptSelectedPrefix->setText(QApplication::translate("departmentScreen", "Department Selected:", nullptr));
         lbl_deptSelected->setText(QApplication::translate("departmentScreen", "NONE", nullptr));

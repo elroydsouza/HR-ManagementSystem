@@ -132,7 +132,7 @@ void employeeScreen::on_btn_insert_clicked()
 void employeeScreen::on_btn_submit_clicked()
 {
     QSqlQuery query;
-    query.prepare("SELECT departmentID "
+    query.prepare("SELECT departmentCode "
                   "FROM departments "
                   "WHERE departmentName = :departmentName");
 
@@ -140,7 +140,7 @@ void employeeScreen::on_btn_submit_clicked()
     query.exec();
     query.next();
 
-    int departmentID = query.value(0).toInt();
+    QString departmentCode = query.value(0).toString();
 
     QString firstName = ui->le_firstName->text();
     QString lastName = ui->le_lastName->text();
@@ -152,9 +152,9 @@ void employeeScreen::on_btn_submit_clicked()
     QString employeeID = ui->le_employeeID->text();
     QString employDate = ui->de_employDate->text();
 
-    query.prepare("INSERT INTO users (departmentID, firstName, lastName, email, gender, phoneNo, DOB, address, employeeID, employDate) "
-                  "VALUES (:departmentID, :firstName, :lastName, :email, :gender, :phoneNo, :DOB, :address, :employeeID, :employDate)");
-    query.bindValue(":departmentID", departmentID);
+    query.prepare("INSERT INTO users (departmentCode, firstName, lastName, email, gender, phoneNo, DOB, address, employeeID, employDate) "
+                  "VALUES (:departmentCode, :firstName, :lastName, :email, :gender, :phoneNo, :DOB, :address, :employeeID, :employDate)");
+    query.bindValue(":departmentCode", departmentCode);
     query.bindValue(":firstName", firstName);
     query.bindValue(":lastName", lastName);
     query.bindValue(":email", email);
@@ -284,25 +284,34 @@ void employeeScreen::on_tbl_usersUpdate_activated()
     QString selectedEmployeeID = selectedID.toString();
 
     QSqlQuery query;
-    query.prepare(QString("SELECT firstName, lastName, email, departmentID, gender, phoneNo, address FROM users "
+    query.prepare(QString("SELECT firstName, lastName, email, departmentCode, gender, phoneNo, address FROM users "
                           "WHERE employeeID = '"+selectedEmployeeID+"'"));
 
-    if(query.exec()){
-        while(query.next()){
-            ui->Ule_employeeID->setText(selectedEmployeeID);
+    query.exec();
+    query.next();
+    ui->Ule_employeeID->setText(selectedEmployeeID);
 
-            ui->Ule_firstName->setText(query.value(0).toString());
-            ui->Ule_lastName->setText(query.value(1).toString());
-            ui->Ule_email->setText(query.value(2).toString());
+    ui->Ule_firstName->setText(query.value(0).toString());
+    ui->Ule_lastName->setText(query.value(1).toString());
+    ui->Ule_email->setText(query.value(2).toString());
 
-            ui->Ucb_department->setCurrentIndex(query.value(3).toInt() - 1);
+    QString departmentCode = query.value(3).toString();
 
-            ui->Ule_gender->setText(query.value(4).toString());
-            ui->Ule_phoneNo->setText(query.value(5).toString());
-            ui->Ule_address->setText(query.value(6).toString());
-        }
+    ui->Ule_gender->setText(query.value(4).toString());
+    ui->Ule_phoneNo->setText(query.value(5).toString());
+    ui->Ule_address->setText(query.value(6).toString());
+
+    if(departmentCode == "unknown"){
+        ui->Ucb_department->setCurrentIndex(-1);
+    } else {
+        query.prepare(QString("SELECT departmentName FROM departments "
+                              "WHERE departmentCode = '"+departmentCode+"'"));
+
+        query.exec();
+        query.next();
+
+        ui->Ucb_department->setCurrentText(query.value(0).toString());
     }
-
 }
 
 void employeeScreen::on_Ubtn_update_clicked()
@@ -310,39 +319,54 @@ void employeeScreen::on_Ubtn_update_clicked()
     QString updatedFirstName = ui->Ule_firstName->text();
     QString updatedLastName = ui->Ule_lastName->text();
     QString updatedEmail = ui->Ule_email->text();
-    int updatedDepartmentID = ui->Ucb_department->currentIndex() + 1;
-    QString updatedGender = ui->Ule_gender->text();
-    QString updatedPhoneNo = ui->Ule_phoneNo->text();
-    QString updatedAddress = ui->Ule_address->text();
+    QString departmentName = ui->Ucb_department->currentText();
 
     QSqlQuery query;
-    query.prepare(QString("UPDATE users "
-                          "SET firstName = :firstName, lastName = :lastName, email = :email, departmentID = :departmentID, gender = :gender, phoneNo = :phoneNo, address = :address "
-                          "WHERE employeeID = :employeeID"));
 
-    query.bindValue(":employeeID", ui->Ule_employeeID->text());
-    query.bindValue(":departmentID", updatedDepartmentID);
-    query.bindValue(":firstName", updatedFirstName);
-    query.bindValue(":lastName", updatedLastName);
-    query.bindValue(":email", updatedEmail);
-    query.bindValue(":gender", updatedGender);
-    query.bindValue(":phoneNo", updatedPhoneNo);
-    query.bindValue(":address", updatedAddress);
-
-    if(query.exec()){
-        QSqlQueryModel *model = new QSqlQueryModel();
-        query.prepare(QString("SELECT employeeID, firstName, lastName FROM users"));
+    if(ui->Ucb_department->currentIndex() == -1){
+        QMessageBox::information(this,"Error","Please select a department before updating");
+    } else {
+        query.prepare(QString("SELECT departmentCode FROM departments "
+                              "WHERE departmentName = '"+departmentName+"'"));
 
         query.exec();
-        model->setQuery(query);
-        ui->tbl_usersUpdate->setModel(model);
-        ui->tbl_usersUpdate->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
-        ui->tbl_usersUpdate->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-        ui->tbl_usersUpdate->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        query.next();
 
-        QMessageBox::information(this,"Success","Employee has been updated");
-    }else{
-        QMessageBox::information(this,"Error","Employee could not be updated");
+        QString updatedDepartmentCode = query.value(0).toString();
+
+
+        QString updatedGender = ui->Ule_gender->text();
+        QString updatedPhoneNo = ui->Ule_phoneNo->text();
+        QString updatedAddress = ui->Ule_address->text();
+
+        query.prepare(QString("UPDATE users "
+                              "SET firstName = :firstName, lastName = :lastName, email = :email, departmentCode = :departmentCode, gender = :gender, phoneNo = :phoneNo, address = :address "
+                              "WHERE employeeID = :employeeID"));
+
+        query.bindValue(":employeeID", ui->Ule_employeeID->text());
+        query.bindValue(":departmentCode", updatedDepartmentCode);
+        query.bindValue(":firstName", updatedFirstName);
+        query.bindValue(":lastName", updatedLastName);
+        query.bindValue(":email", updatedEmail);
+        query.bindValue(":gender", updatedGender);
+        query.bindValue(":phoneNo", updatedPhoneNo);
+        query.bindValue(":address", updatedAddress);
+
+        if(query.exec()){
+            QSqlQueryModel *model = new QSqlQueryModel();
+            query.prepare(QString("SELECT employeeID, firstName, lastName FROM users"));
+
+            query.exec();
+            model->setQuery(query);
+            ui->tbl_usersUpdate->setModel(model);
+            ui->tbl_usersUpdate->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+            ui->tbl_usersUpdate->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+            ui->tbl_usersUpdate->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+            QMessageBox::information(this,"Success","Employee has been updated");
+        }else{
+            QMessageBox::information(this,"Error","Employee could not be updated");
+        }
     }
 }
 

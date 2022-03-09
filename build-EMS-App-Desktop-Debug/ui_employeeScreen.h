@@ -9,6 +9,7 @@
 #ifndef UI_EMPLOYEESCREEN_H
 #define UI_EMPLOYEESCREEN_H
 
+#include <QtCore/QDate>
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
@@ -544,6 +545,7 @@ public:
         sizePolicy1.setHeightForWidth(de_employDate->sizePolicy().hasHeightForWidth());
         de_employDate->setSizePolicy(sizePolicy1);
         de_employDate->setMinimumSize(QSize(0, 30));
+        de_employDate->setMinimumDate(QDate(2022, 1, 1));
 
         gridLayout_2->addWidget(de_employDate, 2, 4, 1, 1);
 
@@ -876,7 +878,7 @@ public:
 
         retranslateUi(employeeScreen);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(employeeScreen);

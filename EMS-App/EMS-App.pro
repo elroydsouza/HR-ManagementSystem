@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     departmentScreen.cpp \
     employeeScreen.cpp \
+    holidayScreen.cpp \
     loginScreen.cpp \
     main.cpp \
     menuScreen.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
 HEADERS += \
     departmentScreen.h \
     employeeScreen.h \
+    holidayScreen.h \
     loginScreen.h \
     menuScreen.h \
     passwordSet.h \
@@ -40,6 +42,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 FORMS += \
     departmentScreen.ui \
     employeeScreen.ui \
+    holidayScreen.ui \
     loginScreen.ui \
     menuScreen.ui \
     passwordSet.ui

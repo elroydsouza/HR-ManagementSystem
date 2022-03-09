@@ -16,6 +16,8 @@ departmentScreen::departmentScreen(QWidget *parent) :
 void departmentScreen::run(){
     ui->lbl_name->setText("Logged in as: " + user.getFullName());
 
+    ui->cb_departments->clear();
+
     QSqlQueryModel *model = new QSqlQueryModel();
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
@@ -27,8 +29,20 @@ void departmentScreen::run(){
     if(db.open()){
 
         try {
-
             QSqlQuery query;
+
+            query.prepare("SELECT departmentName "
+                          "FROM departments");
+
+            query.exec();
+
+            while (query.next()) {
+                QString departmentName = query.value(0).toString();
+                ui->cb_departments->addItem(departmentName);
+            }
+
+            ui->cb_departments->setCurrentIndex(-1);
+
             query.prepare(QString("SELECT departmentName, departmentAbbreviation, departmentManager, departmentContact FROM departments"));
 
             query.exec();
@@ -272,6 +286,16 @@ void departmentScreen::on_btn_delete_clicked()
                                                                  QMessageBox::Yes|QMessageBox::No);
     if(question == QMessageBox::Yes){
         QSqlQuery query;
+
+        query.prepare(QString("UPDATE users "
+                              "SET departmentCode = :departmentCode "
+                              "WHERE departmentCode = '"+selectedCode+"'"));
+
+        query.bindValue(":departmentCode", "unknown");
+
+        query.exec();
+        query.next();
+
         query.prepare(QString("DELETE FROM departments WHERE departmentCode = '"+selectedCode+"'"));
 
         if(query.exec()){
@@ -293,4 +317,27 @@ void departmentScreen::on_btn_delete_clicked()
         }
 
     }
+}
+
+void departmentScreen::on_cb_departments_activated(const QString &arg1)
+{
+    QSqlQuery query;
+    query.prepare(QString("SELECT departmentCode FROM departments "
+                          "WHERE departmentName = '"+arg1+"'"));
+
+    query.exec();
+    query.next();
+
+    QString departmentCode = query.value(0).toString();
+
+    QSqlQueryModel *model = new QSqlQueryModel();
+    query.prepare(QString("SELECT employeeID, firstName, lastName, email FROM users "
+                          "WHERE departmentCode = '"+departmentCode+"'"));
+
+    query.exec();
+    model->setQuery(query);
+    ui->tbl_employees->setModel(model);
+    ui->tbl_employees->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+    ui->tbl_employees->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    ui->tbl_employees->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }

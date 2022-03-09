@@ -43,7 +43,7 @@ void loginScreen::on_btn_login_clicked()
                     QString passwordStored = query.value(0).toString();
                     if(passwordStored == NULL){
                         User user = User();
-                        user.setUser(999999, email, "firstName", "lastName");
+                        user.setUser("999999", email, "firstName", "lastName");
 
                         passwordSet *openChat = new passwordSet;
                         openChat->acceptUser(user);
@@ -76,19 +76,19 @@ void loginScreen::on_btn_login_clicked()
                 if(query.next()){
                      QMessageBox::information(this,"Success","You are logged in");
 
-                     query.prepare(QString("SELECT userID, firstName, lastName "
+                     query.prepare(QString("SELECT employeeID, firstName, lastName "
                                            "FROM users "
                                            "WHERE email = :email"));
 
                      query.bindValue(":email", email);
                      query.exec();
                      if(query.next()){
-                         int userID = query.value(0).toInt();
+                         QString employeeID = query.value(0).toString();
                          QString firstName = query.value(1).toString();
                          QString lastName = query.value(2).toString();
 
                          User user = User();
-                         user.setUser(userID, email, firstName, lastName);
+                         user.setUser(employeeID, email, firstName, lastName);
 
                          menuScreen *openChat = new menuScreen;
                          openChat->acceptUser(user);

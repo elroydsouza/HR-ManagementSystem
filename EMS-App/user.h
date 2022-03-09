@@ -6,13 +6,13 @@ class User
 {
 public:
     User();
-    int getUserID();
+    QString getEmployeeID();
     QString getEmail();
     QString getFirstName();
     QString getLastName();
     QString getFullName();
-    void setUser(int setUserID, QString setEmail, QString setFirstName, QString setLastName) {
-        currentUserID = setUserID;
+    void setUser(QString setEmployeeID, QString setEmail, QString setFirstName, QString setLastName) {
+        currentEmployeeID = setEmployeeID;
         currentEmail = setEmail;
         currentFirstName = setFirstName;
         currentLastName = setLastName;
@@ -21,7 +21,7 @@ public:
     void updateLastName(QString name);
 
 private:
-    int currentUserID;
+    QString currentEmployeeID;
     QString currentEmail;
     QString currentFirstName;
     QString currentLastName;

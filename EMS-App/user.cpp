@@ -4,8 +4,8 @@ User::User(){
 
 }
 
-int User::getUserID() {
-    return currentUserID;
+QString User::getEmployeeID() {
+    return currentEmployeeID;
 };
 
 QString User::getEmail() {
