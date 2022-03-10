@@ -167,6 +167,16 @@ void employeeScreen::on_btn_submit_clicked()
 
     if(query.exec()){
         clearAllInsert();
+
+        query.prepare("INSERT INTO absenceRemaining (employeeID, remainingHoliday, remainingSick) "
+                      "VALUES (:employeeID, :remainingHoliday, :remainingSick)");
+
+        query.bindValue(":employeeID", employeeID);
+        query.bindValue(":remainingHoliday", 28);
+        query.bindValue(":remainingSick", 5);
+
+        query.exec();
+
         QMessageBox::information(this,"Registration successful","Account has been created");
     }else{
         QMessageBox::information(this,"Registration unsuccessful","Account has not been created");
@@ -438,6 +448,12 @@ void employeeScreen::on_Dbtn_delete_clicked()
             ui->Dtbl_users->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
             clearAllDelete();
+
+            query.prepare(QString("DELETE FROM absenceRemaining WHERE employeeID = '"+selectedID+"'"));
+            query.exec();
+
+            query.prepare(QString("DELETE FROM absence WHERE employeeID = '"+selectedID+"'"));
+            query.exec();
 
             QMessageBox::information(this,"Success","Employee has been successfully deleted");
         } else {

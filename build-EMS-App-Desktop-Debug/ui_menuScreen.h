@@ -31,7 +31,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QPushButton *btn_User;
     QPushButton *btn_Department;
-    QPushButton *btn_Holiday;
+    QPushButton *btn_absence;
     QPushButton *btn_Schedule;
     QSpacerItem *verticalSpacer;
 
@@ -85,11 +85,11 @@ public:
 
         verticalLayout_3->addWidget(btn_Department);
 
-        btn_Holiday = new QPushButton(verticalWidget_2);
-        btn_Holiday->setObjectName(QString::fromUtf8("btn_Holiday"));
-        btn_Holiday->setMinimumSize(QSize(0, 40));
+        btn_absence = new QPushButton(verticalWidget_2);
+        btn_absence->setObjectName(QString::fromUtf8("btn_absence"));
+        btn_absence->setMinimumSize(QSize(0, 40));
 
-        verticalLayout_3->addWidget(btn_Holiday);
+        verticalLayout_3->addWidget(btn_absence);
 
         btn_Schedule = new QPushButton(verticalWidget_2);
         btn_Schedule->setObjectName(QString::fromUtf8("btn_Schedule"));
@@ -120,7 +120,7 @@ public:
         lbl_name->setText(QApplication::translate("menuScreen", "Logged in as: ", nullptr));
         btn_User->setText(QApplication::translate("menuScreen", "User Maintenance", nullptr));
         btn_Department->setText(QApplication::translate("menuScreen", "Departments", nullptr));
-        btn_Holiday->setText(QApplication::translate("menuScreen", "Holiday Report", nullptr));
+        btn_absence->setText(QApplication::translate("menuScreen", "Absence", nullptr));
         btn_Schedule->setText(QApplication::translate("menuScreen", "Schedule", nullptr));
     } // retranslateUi
 

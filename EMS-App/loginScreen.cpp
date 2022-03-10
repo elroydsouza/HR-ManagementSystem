@@ -33,6 +33,7 @@ void loginScreen::on_btn_login_clicked()
         if(password == NULL){
             try {
                 QSqlQuery query;
+
                 query.prepare(QString("SELECT password FROM users "
                                       "WHERE email = :email"));
 

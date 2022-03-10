@@ -10,7 +10,6 @@ departmentScreen::departmentScreen(QWidget *parent) :
     ui(new Ui::departmentScreen)
 {
     ui->setupUi(this);
-    ui->stackedWidget->setCurrentIndex(0);
 }
 
 void departmentScreen::run(){

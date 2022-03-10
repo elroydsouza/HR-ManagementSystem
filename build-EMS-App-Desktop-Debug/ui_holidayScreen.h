@@ -38,7 +38,7 @@ public:
 };
 
 namespace Ui {
-    class holidayScreen: public Ui_holidayScreen {};
+    class absenceScreen: public Ui_holidayScreen {};
 } // namespace Ui
 
 QT_END_NAMESPACE

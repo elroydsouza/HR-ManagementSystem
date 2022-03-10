@@ -24,6 +24,8 @@ private slots:
 
     void on_btn_Department_clicked();
 
+    void on_btn_absence_clicked();
+
 private:
     User user;
     Ui::menuScreen *ui;
