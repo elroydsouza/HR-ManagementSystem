@@ -449,4 +449,62 @@ void absenceScreen::on_btn_maintenance_clicked()
 
     ui->btn_maintenance->setDown(true);
     ui->btn_request->setDown(false);
+
+    QSqlQuery query;
+    query.prepare(QString("SELECT employeeID, firstName, lastName FROM users "));
+
+    query.exec();
+
+    QSqlQueryModel *model = new QSqlQueryModel();
+    model->setQuery(query);
+    ui->tbl_employees->setModel(model);
+    ui->tbl_employees->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+    ui->tbl_employees->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    ui->tbl_employees->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+}
+
+void absenceScreen::on_tbl_employees_activated()
+{
+    QModelIndex selectedRow = ui->tbl_employees->selectionModel()->currentIndex();
+    QVariant selectedID = selectedRow.sibling(selectedRow.row(),0).data();
+    QString selectedEmployeeID = selectedID.toString();
+
+    QSqlQuery query;
+    query.prepare(QString("SELECT remainingHoliday, remainingSick FROM absenceRemaining "
+                          "WHERE employeeID = :employeeID"));
+
+    query.bindValue(":employeeID",selectedEmployeeID);
+
+    query.exec();
+    query.next();
+
+    ui->Mle_employeeID->setText(selectedEmployeeID);
+    ui->Mle_remainingHol->setText(query.value(0).toString());
+    ui->Mle_remainingSick->setText(query.value(1).toString());
+
+    query.prepare(QString("SELECT firstName, lastName FROM users "
+                          "WHERE employeeID = :employeeID"));
+
+    query.bindValue(":employeeID",selectedEmployeeID);
+
+    query.exec();
+    query.next();
+
+    ui->Mle_employeeName->setText(query.value(0).toString() + " " + query.value(1).toString());
+}
+
+void absenceScreen::on_pushButton_clicked()
+{
+    QSqlQuery query;
+    query.prepare(QString("UPDATE absenceRemaining SET remainingHoliday = :remainingHoliday, remainingSick = :remainingSick WHERE employeeID = :employeeID"));
+
+    query.bindValue(":employeeID", ui->Mle_employeeID->text());
+    query.bindValue(":remainingHoliday", ui->Mle_remainingHol->text());
+    query.bindValue(":remainingSick", ui->Mle_remainingSick->text());
+
+    if(query.exec()){
+        QMessageBox::information(this,"Success","Leave amount has been updated");
+    } else {
+        QMessageBox::information(this,"Error","Please enter a number");
+    }
 }

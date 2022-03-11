@@ -1,6 +1,7 @@
 #include "menuScreen.h"
 #include "departmentScreen.h"
 #include "absenceScreen.h"
+#include "scheduleScreen.h"
 #include "ui_menuScreen.h"
 
 menuScreen::menuScreen(QWidget *parent) :
@@ -44,6 +45,15 @@ void menuScreen::on_btn_Department_clicked()
 void menuScreen::on_btn_absence_clicked()
 {
     absenceScreen *openChat = new absenceScreen;
+    openChat->acceptUser(user);
+    openChat->show();
+    openChat->run();
+    close();
+}
+
+void menuScreen::on_btn_Schedule_clicked()
+{
+    scheduleScreen *openChat = new scheduleScreen;
     openChat->acceptUser(user);
     openChat->show();
     openChat->run();

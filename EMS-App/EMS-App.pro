@@ -23,6 +23,7 @@ SOURCES += \
     main.cpp \
     menuScreen.cpp \
     passwordSet.cpp \
+    scheduleScreen.cpp \
     user.cpp
 
 HEADERS += \
@@ -32,6 +33,7 @@ HEADERS += \
     loginScreen.h \
     menuScreen.h \
     passwordSet.h \
+    scheduleScreen.h \
     user.h
 
 # Default rules for deployment.
@@ -45,4 +47,5 @@ FORMS += \
     employeeScreen.ui \
     loginScreen.ui \
     menuScreen.ui \
-    passwordSet.ui
+    passwordSet.ui \
+    scheduleScreen.ui

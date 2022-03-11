@@ -49,6 +49,10 @@ private slots:
 
     void on_btn_maintenance_clicked();
 
+    void on_tbl_employees_activated();
+
+    void on_pushButton_clicked();
+
 private:
     User user;
     Ui::absenceScreen *ui;

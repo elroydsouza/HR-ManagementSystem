@@ -135,7 +135,27 @@ public:
     QWidget *page_4;
     QVBoxLayout *verticalLayout_8;
     QLabel *label_24;
+    QHBoxLayout *horizontalLayout_7;
     QTableView *tbl_employees;
+    QVBoxLayout *verticalLayout_11;
+    QSpacerItem *verticalSpacer_10;
+    QLabel *label_18;
+    QLineEdit *Mle_employeeID;
+    QSpacerItem *verticalSpacer_8;
+    QLabel *label_15;
+    QLineEdit *Mle_employeeName;
+    QSpacerItem *verticalSpacer_11;
+    QLabel *label_16;
+    QLineEdit *Mle_remainingHol;
+    QSpacerItem *verticalSpacer_12;
+    QLabel *label_17;
+    QLineEdit *Mle_remainingSick;
+    QSpacerItem *verticalSpacer_9;
+    QHBoxLayout *horizontalLayout_8;
+    QSpacerItem *horizontalSpacer_6;
+    QPushButton *pushButton;
+    QSpacerItem *horizontalSpacer_7;
+    QSpacerItem *verticalSpacer_13;
 
     void setupUi(QWidget *absenceScreen)
     {
@@ -783,10 +803,113 @@ public:
 
         verticalLayout_8->addWidget(label_24);
 
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         tbl_employees = new QTableView(page_4);
         tbl_employees->setObjectName(QString::fromUtf8("tbl_employees"));
+        tbl_employees->setStyleSheet(QString::fromUtf8("QHeaderView::section { background-color:black; color:white ; font-weight: bold}\n"
+"QTableCornerButton::section { background-color:black }\n"
+"verticalHeader::section{ background-color:rgb(190,1,1) }"));
+        tbl_employees->setAlternatingRowColors(true);
+        tbl_employees->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tbl_employees->setShowGrid(false);
+        tbl_employees->setCornerButtonEnabled(false);
 
-        verticalLayout_8->addWidget(tbl_employees);
+        horizontalLayout_7->addWidget(tbl_employees);
+
+        verticalLayout_11 = new QVBoxLayout();
+        verticalLayout_11->setObjectName(QString::fromUtf8("verticalLayout_11"));
+        verticalSpacer_10 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_11->addItem(verticalSpacer_10);
+
+        label_18 = new QLabel(page_4);
+        label_18->setObjectName(QString::fromUtf8("label_18"));
+
+        verticalLayout_11->addWidget(label_18);
+
+        Mle_employeeID = new QLineEdit(page_4);
+        Mle_employeeID->setObjectName(QString::fromUtf8("Mle_employeeID"));
+        Mle_employeeID->setReadOnly(true);
+
+        verticalLayout_11->addWidget(Mle_employeeID);
+
+        verticalSpacer_8 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_11->addItem(verticalSpacer_8);
+
+        label_15 = new QLabel(page_4);
+        label_15->setObjectName(QString::fromUtf8("label_15"));
+
+        verticalLayout_11->addWidget(label_15);
+
+        Mle_employeeName = new QLineEdit(page_4);
+        Mle_employeeName->setObjectName(QString::fromUtf8("Mle_employeeName"));
+        Mle_employeeName->setReadOnly(true);
+
+        verticalLayout_11->addWidget(Mle_employeeName);
+
+        verticalSpacer_11 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_11->addItem(verticalSpacer_11);
+
+        label_16 = new QLabel(page_4);
+        label_16->setObjectName(QString::fromUtf8("label_16"));
+
+        verticalLayout_11->addWidget(label_16);
+
+        Mle_remainingHol = new QLineEdit(page_4);
+        Mle_remainingHol->setObjectName(QString::fromUtf8("Mle_remainingHol"));
+
+        verticalLayout_11->addWidget(Mle_remainingHol);
+
+        verticalSpacer_12 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_11->addItem(verticalSpacer_12);
+
+        label_17 = new QLabel(page_4);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+
+        verticalLayout_11->addWidget(label_17);
+
+        Mle_remainingSick = new QLineEdit(page_4);
+        Mle_remainingSick->setObjectName(QString::fromUtf8("Mle_remainingSick"));
+
+        verticalLayout_11->addWidget(Mle_remainingSick);
+
+        verticalSpacer_9 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_11->addItem(verticalSpacer_9);
+
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer_6);
+
+        pushButton = new QPushButton(page_4);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setMinimumSize(QSize(0, 30));
+        pushButton->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
+
+        horizontalLayout_8->addWidget(pushButton);
+
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_8->addItem(horizontalSpacer_7);
+
+
+        verticalLayout_11->addLayout(horizontalLayout_8);
+
+        verticalSpacer_13 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_11->addItem(verticalSpacer_13);
+
+
+        horizontalLayout_7->addLayout(verticalLayout_11);
+
+
+        verticalLayout_8->addLayout(horizontalLayout_7);
 
         stackedWidget->addWidget(page_4);
 
@@ -844,6 +967,11 @@ public:
         btn_approve->setText(QApplication::translate("absenceScreen", "Approve", nullptr));
         btn_deny->setText(QApplication::translate("absenceScreen", "Deny", nullptr));
         label_24->setText(QApplication::translate("absenceScreen", "Work Leave Maintenance", nullptr));
+        label_18->setText(QApplication::translate("absenceScreen", "Employee ID", nullptr));
+        label_15->setText(QApplication::translate("absenceScreen", "Employee Name", nullptr));
+        label_16->setText(QApplication::translate("absenceScreen", " Remaining Holiday Leave", nullptr));
+        label_17->setText(QApplication::translate("absenceScreen", "Remaining Sick Leave", nullptr));
+        pushButton->setText(QApplication::translate("absenceScreen", "Update", nullptr));
     } // retranslateUi
 
 };

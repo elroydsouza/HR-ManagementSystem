@@ -22,7 +22,7 @@ void employeeScreen::run(){
 
     // Add info box to every stacked widget page explaining how to use
 
-    // reference the icon geez tuk something
+    // reference the icon person tuk something
 
     QSqlQueryModel *model = new QSqlQueryModel();
 
