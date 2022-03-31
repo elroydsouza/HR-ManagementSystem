@@ -28,19 +28,11 @@ void departmentScreen::run(){
     if(db.open()){
 
         try {
-            QSqlQuery query;
-
-            query.prepare("SELECT departmentName "
-                          "FROM departments");
-
-            query.exec();
-
-            while (query.next()) {
-                QString departmentName = query.value(0).toString();
-                ui->cb_departments->addItem(departmentName);
-            }
+            fillDeptComboBox();
 
             ui->cb_departments->setCurrentIndex(-1);
+
+            QSqlQuery query;
 
             query.prepare(QString("SELECT departmentName, departmentAbbreviation, departmentManager, departmentContact FROM departments"));
 
@@ -63,6 +55,22 @@ void departmentScreen::run(){
     ui->stackedWidget->setCurrentIndex(0);
 
     ui->btn_search->setDown(true);
+}
+
+void departmentScreen::fillDeptComboBox(){
+    ui->cb_departments->clear();
+
+    QSqlQuery query;
+
+    query.prepare("SELECT departmentName "
+                  "FROM departments");
+
+    query.exec();
+
+    while (query.next()) {
+        QString departmentName = query.value(0).toString();
+        ui->cb_departments->addItem(departmentName);
+    }
 }
 
 void departmentScreen::acceptUser(User _user){
@@ -88,6 +96,8 @@ void departmentScreen::on_btn_search_clicked()
     ui->tbl_departments->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
     ui->tbl_departments->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     ui->tbl_departments->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    fillDeptComboBox();
 
     ui->stackedWidget->setCurrentIndex(0);
 
@@ -312,7 +322,7 @@ void departmentScreen::on_btn_delete_clicked()
 
             QMessageBox::information(this,"Success","Department has been successfully deleted");
         } else {
-            QMessageBox::information(this,"Error","Department could not be deleted");
+            QMessageBox::information(this,"Error","Department could not be deleted, make sure all employees have re-assigned departments.");
         }
 
     }

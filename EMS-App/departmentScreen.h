@@ -41,6 +41,8 @@ private slots:
 
     void on_cb_departments_activated(const QString &arg1);
 
+    void fillDeptComboBox();
+
 private:
     User user;
     Ui::departmentScreen *ui;

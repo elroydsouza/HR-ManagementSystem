@@ -117,13 +117,12 @@ void scheduleScreen::on_btn_override_clicked()
         QString selectedID = QString::fromStdString(str);
 
         QSqlQuery query;
-        query.prepare(QString("INSERT INTO schedule (employeeID, employeeName, monday, tuesday, wednesday, thursday, friday, saturday, sunday) "
-                              "VALUES (:employeeID, :employeeName, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday) "
+        query.prepare(QString("INSERT INTO schedule (employeeID, monday, tuesday, wednesday, thursday, friday, saturday, sunday) "
+                              "VALUES (:employeeID, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday) "
                               "ON DUPLICATE KEY UPDATE "
                               "monday = :monday, tuesday = :tuesday, wednesday = :wednesday, thursday = :thursday, friday = :friday, saturday = :saturday, sunday = :sunday "));
 
         query.bindValue(":employeeID", selectedID);
-        query.bindValue(":employeeName", ui->le_employeeName->text());
         query.bindValue(":monday", ui->le_monday->text());
         query.bindValue(":tuesday", ui->le_tuesday->text());
         query.bindValue(":wednesday", ui->le_wednesday->text());
@@ -152,7 +151,9 @@ void scheduleScreen::on_btn_viewCurrent_clicked()
 
     QSqlQueryModel *model = new QSqlQueryModel();
     QSqlQuery query;
-    query.prepare(QString("SELECT employeeName, monday, tuesday, wednesday, thursday, friday, saturday, sunday FROM schedule"));
+    query.prepare(QString("SELECT CONCAT(users.firstName, ' ', users.lastName) AS name, monday, tuesday, wednesday, thursday, friday, saturday, sunday "
+                          "FROM users, schedule "
+                          "WHERE users.employeeID = schedule.employeeID"));
 
     query.exec();
     model->setQuery(query);
@@ -171,7 +172,9 @@ void scheduleScreen::on_btn_viewPurged_clicked()
 
     QSqlQueryModel *model = new QSqlQueryModel();
     QSqlQuery query;
-    query.prepare(QString("SELECT employeeName, monday, tuesday, wednesday, thursday, friday, saturday, sunday FROM purgedSchedule"));
+    query.prepare(QString("SELECT CONCAT(users.firstName, ' ', users.lastName) AS name, monday, tuesday, wednesday, thursday, friday, saturday, sunday "
+                          "FROM users, purgedSchedule "
+                          "WHERE users.employeeID = purgedSchedule.employeeID"));
 
     query.exec();
     model->setQuery(query);
@@ -219,7 +222,9 @@ void scheduleScreen::on_btn_purgeCurrent_clicked()
 
         QSqlQueryModel *model = new QSqlQueryModel();
         QSqlQuery query;
-        query.prepare(QString("SELECT employeeName, monday, tuesday, wednesday, thursday, friday, saturday, sunday FROM schedule"));
+        query.prepare(QString("SELECT CONCAT(users.firstName, ' ', users.lastName) AS name, monday, tuesday, wednesday, thursday, friday, saturday, sunday "
+                              "FROM users, schedule "
+                              "WHERE users.employeeID = schedule.employeeID"));
 
         query.exec();
         model->setQuery(query);
