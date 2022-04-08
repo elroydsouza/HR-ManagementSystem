@@ -52,6 +52,8 @@ private slots:
 
     void clearAllDelete();
 
+    void on_pushButton_clicked();
+
 private:
     User user;
     Ui::employeeScreen *ui;

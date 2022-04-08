@@ -53,7 +53,9 @@ public:
     QStackedWidget *stackedWidget;
     QWidget *page;
     QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_11;
     QLabel *label_11;
+    QPushButton *pushButton;
     QLineEdit *le_search;
     QTableView *tbl_departments;
     QHBoxLayout *horizontalLayout_9;
@@ -280,13 +282,30 @@ public:
         page->setObjectName(QString::fromUtf8("page"));
         verticalLayout_2 = new QVBoxLayout(page);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
         label_11 = new QLabel(page);
         label_11->setObjectName(QString::fromUtf8("label_11"));
         QFont font2;
         font2.setPointSize(15);
         label_11->setFont(font2);
 
-        verticalLayout_2->addWidget(label_11);
+        horizontalLayout_11->addWidget(label_11);
+
+        pushButton = new QPushButton(page);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        pushButton->setSizePolicy(sizePolicy);
+        pushButton->setMinimumSize(QSize(180, 0));
+        pushButton->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
+
+        horizontalLayout_11->addWidget(pushButton);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_11);
 
         le_search = new QLineEdit(page);
         le_search->setObjectName(QString::fromUtf8("le_search"));
@@ -344,11 +363,11 @@ public:
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         label_7 = new QLabel(page_2);
         label_7->setObjectName(QString::fromUtf8("label_7"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
-        label_7->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
+        label_7->setSizePolicy(sizePolicy1);
         label_7->setFont(font2);
 
         verticalLayout_3->addWidget(label_7);
@@ -510,11 +529,11 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         btn_clear = new QPushButton(page_2);
         btn_clear->setObjectName(QString::fromUtf8("btn_clear"));
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(btn_clear->sizePolicy().hasHeightForWidth());
-        btn_clear->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(btn_clear->sizePolicy().hasHeightForWidth());
+        btn_clear->setSizePolicy(sizePolicy2);
         btn_clear->setMinimumSize(QSize(125, 30));
 
         horizontalLayout_3->addWidget(btn_clear);
@@ -778,7 +797,7 @@ public:
 
         retranslateUi(departmentScreen);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(departmentScreen);
@@ -794,6 +813,7 @@ public:
         btn_maintenance->setText(QApplication::translate("departmentScreen", "Maintenance", nullptr));
         btn_back->setText(QApplication::translate("departmentScreen", "Back", nullptr));
         label_11->setText(QApplication::translate("departmentScreen", "Search through departments", nullptr));
+        pushButton->setText(QApplication::translate("departmentScreen", "Save Department Table", nullptr));
         label_5->setText(QApplication::translate("departmentScreen", "View employees based on department", nullptr));
         label_7->setText(QApplication::translate("departmentScreen", "Maintain Departments", nullptr));
         lbl_deptSelectedPrefix->setText(QApplication::translate("departmentScreen", "Department Selected:", nullptr));

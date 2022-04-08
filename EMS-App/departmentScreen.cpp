@@ -2,6 +2,7 @@
 #include "departmentScreen.h"
 #include "ui_departmentScreen.h"
 
+#include <algorithm>
 #include <unordered_map>
 #include <iostream>
 
@@ -98,6 +99,9 @@ void departmentScreen::on_btn_search_clicked()
     ui->tbl_departments->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     fillDeptComboBox();
+
+    ui->tbl_employees->model()->deleteLater();
+    ui->cb_departments->setCurrentIndex(-1);
 
     ui->stackedWidget->setCurrentIndex(0);
 
@@ -349,4 +353,19 @@ void departmentScreen::on_cb_departments_activated(const QString &arg1)
     ui->tbl_employees->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
     ui->tbl_employees->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     ui->tbl_employees->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+}
+
+void departmentScreen::on_pushButton_clicked()
+{
+    if(ui->cb_departments->currentIndex() != -1){
+        QString deptName = ui->cb_departments->currentText();
+        std::string deptN = deptName.toStdString();
+
+        std::string::iterator end_pos = std::remove(deptN.begin(), deptN.end(), ' ');
+        deptN.erase(end_pos, deptN.end());
+        std::cout << deptN << std::endl;
+
+        QDate date = QDate::currentDate();
+        ui->tbl_employees->grab().save(QString::fromStdString("saved_documents/departmentsLog/") + QString::fromStdString(deptN) + "_" + date.toString("dd.MM.yyyy") + ".png");
+    }
 }

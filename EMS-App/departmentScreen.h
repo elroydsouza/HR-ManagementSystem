@@ -43,6 +43,8 @@ private slots:
 
     void fillDeptComboBox();
 
+    void on_pushButton_clicked();
+
 private:
     User user;
     Ui::departmentScreen *ui;

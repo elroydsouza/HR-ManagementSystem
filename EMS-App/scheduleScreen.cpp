@@ -234,3 +234,15 @@ void scheduleScreen::on_btn_purgeCurrent_clicked()
         ui->tbl_currentSchedule->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     }
 }
+
+void scheduleScreen::on_pushButton_clicked()
+{
+    QDate date = QDate::currentDate();
+    ui->tbl_currentSchedule->grab().save(QString::fromStdString("saved_documents/currentSchedule/schedule") + date.toString("dd.MM.yyyy") + ".png");
+}
+
+void scheduleScreen::on_pushButton_2_clicked()
+{
+    QDate date = QDate::currentDate();
+    ui->tbl_purgedSchedule->grab().save(QString::fromStdString("saved_documents/purgedSchedule/pschedule") + date.toString("dd.MM.yyyy") + ".png");
+}

@@ -56,7 +56,9 @@ public:
     QStackedWidget *stackedWidget;
     QWidget *page;
     QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout_9;
     QLabel *label_11;
+    QPushButton *pushButton;
     QLineEdit *le_search;
     QTableView *tbl_users;
     QWidget *page_2;
@@ -329,13 +331,30 @@ public:
         page->setObjectName(QString::fromUtf8("page"));
         verticalLayout_2 = new QVBoxLayout(page);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
         label_11 = new QLabel(page);
         label_11->setObjectName(QString::fromUtf8("label_11"));
         QFont font2;
         font2.setPointSize(15);
         label_11->setFont(font2);
 
-        verticalLayout_2->addWidget(label_11);
+        horizontalLayout_9->addWidget(label_11);
+
+        pushButton = new QPushButton(page);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
+        pushButton->setSizePolicy(sizePolicy);
+        pushButton->setMinimumSize(QSize(170, 0));
+        pushButton->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
+
+        horizontalLayout_9->addWidget(pushButton);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_9);
 
         le_search = new QLineEdit(page);
         le_search->setObjectName(QString::fromUtf8("le_search"));
@@ -361,11 +380,11 @@ public:
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         label_7 = new QLabel(page_2);
         label_7->setObjectName(QString::fromUtf8("label_7"));
-        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
-        label_7->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
+        label_7->setSizePolicy(sizePolicy1);
         label_7->setFont(font2);
 
         verticalLayout_3->addWidget(label_7);
@@ -392,11 +411,11 @@ public:
 
         de_DOB = new QDateEdit(page_2);
         de_DOB->setObjectName(QString::fromUtf8("de_DOB"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(de_DOB->sizePolicy().hasHeightForWidth());
-        de_DOB->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(de_DOB->sizePolicy().hasHeightForWidth());
+        de_DOB->setSizePolicy(sizePolicy2);
         de_DOB->setMinimumSize(QSize(0, 30));
 
         gridLayout->addWidget(de_DOB, 7, 4, 1, 1);
@@ -542,8 +561,8 @@ public:
 
         de_employDate = new QDateEdit(page_2);
         de_employDate->setObjectName(QString::fromUtf8("de_employDate"));
-        sizePolicy1.setHeightForWidth(de_employDate->sizePolicy().hasHeightForWidth());
-        de_employDate->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(de_employDate->sizePolicy().hasHeightForWidth());
+        de_employDate->setSizePolicy(sizePolicy2);
         de_employDate->setMinimumSize(QSize(0, 30));
         de_employDate->setMinimumDate(QDate(2022, 1, 1));
 
@@ -563,8 +582,8 @@ public:
 
         cb_department = new QComboBox(page_2);
         cb_department->setObjectName(QString::fromUtf8("cb_department"));
-        sizePolicy1.setHeightForWidth(cb_department->sizePolicy().hasHeightForWidth());
-        cb_department->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(cb_department->sizePolicy().hasHeightForWidth());
+        cb_department->setSizePolicy(sizePolicy2);
         cb_department->setMinimumSize(QSize(0, 30));
 
         gridLayout_2->addWidget(cb_department, 2, 0, 1, 1);
@@ -607,11 +626,11 @@ public:
 
         btn_clear = new QPushButton(page_2);
         btn_clear->setObjectName(QString::fromUtf8("btn_clear"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(btn_clear->sizePolicy().hasHeightForWidth());
-        btn_clear->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(btn_clear->sizePolicy().hasHeightForWidth());
+        btn_clear->setSizePolicy(sizePolicy3);
         btn_clear->setMinimumSize(QSize(125, 30));
 
         horizontalLayout_3->addWidget(btn_clear);
@@ -878,7 +897,7 @@ public:
 
         retranslateUi(employeeScreen);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(employeeScreen);
@@ -896,6 +915,7 @@ public:
         btn_delete->setText(QApplication::translate("employeeScreen", "Delete Employee", nullptr));
         btn_back->setText(QApplication::translate("employeeScreen", "Back", nullptr));
         label_11->setText(QApplication::translate("employeeScreen", "Search through employees", nullptr));
+        pushButton->setText(QApplication::translate("employeeScreen", "Save Employee Table", nullptr));
         label_7->setText(QApplication::translate("employeeScreen", "Insert Employee", nullptr));
         label->setText(QApplication::translate("employeeScreen", "FirstName", nullptr));
         de_DOB->setDisplayFormat(QApplication::translate("employeeScreen", "yyyy-MM-dd", nullptr));
