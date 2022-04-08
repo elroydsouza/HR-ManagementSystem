@@ -11,11 +11,13 @@ public:
     QString getFirstName();
     QString getLastName();
     QString getFullName();
-    void setUser(QString setEmployeeID, QString setEmail, QString setFirstName, QString setLastName) {
+    int getPermLevel();
+    void setUser(QString setEmployeeID, QString setEmail, QString setFirstName, QString setLastName, int setPermLevel) {
         currentEmployeeID = setEmployeeID;
         currentEmail = setEmail;
         currentFirstName = setFirstName;
         currentLastName = setLastName;
+        currentPermLevel = setPermLevel;
     }
     void updateFirstName(QString name);
     void updateLastName(QString name);
@@ -25,6 +27,7 @@ private:
     QString currentEmail;
     QString currentFirstName;
     QString currentLastName;
+    int currentPermLevel;
 };
 
 #endif // USER_H

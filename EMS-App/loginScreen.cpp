@@ -44,7 +44,7 @@ void loginScreen::on_btn_login_clicked()
                     QString passwordStored = query.value(0).toString();
                     if(passwordStored == NULL){
                         User user = User();
-                        user.setUser("999999", email, "firstName", "lastName");
+                        user.setUser("999999", email, "firstName", "lastName", 2);
 
                         passwordSet *openChat = new passwordSet;
                         openChat->acceptUser(user);
@@ -75,9 +75,7 @@ void loginScreen::on_btn_login_clicked()
                 query.exec();
 
                 if(query.next()){
-                     QMessageBox::information(this,"Success","You are logged in");
-
-                     query.prepare(QString("SELECT employeeID, firstName, lastName "
+                     query.prepare(QString("SELECT employeeID, firstName, lastName, departmentCode "
                                            "FROM users "
                                            "WHERE email = :email"));
 
@@ -87,10 +85,17 @@ void loginScreen::on_btn_login_clicked()
                          QString employeeID = query.value(0).toString();
                          QString firstName = query.value(1).toString();
                          QString lastName = query.value(2).toString();
+                         QString deptCode = query.value(3).toString();
+                         int permLevel = 2;
+
+                         if(deptCode == "DPT943"){
+                             permLevel = 1;
+                         }
 
                          User user = User();
-                         user.setUser(employeeID, email, firstName, lastName);
+                         user.setUser(employeeID, email, firstName, lastName, permLevel);
 
+                         QMessageBox::information(this,"Success","You are logged in");
                          menuScreen *openChat = new menuScreen;
                          openChat->acceptUser(user);
                          openChat->show();

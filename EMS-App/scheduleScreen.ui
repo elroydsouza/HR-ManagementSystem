@@ -285,7 +285,7 @@ QPushButton::pressed { background-color: rgb(48, 152, 185); }</string>
       <string notr="true">background-color: rgb(243, 243, 243);</string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_2">
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -746,7 +746,7 @@ verticalHeader::section{ background-color:rgb(190,1,1) }</string>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="btn_saveCurrent">
              <property name="minimumSize">
               <size>
                <width>120</width>
@@ -834,7 +834,7 @@ verticalHeader::section{ background-color:rgb(190,1,1) }</string>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="btn_savePurged">
            <property name="minimumSize">
             <size>
              <width>170</width>

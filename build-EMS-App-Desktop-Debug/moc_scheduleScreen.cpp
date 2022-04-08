@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_scheduleScreen_t {
     QByteArrayData data[13];
-    char stringdata0[263];
+    char stringdata0[270];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,8 +42,8 @@ QT_MOC_LITERAL(7, 115, 26), // "on_btn_viewCurrent_clicked"
 QT_MOC_LITERAL(8, 142, 25), // "on_btn_viewPurged_clicked"
 QT_MOC_LITERAL(9, 168, 20), // "on_btn_purge_clicked"
 QT_MOC_LITERAL(10, 189, 27), // "on_btn_purgeCurrent_clicked"
-QT_MOC_LITERAL(11, 217, 21), // "on_pushButton_clicked"
-QT_MOC_LITERAL(12, 239, 23) // "on_pushButton_2_clicked"
+QT_MOC_LITERAL(11, 217, 26), // "on_btn_saveCurrent_clicked"
+QT_MOC_LITERAL(12, 244, 25) // "on_btn_savePurged_clicked"
 
     },
     "scheduleScreen\0on_btn_back_clicked\0\0"
@@ -52,7 +52,8 @@ QT_MOC_LITERAL(12, 239, 23) // "on_pushButton_2_clicked"
     "on_btn_viewCurrent_clicked\0"
     "on_btn_viewPurged_clicked\0"
     "on_btn_purge_clicked\0on_btn_purgeCurrent_clicked\0"
-    "on_pushButton_clicked\0on_pushButton_2_clicked"
+    "on_btn_saveCurrent_clicked\0"
+    "on_btn_savePurged_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -110,8 +111,8 @@ void scheduleScreen::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 5: _t->on_btn_viewPurged_clicked(); break;
         case 6: _t->on_btn_purge_clicked(); break;
         case 7: _t->on_btn_purgeCurrent_clicked(); break;
-        case 8: _t->on_pushButton_clicked(); break;
-        case 9: _t->on_pushButton_2_clicked(); break;
+        case 8: _t->on_btn_saveCurrent_clicked(); break;
+        case 9: _t->on_btn_savePurged_clicked(); break;
         default: ;
         }
     }

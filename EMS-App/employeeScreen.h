@@ -52,7 +52,7 @@ private slots:
 
     void clearAllDelete();
 
-    void on_pushButton_clicked();
+    void on_btn_save_clicked();
 
 private:
     User user;

@@ -25,6 +25,10 @@ QString User::getFullName() {
     return currentFullName;
 };
 
+int User::getPermLevel() {
+    return currentPermLevel;
+}
+
 void User::updateFirstName(QString name){
     currentFirstName = name;
 };

@@ -470,7 +470,7 @@ void employeeScreen::clearAllDelete(){
 }
 
 
-void employeeScreen::on_pushButton_clicked()
+void employeeScreen::on_btn_save_clicked()
 {
     QDate date = QDate::currentDate();
     ui->tbl_users->grab().save(QString::fromStdString("saved_documents/employeeLog/employees_") + date.toString("dd.MM.yyyy") + ".png");

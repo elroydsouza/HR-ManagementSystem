@@ -18,6 +18,11 @@ void departmentScreen::run(){
 
     ui->cb_departments->clear();
 
+    if(user.getPermLevel() == 2){
+        ui->btn_maintenance->setDisabled(true);
+        ui->btn_save->setDisabled(true);
+    }
+
     QSqlQueryModel *model = new QSqlQueryModel();
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
@@ -141,6 +146,9 @@ void departmentScreen::on_btn_maintenance_clicked()
 
 void departmentScreen::on_Mtbl_departments_activated()
 {
+    ui->le_deptName->setEnabled(true);
+    ui->le_deptAbbreviation->setEnabled(true);
+
     QModelIndex selectedRow = ui->Mtbl_departments->selectionModel()->currentIndex();
     QVariant selectedCode = selectedRow.sibling(selectedRow.row(),0).data();
     QString selectedDepartmentCode = selectedCode.toString();
@@ -152,6 +160,11 @@ void departmentScreen::on_Mtbl_departments_activated()
     if(query.exec()){
         while(query.next()){
             ui->le_deptCode->setText(selectedDepartmentCode);
+
+            if(ui->le_deptCode->text() == "DPT943"){
+                ui->le_deptName->setDisabled(true);
+                ui->le_deptAbbreviation->setDisabled(true);
+            }
 
             ui->le_deptName->setText(query.value(0).toString());
             ui->le_deptAbbreviation->setText(query.value(1).toString());
@@ -194,6 +207,9 @@ void departmentScreen::on_btn_generate_clicked()
                 ui->le_deptManager->clear();
                 ui->le_deptContact->clear();
 
+                ui->le_deptName->setEnabled(true);
+                ui->le_deptAbbreviation->setEnabled(true);
+
                 check = true;
             }
         }
@@ -217,6 +233,8 @@ void departmentScreen::clearAll()
     ui->le_deptAbbreviation->clear();
     ui->le_deptManager->clear();
     ui->le_deptContact->clear();
+    ui->le_deptName->setEnabled(true);
+    ui->le_deptAbbreviation->setEnabled(true);
 }
 
 void departmentScreen::on_btn_update_clicked()
@@ -295,40 +313,43 @@ void departmentScreen::on_btn_delete_clicked()
     QString selectedCode = ui->le_deptCode->text();
     QString selectedDeptName = ui->le_deptName->text();
 
-    QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to delete ("+ selectedCode + ") "+ selectedDeptName +"?",
-                                                                 QMessageBox::Yes|QMessageBox::No);
-    if(question == QMessageBox::Yes){
-        QSqlQuery query;
+    if(selectedCode == "DPT943"){
+        QMessageBox::information(this,"Error","Manager account cannot be deleted...");
+    } else {
+        QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to delete ("+ selectedCode + ") "+ selectedDeptName +"?",
+                                                                     QMessageBox::Yes|QMessageBox::No);
+        if(question == QMessageBox::Yes){
+            QSqlQuery query;
 
-        query.prepare(QString("UPDATE users "
-                              "SET departmentCode = :departmentCode "
-                              "WHERE departmentCode = '"+selectedCode+"'"));
+            query.prepare(QString("UPDATE users "
+                                  "SET departmentCode = :departmentCode "
+                                  "WHERE departmentCode = '"+selectedCode+"'"));
 
-        query.bindValue(":departmentCode", "unknown");
-
-        query.exec();
-        query.next();
-
-        query.prepare(QString("DELETE FROM departments WHERE departmentCode = '"+selectedCode+"'"));
-
-        if(query.exec()){
-            QSqlQueryModel *model = new QSqlQueryModel();
-            query.prepare(QString("SELECT departmentCode, departmentName, departmentAbbreviation, departmentManager, departmentContact FROM departments"));
+            query.bindValue(":departmentCode", "unknown");
 
             query.exec();
-            model->setQuery(query);
-            ui->Mtbl_departments->setModel(model);
-            ui->Mtbl_departments->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
-            ui->Mtbl_departments->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-            ui->Mtbl_departments->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+            query.next();
 
-            clearAll();
+            query.prepare(QString("DELETE FROM departments WHERE departmentCode = '"+selectedCode+"'"));
 
-            QMessageBox::information(this,"Success","Department has been successfully deleted");
-        } else {
-            QMessageBox::information(this,"Error","Department could not be deleted, make sure all employees have re-assigned departments.");
+            if(query.exec()){
+                QSqlQueryModel *model = new QSqlQueryModel();
+                query.prepare(QString("SELECT departmentCode, departmentName, departmentAbbreviation, departmentManager, departmentContact FROM departments"));
+
+                query.exec();
+                model->setQuery(query);
+                ui->Mtbl_departments->setModel(model);
+                ui->Mtbl_departments->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+                ui->Mtbl_departments->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+                ui->Mtbl_departments->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+                clearAll();
+
+                QMessageBox::information(this,"Success","Department has been successfully deleted");
+            } else {
+                QMessageBox::information(this,"Error","Department could not be deleted, make sure all employees have re-assigned departments.");
+            }
         }
-
     }
 }
 
@@ -355,7 +376,7 @@ void departmentScreen::on_cb_departments_activated(const QString &arg1)
     ui->tbl_employees->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
-void departmentScreen::on_pushButton_clicked()
+void departmentScreen::on_btn_save_clicked()
 {
     if(ui->cb_departments->currentIndex() != -1){
         QString deptName = ui->cb_departments->currentText();

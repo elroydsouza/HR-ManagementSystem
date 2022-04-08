@@ -87,7 +87,7 @@ public:
     QLabel *label_19;
     QTableView *tbl_currentSchedule;
     QHBoxLayout *horizontalLayout_5;
-    QPushButton *pushButton;
+    QPushButton *btn_saveCurrent;
     QSpacerItem *horizontalSpacer_10;
     QPushButton *btn_purgeCurrent;
     QWidget *page_4;
@@ -95,7 +95,7 @@ public:
     QLabel *label_24;
     QTableView *tbl_purgedSchedule;
     QHBoxLayout *horizontalLayout_8;
-    QPushButton *pushButton_2;
+    QPushButton *btn_savePurged;
     QSpacerItem *horizontalSpacer_7;
     QPushButton *btn_delete;
 
@@ -456,12 +456,12 @@ public:
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        pushButton = new QPushButton(page_3);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setMinimumSize(QSize(120, 30));
-        pushButton->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
+        btn_saveCurrent = new QPushButton(page_3);
+        btn_saveCurrent->setObjectName(QString::fromUtf8("btn_saveCurrent"));
+        btn_saveCurrent->setMinimumSize(QSize(120, 30));
+        btn_saveCurrent->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
 
-        horizontalLayout_5->addWidget(pushButton);
+        horizontalLayout_5->addWidget(btn_saveCurrent);
 
         horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -505,12 +505,12 @@ public:
 
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
-        pushButton_2 = new QPushButton(page_4);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-        pushButton_2->setMinimumSize(QSize(170, 30));
-        pushButton_2->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
+        btn_savePurged = new QPushButton(page_4);
+        btn_savePurged->setObjectName(QString::fromUtf8("btn_savePurged"));
+        btn_savePurged->setMinimumSize(QSize(170, 30));
+        btn_savePurged->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
 
-        horizontalLayout_8->addWidget(pushButton_2);
+        horizontalLayout_8->addWidget(btn_savePurged);
 
         horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -533,7 +533,7 @@ public:
 
         retranslateUi(scheduleScreen);
 
-        stackedWidget->setCurrentIndex(2);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(scheduleScreen);
@@ -563,10 +563,10 @@ public:
         btn_override->setText(QApplication::translate("scheduleScreen", "Override", nullptr));
         btn_purge->setText(QApplication::translate("scheduleScreen", "Purge Schedule", nullptr));
         label_19->setText(QApplication::translate("scheduleScreen", "Current Schedule", nullptr));
-        pushButton->setText(QApplication::translate("scheduleScreen", "Save Schedule", nullptr));
+        btn_saveCurrent->setText(QApplication::translate("scheduleScreen", "Save Schedule", nullptr));
         btn_purgeCurrent->setText(QApplication::translate("scheduleScreen", "PURGE", nullptr));
         label_24->setText(QApplication::translate("scheduleScreen", "Purged Schedule", nullptr));
-        pushButton_2->setText(QApplication::translate("scheduleScreen", "Save Purged Schedule", nullptr));
+        btn_savePurged->setText(QApplication::translate("scheduleScreen", "Save Purged Schedule", nullptr));
         btn_delete->setText(QApplication::translate("scheduleScreen", "DELETE", nullptr));
     } // retranslateUi
 

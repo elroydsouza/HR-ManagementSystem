@@ -14,9 +14,14 @@ absenceScreen::absenceScreen(QWidget *parent) :
 
 void absenceScreen::run(){
     ui->lbl_name->setText("Logged in as: " + user.getFullName());
-    ui->de_absenceDate->setDate(QDate::currentDate());
+    ui->de_absenceDate->setDate(QDate::currentDate().addDays(1));
     ui->stackedWidget->setCurrentIndex(0);
     ui->btn_request->setDown(true);
+
+    if(user.getPermLevel() == 2){
+        ui->btn_outstandingApp->setDisabled(true);
+        ui->btn_maintenance->setDisabled(true);
+    }
 
     ui->de_date->setDate(QDate::currentDate());
 
@@ -34,6 +39,19 @@ void absenceScreen::run(){
 
     ui->Rlbl_holidayLeave->setText(query.value(0).toString());
     ui->Rlbl_sickLeave->setText(query.value(1).toString());
+
+    query.prepare(QString("SELECT date, ticketID from absence"));
+
+    query.exec();
+    QSqlQuery query2;
+    while(query.next()){
+        QString ticketID = query.value(1).toString();
+        if(query.value(0).toDate() == QDate::currentDate()){
+            query2.prepare(QString("DELETE FROM absence WHERE ticketID = :ticketID"));
+            query2.bindValue(":ticketID", ticketID);
+            query2.exec();
+        }
+    }
 }
 
 void absenceScreen::acceptUser(User _user){
@@ -84,78 +102,82 @@ void absenceScreen::on_Rbtn_request_clicked()
     if(!ui->rb_holiday->isChecked() && !ui->rb_sick->isChecked()){
         QMessageBox::information(this,"No type","Please make sure you select a type of absence");
     } else {
-        // type
-        if(ui->rb_holiday->isChecked()){
-            type = "holiday";
-            ui->pte_reason->clear();
-        } else if (ui->rb_sick->isChecked()){
-            type = "sick";
-            // reason
-            reason = ui->pte_reason->toPlainText();
-        }
-
-        if(type == "sick" && ui->lbl_charactersRemaining->text() == "0/400"){
-            QMessageBox::information(this,"No reason","Please type in a reason for requesting sick leave");
-        } else {
-            // ticket id
-            QSqlQuery query;
-            query.prepare(QString("SELECT ticketID FROM absence"));
-
-            std::unordered_map<std::string, std::string> ticketIDmap;
-
-            if(query.exec()){
-                while(query.next()){
-                    std::string selectedID = query.value(0).toString().toStdString();
-                    ticketIDmap.insert({selectedID, "placeholder"});
-                }
-
-                bool check = false;
-
-                while(check == false){
-                    int randNo = (rand() % 888) + 100;
-                    QString randomID = "ABS" + QString::fromStdString(std::to_string(randNo));
-
-                    if(ticketIDmap.find(randomID.toStdString()) != ticketIDmap.end()){
-                    } else {
-                        ticketID = randomID;
-
-                        check = true;
-                    }
-                }
-            }else{
-                QMessageBox::information(this,"Error","Employee ID could not be generated");
+        if(ui->de_absenceDate->date() > QDate::currentDate()){
+            // type
+            if(ui->rb_holiday->isChecked()){
+                type = "holiday";
+                ui->pte_reason->clear();
+            } else if (ui->rb_sick->isChecked()){
+                type = "sick";
+                // reason
+                reason = ui->pte_reason->toPlainText();
             }
 
-            // employeeID
-            employeeID = user.getEmployeeID();
-
-            // date
-            date = ui->de_absenceDate->text();
-
-            // status
-            status = "waiting";
-
-            // insertion
-            query.prepare("INSERT INTO absence (ticketID, employeeID, type, date, reason, status) "
-                          "VALUES (:ticketID, :employeeID, :type, :date, :reason, :status)");
-            query.bindValue(":ticketID", ticketID);
-            query.bindValue(":employeeID", employeeID);
-            query.bindValue(":type", type);
-            query.bindValue(":date", date);
-            query.bindValue(":reason", reason);
-            query.bindValue(":status", status);
-
-            if(query.exec()){
-                if(ui->rb_sick->isChecked()){
-                    ui->pte_reason->clear();
-                } else {
-                    ui->pte_reason->setPlainText("Reason is only needed if requesting sick leave.");
-                }
-                QMessageBox::information(this,"Success","Request has been made");
-                ui->de_absenceDate->setDate(QDate::currentDate());
+            if(type == "sick" && ui->lbl_charactersRemaining->text() == "0/400"){
+                QMessageBox::information(this,"No reason","Please type in a reason for requesting sick leave");
             } else {
-                QMessageBox::information(this,"Error","Request could not be made");
+                // ticket id
+                QSqlQuery query;
+                query.prepare(QString("SELECT ticketID FROM absence"));
+
+                std::unordered_map<std::string, std::string> ticketIDmap;
+
+                if(query.exec()){
+                    while(query.next()){
+                        std::string selectedID = query.value(0).toString().toStdString();
+                        ticketIDmap.insert({selectedID, "placeholder"});
+                    }
+
+                    bool check = false;
+
+                    while(check == false){
+                        int randNo = (rand() % 888) + 100;
+                        QString randomID = "ABS" + QString::fromStdString(std::to_string(randNo));
+
+                        if(ticketIDmap.find(randomID.toStdString()) != ticketIDmap.end()){
+                        } else {
+                            ticketID = randomID;
+
+                            check = true;
+                        }
+                    }
+                }else{
+                    QMessageBox::information(this,"Error","Employee ID could not be generated");
+                }
+
+                // employeeID
+                employeeID = user.getEmployeeID();
+
+                // date
+                date = ui->de_absenceDate->text();
+
+                // status
+                status = "waiting";
+
+                // insertion
+                query.prepare("INSERT INTO absence (ticketID, employeeID, type, date, reason, status) "
+                              "VALUES (:ticketID, :employeeID, :type, :date, :reason, :status)");
+                query.bindValue(":ticketID", ticketID);
+                query.bindValue(":employeeID", employeeID);
+                query.bindValue(":type", type);
+                query.bindValue(":date", date);
+                query.bindValue(":reason", reason);
+                query.bindValue(":status", status);
+
+                if(query.exec()){
+                    if(ui->rb_sick->isChecked()){
+                        ui->pte_reason->clear();
+                    } else {
+                        ui->pte_reason->setPlainText("Reason is only needed if requesting sick leave.");
+                    }
+                    QMessageBox::information(this,"Success","Request has been made");
+                    ui->de_absenceDate->setDate(QDate::currentDate().addDays(1));
+                } else {
+                    QMessageBox::information(this,"Error","Request could not be made");
+                }
             }
+        } else {
+            QMessageBox::information(this,"Error","Please ensure date is in the future...");
         }
 
     }
@@ -168,6 +190,18 @@ void absenceScreen::on_btn_request_clicked()
     ui->stackedWidget->setCurrentIndex(0);
 
     ui->btn_request->setDown(true);
+
+    QSqlQuery query;
+    query.prepare(QString("SELECT remainingHoliday, remainingSick FROM absenceRemaining "
+                          "WHERE employeeID = :employeeID"));
+
+    query.bindValue(":employeeID",user.getEmployeeID());
+
+    query.exec();
+    query.next();
+
+    ui->Rlbl_holidayLeave->setText(query.value(0).toString());
+    ui->Rlbl_sickLeave->setText(query.value(1).toString());
 }
 
 void absenceScreen::on_btn_outstandingReq_clicked()
@@ -265,7 +299,7 @@ void absenceScreen::on_tbl_outstandingApp_activated()
     QString selectedTicketID = selectedID.toString();
 
     QSqlQuery query;
-    query.prepare(QString("SELECT employeeID, date, reason FROM absence "
+    query.prepare(QString("SELECT employeeID, date, reason, type FROM absence "
                           "WHERE ticketID = :ticketID"));
 
     query.bindValue(":ticketID",selectedTicketID);
@@ -276,6 +310,7 @@ void absenceScreen::on_tbl_outstandingApp_activated()
     QString employeeID = query.value(0).toString();
     ui->de_date->setDate(query.value(1).toDate());
     ui->OApte_reason->setPlainText(query.value(2).toString());
+    ui->OAle_type->setText(query.value(3).toString());
     ui->le_ticketID->setText(selectedTicketID);
 
     query.prepare(QString("SELECT firstName, lastName FROM users "
@@ -300,9 +335,55 @@ void absenceScreen::on_btn_approve_clicked()
 
             query.bindValue(":status", "approved");
             query.bindValue(":ticketID", ui->le_ticketID->text());
-
             query.exec();
 
+            QString employeeID;
+            query.prepare(QString("SELECT employeeID FROM absence "
+                                  "WHERE ticketID = :ticketID"));
+
+            query.bindValue(":ticketID", ui->le_ticketID->text());
+            query.exec();
+            if(query.next()){
+                employeeID = query.value(0).toString();
+            }
+
+            if(ui->OAle_type->text() == "holiday"){
+                query.prepare(QString("SELECT remainingHoliday FROM absenceRemaining "
+                                      "WHERE employeeID = :employeeID"));
+
+                query.bindValue(":employeeID", employeeID);
+                query.exec();
+
+                if(query.next()){
+                    int remainingHoliday = query.value(0).toInt();
+
+                    query.prepare(QString("UPDATE absenceRemaining SET remainingHoliday = :remainingHoliday "
+                                          "WHERE employeeID = :employeeID"));
+
+                    query.bindValue(":remainingHoliday", remainingHoliday-1);
+                    query.bindValue(":employeeID", employeeID);
+                    query.exec();
+                }
+
+            } else if(ui->OAle_type->text() == "sick"){
+                query.prepare(QString("SELECT remainingSick FROM absenceRemaining "
+                                      "WHERE employeeID = :employeeID"));
+
+                query.bindValue(":employeeID", employeeID);
+                query.exec();
+
+                if(query.next()){
+                    int remainingSick = query.value(0).toInt();
+
+                    query.prepare(QString("UPDATE absenceRemaining SET remainingSick = :remainingSick "
+                                          "WHERE employeeID = :employeeID"));
+
+                    query.bindValue(":remainingSick", remainingSick-1);
+                    query.bindValue(":employeeID", employeeID);
+                    query.exec();
+                }
+
+            }
 
             query.prepare(QString("SELECT ticketID, employeeID, type, date FROM absence "
                                   "WHERE status = :status"));
@@ -391,55 +472,59 @@ void absenceScreen::on_btn_requestDelete_clicked()
     QString type = ui->ORle_type->text();
     QString date = ui->ORde_date->text();
 
-    QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to delete ("+ ticketID + ") "+ type +" leave on " + date + "?",
-                                                                 QMessageBox::Yes|QMessageBox::No);
-    if(question == QMessageBox::Yes){
-        QSqlQuery query;
-        query.prepare(QString("DELETE FROM absence WHERE ticketID = '"+ticketID+"'"));
-
-        if(query.exec()){
-            ui->ORle_ticketID->clear();
-            ui->ORle_type->clear();
-            ui->ORde_date->setDate(QDate::currentDate());
-            ui->ORpte_reason->clear();
-
+    if(ticketID != ""){
+        QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to delete ("+ ticketID + ") "+ type +" leave on " + date + "?",
+                                                                     QMessageBox::Yes|QMessageBox::No);
+        if(question == QMessageBox::Yes){
             QSqlQuery query;
-            query.prepare(QString("SELECT ticketID, date, status FROM absence "
-                                  "WHERE type = :type "
-                                  "AND employeeID = :employeeID"));
+            query.prepare(QString("DELETE FROM absence WHERE ticketID = '"+ticketID+"'"));
 
-            query.bindValue(":type","holiday");
-            query.bindValue(":employeeID",user.getEmployeeID());
+            if(query.exec()){
+                ui->ORle_ticketID->clear();
+                ui->ORle_type->clear();
+                ui->ORde_date->setDate(QDate::currentDate());
+                ui->ORpte_reason->clear();
 
-            query.exec();
+                QSqlQuery query;
+                query.prepare(QString("SELECT ticketID, date, status FROM absence "
+                                      "WHERE type = :type "
+                                      "AND employeeID = :employeeID"));
 
-            QSqlQueryModel *model = new QSqlQueryModel();
-            model->setQuery(query);
-            ui->tbl_holidayLeave->setModel(model);
-            ui->tbl_holidayLeave->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
-            ui->tbl_holidayLeave->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-            ui->tbl_holidayLeave->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+                query.bindValue(":type","holiday");
+                query.bindValue(":employeeID",user.getEmployeeID());
+
+                query.exec();
+
+                QSqlQueryModel *model = new QSqlQueryModel();
+                model->setQuery(query);
+                ui->tbl_holidayLeave->setModel(model);
+                ui->tbl_holidayLeave->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+                ui->tbl_holidayLeave->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+                ui->tbl_holidayLeave->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 
 
-            query.prepare(QString("SELECT ticketID, date, status FROM absence "
-                                  "WHERE type = :type "
-                                  "AND employeeID = :employeeID"));
+                query.prepare(QString("SELECT ticketID, date, status FROM absence "
+                                      "WHERE type = :type "
+                                      "AND employeeID = :employeeID"));
 
-            query.bindValue(":type","sick");
-            query.bindValue(":employeeID",user.getEmployeeID());
+                query.bindValue(":type","sick");
+                query.bindValue(":employeeID",user.getEmployeeID());
 
-            query.exec();
+                query.exec();
 
-            QSqlQueryModel *model2 = new QSqlQueryModel();
-            model2->setQuery(query);
-            ui->tbl_sickLeave->setModel(model2);
-            ui->tbl_sickLeave->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
-            ui->tbl_sickLeave->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-            ui->tbl_sickLeave->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+                QSqlQueryModel *model2 = new QSqlQueryModel();
+                model2->setQuery(query);
+                ui->tbl_sickLeave->setModel(model2);
+                ui->tbl_sickLeave->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+                ui->tbl_sickLeave->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+                ui->tbl_sickLeave->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-            QMessageBox::information(this,"Success","Leave has been deleted");
+                QMessageBox::information(this,"Success","Leave has been deleted");
+            }
         }
+    } else {
+        QMessageBox::information(this,"Error","Please select a leave first..");
     }
 }
 

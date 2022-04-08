@@ -2,6 +2,7 @@
 #include "departmentScreen.h"
 #include "absenceScreen.h"
 #include "scheduleScreen.h"
+#include "loginScreen.h"
 #include "ui_menuScreen.h"
 
 menuScreen::menuScreen(QWidget *parent) :
@@ -13,6 +14,10 @@ menuScreen::menuScreen(QWidget *parent) :
 
 void menuScreen::run(){
     ui->lbl_name->setText("Logged in as: " + user.getFullName());
+
+    if(user.getPermLevel() == 2){
+        ui->btn_User->setVisible(false);
+    }
 }
 
 void menuScreen::acceptUser(User _user){
@@ -57,5 +62,12 @@ void menuScreen::on_btn_Schedule_clicked()
     openChat->acceptUser(user);
     openChat->show();
     openChat->run();
+    close();
+}
+
+void menuScreen::on_btn_logout_clicked()
+{
+    loginScreen *openChat = new loginScreen;
+    openChat->show();
     close();
 }

@@ -58,7 +58,7 @@ public:
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_11;
-    QPushButton *pushButton;
+    QPushButton *btn_save;
     QLineEdit *le_search;
     QTableView *tbl_users;
     QWidget *page_2;
@@ -341,17 +341,17 @@ public:
 
         horizontalLayout_9->addWidget(label_11);
 
-        pushButton = new QPushButton(page);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        btn_save = new QPushButton(page);
+        btn_save->setObjectName(QString::fromUtf8("btn_save"));
         QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
-        pushButton->setSizePolicy(sizePolicy);
-        pushButton->setMinimumSize(QSize(170, 0));
-        pushButton->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
+        sizePolicy.setHeightForWidth(btn_save->sizePolicy().hasHeightForWidth());
+        btn_save->setSizePolicy(sizePolicy);
+        btn_save->setMinimumSize(QSize(170, 0));
+        btn_save->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
 
-        horizontalLayout_9->addWidget(pushButton);
+        horizontalLayout_9->addWidget(btn_save);
 
 
         verticalLayout_2->addLayout(horizontalLayout_9);
@@ -915,7 +915,7 @@ public:
         btn_delete->setText(QApplication::translate("employeeScreen", "Delete Employee", nullptr));
         btn_back->setText(QApplication::translate("employeeScreen", "Back", nullptr));
         label_11->setText(QApplication::translate("employeeScreen", "Search through employees", nullptr));
-        pushButton->setText(QApplication::translate("employeeScreen", "Save Employee Table", nullptr));
+        btn_save->setText(QApplication::translate("employeeScreen", "Save Employee Table", nullptr));
         label_7->setText(QApplication::translate("employeeScreen", "Insert Employee", nullptr));
         label->setText(QApplication::translate("employeeScreen", "FirstName", nullptr));
         de_DOB->setDisplayFormat(QApplication::translate("employeeScreen", "yyyy-MM-dd", nullptr));

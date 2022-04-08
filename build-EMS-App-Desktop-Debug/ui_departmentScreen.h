@@ -55,12 +55,12 @@ public:
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout_11;
     QLabel *label_11;
-    QPushButton *pushButton;
     QLineEdit *le_search;
     QTableView *tbl_departments;
     QHBoxLayout *horizontalLayout_9;
     QLabel *label_5;
     QSpacerItem *horizontalSpacer_12;
+    QPushButton *btn_save;
     QComboBox *cb_departments;
     QTableView *tbl_employees;
     QWidget *page_2;
@@ -292,18 +292,6 @@ public:
 
         horizontalLayout_11->addWidget(label_11);
 
-        pushButton = new QPushButton(page);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
-        pushButton->setSizePolicy(sizePolicy);
-        pushButton->setMinimumSize(QSize(180, 0));
-        pushButton->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
-
-        horizontalLayout_11->addWidget(pushButton);
-
 
         verticalLayout_2->addLayout(horizontalLayout_11);
 
@@ -336,8 +324,25 @@ public:
 
         horizontalLayout_9->addItem(horizontalSpacer_12);
 
+        btn_save = new QPushButton(page);
+        btn_save->setObjectName(QString::fromUtf8("btn_save"));
+        QSizePolicy sizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(btn_save->sizePolicy().hasHeightForWidth());
+        btn_save->setSizePolicy(sizePolicy);
+        btn_save->setMinimumSize(QSize(100, 0));
+        btn_save->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
+
+        horizontalLayout_9->addWidget(btn_save);
+
         cb_departments = new QComboBox(page);
         cb_departments->setObjectName(QString::fromUtf8("cb_departments"));
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(cb_departments->sizePolicy().hasHeightForWidth());
+        cb_departments->setSizePolicy(sizePolicy1);
 
         horizontalLayout_9->addWidget(cb_departments);
 
@@ -363,11 +368,11 @@ public:
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         label_7 = new QLabel(page_2);
         label_7->setObjectName(QString::fromUtf8("label_7"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
-        label_7->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(label_7->sizePolicy().hasHeightForWidth());
+        label_7->setSizePolicy(sizePolicy2);
         label_7->setFont(font2);
 
         verticalLayout_3->addWidget(label_7);
@@ -529,11 +534,11 @@ public:
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         btn_clear = new QPushButton(page_2);
         btn_clear->setObjectName(QString::fromUtf8("btn_clear"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(btn_clear->sizePolicy().hasHeightForWidth());
-        btn_clear->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(btn_clear->sizePolicy().hasHeightForWidth());
+        btn_clear->setSizePolicy(sizePolicy3);
         btn_clear->setMinimumSize(QSize(125, 30));
 
         horizontalLayout_3->addWidget(btn_clear);
@@ -813,8 +818,8 @@ public:
         btn_maintenance->setText(QApplication::translate("departmentScreen", "Maintenance", nullptr));
         btn_back->setText(QApplication::translate("departmentScreen", "Back", nullptr));
         label_11->setText(QApplication::translate("departmentScreen", "Search through departments", nullptr));
-        pushButton->setText(QApplication::translate("departmentScreen", "Save Department Table", nullptr));
         label_5->setText(QApplication::translate("departmentScreen", "View employees based on department", nullptr));
+        btn_save->setText(QApplication::translate("departmentScreen", "Save Table", nullptr));
         label_7->setText(QApplication::translate("departmentScreen", "Maintain Departments", nullptr));
         lbl_deptSelectedPrefix->setText(QApplication::translate("departmentScreen", "Department Selected:", nullptr));
         lbl_deptSelected->setText(QApplication::translate("departmentScreen", "NONE", nullptr));

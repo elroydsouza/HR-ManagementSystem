@@ -28,6 +28,8 @@ private slots:
 
     void on_btn_Schedule_clicked();
 
+    void on_btn_logout_clicked();
+
 private:
     User user;
     Ui::menuScreen *ui;

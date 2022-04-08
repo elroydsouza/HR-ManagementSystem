@@ -34,6 +34,7 @@ public:
     QPushButton *btn_absence;
     QPushButton *btn_Schedule;
     QSpacerItem *verticalSpacer;
+    QPushButton *btn_logout;
 
     void setupUi(QWidget *menuScreen)
     {
@@ -104,6 +105,12 @@ public:
 
         verticalLayout->addItem(verticalSpacer);
 
+        btn_logout = new QPushButton(menuScreen);
+        btn_logout->setObjectName(QString::fromUtf8("btn_logout"));
+        btn_logout->setStyleSheet(QString::fromUtf8("background-color: rgb(239, 41, 41);"));
+
+        verticalLayout->addWidget(btn_logout);
+
 
         verticalLayout_2->addLayout(verticalLayout);
 
@@ -122,6 +129,7 @@ public:
         btn_Department->setText(QApplication::translate("menuScreen", "Departments", nullptr));
         btn_absence->setText(QApplication::translate("menuScreen", "Absence", nullptr));
         btn_Schedule->setText(QApplication::translate("menuScreen", "Schedule", nullptr));
+        btn_logout->setText(QApplication::translate("menuScreen", "Log Out", nullptr));
     } // retranslateUi
 
 };

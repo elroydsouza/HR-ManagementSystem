@@ -414,7 +414,7 @@ QPushButton::pressed { background-color: rgb(48, 152, 185); }</string>
       <string notr="true">background-color: rgb(243, 243, 243);</string>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1108,7 +1108,34 @@ verticalHeader::section{ background-color:rgb(190,1,1) }</string>
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="le_ticketID"/>
+            <widget class="QLineEdit" name="le_ticketID">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string>Type:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="OAle_type">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="label_5">

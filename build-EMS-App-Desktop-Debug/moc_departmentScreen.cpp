@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_departmentScreen_t {
     QByteArrayData data[16];
-    char stringdata0[309];
+    char stringdata0[307];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,7 +46,7 @@ QT_MOC_LITERAL(11, 215, 21), // "on_btn_delete_clicked"
 QT_MOC_LITERAL(12, 237, 27), // "on_cb_departments_activated"
 QT_MOC_LITERAL(13, 265, 4), // "arg1"
 QT_MOC_LITERAL(14, 270, 16), // "fillDeptComboBox"
-QT_MOC_LITERAL(15, 287, 21) // "on_pushButton_clicked"
+QT_MOC_LITERAL(15, 287, 19) // "on_btn_save_clicked"
 
     },
     "departmentScreen\0on_btn_search_clicked\0"
@@ -56,7 +56,7 @@ QT_MOC_LITERAL(15, 287, 21) // "on_pushButton_clicked"
     "on_btn_update_clicked\0on_btn_insert_clicked\0"
     "clearAll\0on_btn_delete_clicked\0"
     "on_cb_departments_activated\0arg1\0"
-    "fillDeptComboBox\0on_pushButton_clicked"
+    "fillDeptComboBox\0on_btn_save_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -124,7 +124,7 @@ void departmentScreen::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 9: _t->on_btn_delete_clicked(); break;
         case 10: _t->on_cb_departments_activated((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 11: _t->fillDeptComboBox(); break;
-        case 12: _t->on_pushButton_clicked(); break;
+        case 12: _t->on_btn_save_clicked(); break;
         default: ;
         }
     }

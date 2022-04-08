@@ -18,6 +18,27 @@ void scheduleScreen::run(){
     ui->stackedWidget->setCurrentIndex(0);
     ui->btn_schedule->setDown(true);
 
+    if(user.getPermLevel() == 2){
+        ui->stackedWidget->setCurrentIndex(1);
+        ui->btn_schedule->setDisabled(true);
+        ui->btn_viewPurged->setDisabled(true);
+        ui->btn_purgeCurrent->setDisabled(true);
+        ui->btn_saveCurrent->setDisabled(true);
+
+        QSqlQueryModel *model = new QSqlQueryModel();
+        QSqlQuery query;
+        query.prepare(QString("SELECT CONCAT(users.firstName, ' ', users.lastName) AS name, monday, tuesday, wednesday, thursday, friday, saturday, sunday "
+                              "FROM users, schedule "
+                              "WHERE users.employeeID = schedule.employeeID"));
+
+        query.exec();
+        model->setQuery(query);
+        ui->tbl_currentSchedule->setModel(model);
+        ui->tbl_currentSchedule->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+        ui->tbl_currentSchedule->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+        ui->tbl_currentSchedule->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    }
+
     int count = 0;
     QSqlQuery query;
 
@@ -235,13 +256,13 @@ void scheduleScreen::on_btn_purgeCurrent_clicked()
     }
 }
 
-void scheduleScreen::on_pushButton_clicked()
+void scheduleScreen::on_btn_saveCurrent_clicked()
 {
     QDate date = QDate::currentDate();
     ui->tbl_currentSchedule->grab().save(QString::fromStdString("saved_documents/currentSchedule/schedule") + date.toString("dd.MM.yyyy") + ".png");
 }
 
-void scheduleScreen::on_pushButton_2_clicked()
+void scheduleScreen::on_btn_savePurged_clicked()
 {
     QDate date = QDate::currentDate();
     ui->tbl_purgedSchedule->grab().save(QString::fromStdString("saved_documents/purgedSchedule/pschedule") + date.toString("dd.MM.yyyy") + ".png");

@@ -360,28 +360,6 @@ QPushButton::pressed { background-color: rgb(48, 152, 185); }</string>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="pushButton">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>180</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(39, 183, 229);</string>
-           </property>
-           <property name="text">
-            <string>Save Department Table</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
@@ -439,7 +417,36 @@ verticalHeader::section{ background-color:rgb(190,1,1) }</string>
           </spacer>
          </item>
          <item>
-          <widget class="QComboBox" name="cb_departments"/>
+          <widget class="QPushButton" name="btn_save">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(39, 183, 229);</string>
+           </property>
+           <property name="text">
+            <string>Save Table</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cb_departments">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>

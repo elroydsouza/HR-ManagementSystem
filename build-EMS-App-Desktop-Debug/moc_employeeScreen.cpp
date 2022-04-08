@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_employeeScreen_t {
     QByteArrayData data[18];
-    char stringdata0[371];
+    char stringdata0[369];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -48,7 +48,7 @@ QT_MOC_LITERAL(13, 265, 21), // "on_btn_delete_clicked"
 QT_MOC_LITERAL(14, 287, 23), // "on_Dtbl_users_activated"
 QT_MOC_LITERAL(15, 311, 22), // "on_Dbtn_delete_clicked"
 QT_MOC_LITERAL(16, 334, 14), // "clearAllDelete"
-QT_MOC_LITERAL(17, 349, 21) // "on_pushButton_clicked"
+QT_MOC_LITERAL(17, 349, 19) // "on_btn_save_clicked"
 
     },
     "employeeScreen\0on_le_search_returnPressed\0"
@@ -59,7 +59,7 @@ QT_MOC_LITERAL(17, 349, 21) // "on_pushButton_clicked"
     "on_tbl_usersUpdate_activated\0"
     "on_Ubtn_update_clicked\0on_btn_delete_clicked\0"
     "on_Dtbl_users_activated\0on_Dbtn_delete_clicked\0"
-    "clearAllDelete\0on_pushButton_clicked"
+    "clearAllDelete\0on_btn_save_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -136,7 +136,7 @@ void employeeScreen::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 12: _t->on_Dtbl_users_activated(); break;
         case 13: _t->on_Dbtn_delete_clicked(); break;
         case 14: _t->clearAllDelete(); break;
-        case 15: _t->on_pushButton_clicked(); break;
+        case 15: _t->on_btn_save_clicked(); break;
         default: ;
         }
     }

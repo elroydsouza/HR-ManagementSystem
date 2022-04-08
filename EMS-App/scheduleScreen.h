@@ -36,9 +36,9 @@ private slots:
 
     void on_btn_purgeCurrent_clicked();
 
-    void on_pushButton_clicked();
+    void on_btn_saveCurrent_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_btn_savePurged_clicked();
 
 private:
     std::unordered_map<std::string, std::string> employee;

@@ -120,6 +120,8 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_9;
     QLineEdit *le_ticketID;
+    QLabel *label_19;
+    QLineEdit *OAle_type;
     QLabel *label_5;
     QLineEdit *le_name;
     QLabel *label_6;
@@ -709,8 +711,21 @@ public:
 
         le_ticketID = new QLineEdit(page_3);
         le_ticketID->setObjectName(QString::fromUtf8("le_ticketID"));
+        le_ticketID->setMinimumSize(QSize(0, 30));
 
         horizontalLayout_5->addWidget(le_ticketID);
+
+        label_19 = new QLabel(page_3);
+        label_19->setObjectName(QString::fromUtf8("label_19"));
+
+        horizontalLayout_5->addWidget(label_19);
+
+        OAle_type = new QLineEdit(page_3);
+        OAle_type->setObjectName(QString::fromUtf8("OAle_type"));
+        OAle_type->setMinimumSize(QSize(0, 30));
+        OAle_type->setReadOnly(true);
+
+        horizontalLayout_5->addWidget(OAle_type);
 
         label_5 = new QLabel(page_3);
         label_5->setObjectName(QString::fromUtf8("label_5"));
@@ -918,7 +933,7 @@ public:
 
         retranslateUi(absenceScreen);
 
-        stackedWidget->setCurrentIndex(3);
+        stackedWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(absenceScreen);
@@ -960,6 +975,7 @@ public:
         label_3->setText(QApplication::translate("absenceScreen", "Selected sick leave reason:", nullptr));
         label_4->setText(QApplication::translate("absenceScreen", "Outstanding Approvals", nullptr));
         label_9->setText(QApplication::translate("absenceScreen", "Ticket ID:", nullptr));
+        label_19->setText(QApplication::translate("absenceScreen", "Type:", nullptr));
         label_5->setText(QApplication::translate("absenceScreen", "Name:", nullptr));
         label_6->setText(QApplication::translate("absenceScreen", "Date", nullptr));
         de_date->setDisplayFormat(QApplication::translate("absenceScreen", "yyyy-MM-dd", nullptr));
