@@ -1,6 +1,7 @@
 #ifndef SCHEDULESCREEN_H
 #define SCHEDULESCREEN_H
 
+#include <vector>
 #include <unordered_map>
 #include "user.h"
 #include <QWidget>
@@ -39,6 +40,14 @@ private slots:
     void on_btn_saveCurrent_clicked();
 
     void on_btn_savePurged_clicked();
+
+    void on_btn_generate_clicked();
+
+    int validationChecks();
+
+    std::vector<std::string> randomFourDays();
+
+    void on_btn_delete_clicked();
 
 private:
     std::unordered_map<std::string, std::string> employee;

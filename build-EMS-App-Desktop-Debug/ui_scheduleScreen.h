@@ -533,7 +533,7 @@ public:
 
         retranslateUi(scheduleScreen);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(scheduleScreen);

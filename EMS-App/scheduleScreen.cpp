@@ -3,7 +3,9 @@
 #include "scheduleScreen.h"
 #include "ui_scheduleScreen.h"
 
+#include <algorithm>
 #include <unordered_map>
+#include <vector>
 #include <iostream>
 
 scheduleScreen::scheduleScreen(QWidget *parent) :
@@ -138,10 +140,13 @@ void scheduleScreen::on_btn_override_clicked()
         QString selectedID = QString::fromStdString(str);
 
         QSqlQuery query;
+        query.prepare(QString("DELETE FROM schedule WHERE employeeID = :employeeID"));
+        query.bindValue(":employeeID", selectedID);
+        query.exec();
+
+
         query.prepare(QString("INSERT INTO schedule (employeeID, monday, tuesday, wednesday, thursday, friday, saturday, sunday) "
-                              "VALUES (:employeeID, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday) "
-                              "ON DUPLICATE KEY UPDATE "
-                              "monday = :monday, tuesday = :tuesday, wednesday = :wednesday, thursday = :thursday, friday = :friday, saturday = :saturday, sunday = :sunday "));
+                              "VALUES (:employeeID, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday)"));
 
         query.bindValue(":employeeID", selectedID);
         query.bindValue(":monday", ui->le_monday->text());
@@ -266,4 +271,180 @@ void scheduleScreen::on_btn_savePurged_clicked()
 {
     QDate date = QDate::currentDate();
     ui->tbl_purgedSchedule->grab().save(QString::fromStdString("saved_documents/purgedSchedule/pschedule") + date.toString("dd.MM.yyyy") + ".png");
+}
+
+void scheduleScreen::on_btn_generate_clicked()
+{
+    int preCheck = 0;
+    QSqlQuery query;
+    query.prepare(QString("SELECT COUNT(*) FROM users "
+                          "WHERE departmentCode = 'DPT943'"));
+
+    query.exec();
+    query.next();
+    int managerCount = query.value(0).toInt();
+    if(managerCount >= 2){
+        preCheck = 1;
+    }
+
+
+    std::vector<int> deptCheck = {};
+    QSqlQuery query2;
+    query.prepare(QString("SELECT departmentCode from departments"));
+    query.exec();
+    while(query.next()){
+        if(query.value(0).toString() != "DPT943"){
+            query2.prepare(QString("SELECT COUNT(*) FROM users "
+                                  "WHERE departmentCode = :departmentCode"));
+
+            query2.bindValue(":departmentCode", query.value(0).toString());
+
+            query2.exec();
+            query2.next();
+            deptCheck.push_back(query2.value(0).toInt());
+       }
+    }
+
+    for(int check : deptCheck){
+        if(check >= 4){
+            preCheck = 1;
+        } else {
+            preCheck = 0;
+        }
+    }
+
+    if(preCheck == 1){
+        int validationCheck = 0;
+        while(validationCheck == 0){
+            query.prepare(QString("DELETE FROM schedule"));
+
+            query.exec();
+
+            std::vector<std::string> fourDays = randomFourDays();
+
+            query.prepare(QString("SELECT employeeID, departmentCode FROM users"));
+
+            QSqlQuery query2;
+            QSqlQuery query3;
+            query.exec();
+            while(query.next()){
+                query2.prepare(QString("SELECT departmentAbbreviation FROM departments "
+                                       "WHERE departmentCode = :departmentCode"));
+                query2.bindValue(":departmentCode", query.value(1).toString());
+                query2.exec();
+                query2.next();
+
+                int count = 0;
+
+                for(std::string day : fourDays){
+                    if(count == 0){
+                        query3.prepare(QString("INSERT INTO schedule (employeeID, "+QString::fromStdString(fourDays[0])+") "
+                                               "VALUES (:employeeID, :department)"));
+                        query3.bindValue(":employeeID", query.value(0).toString());
+                        query3.bindValue(":department", query2.value(0).toString());
+                        query3.exec();
+
+                        count++;
+                    } else {
+                        query3.prepare(QString("UPDATE schedule SET "+QString::fromStdString(day)+" = :department "
+                                               "WHERE employeeID = :employeeID"));
+                        query3.bindValue(":employeeID", query.value(0).toString());
+                        query3.bindValue(":department", query2.value(0).toString());
+                        query3.exec();
+                    }
+                }
+                fourDays = randomFourDays();
+            }
+            validationCheck = validationChecks();
+        }
+        QMessageBox::information(this,"Success","Schedule has been generated!");
+    } else {
+        QMessageBox::information(this,"Error","Please ensure there is at least 2 managers and 4 employees per department to use auto-scheduler...");
+    }
+
+}
+
+int scheduleScreen::validationChecks()
+{
+    int validationCheck = 1;
+    QSqlQuery query;
+
+    std::vector<std::string> daysInWeek = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+    std::vector<int> counts = {};
+
+    // Make sure there is at least 1 manager per day
+    for(std::string day : daysInWeek){
+        query.prepare(QString("SELECT COUNT(*) FROM schedule "
+                              "WHERE "+QString::fromStdString(day)+" = 'DM'"));
+
+        query.exec();
+        query.next();
+        counts.push_back(query.value(0).toInt());
+    }
+
+    for(int count : counts){
+        if(count == 0){
+            validationCheck = 0;
+            return validationCheck;
+        }
+    }
+    counts.clear();
+
+    // Make sure there is at least 2 employees per day
+    std::vector<std::string> deptIDs = {};
+    query.prepare(QString("SELECT departmentAbbreviation from departments"));
+    query.exec();
+    while(query.next()){
+        deptIDs.push_back(query.value(0).toString().toStdString());
+    }
+    deptIDs.erase(std::remove(deptIDs.begin(), deptIDs.end(), "DM"), deptIDs.end());
+
+    for(std::string department : deptIDs){
+        for(std::string day : daysInWeek){
+            query.prepare(QString("SELECT COUNT(*) FROM schedule "
+                                  "WHERE "+QString::fromStdString(day)+" = :departmentAbb"));
+
+            query.bindValue(":departmentAbb", QString::fromStdString(department));
+
+            query.exec();
+            query.next();
+            counts.push_back(query.value(0).toInt());
+        }
+
+        for(int count : counts){
+            if(count < 2){
+                validationCheck = 0;
+                return validationCheck;
+            }
+        }
+    }
+
+    return validationCheck;
+}
+
+std::vector<std::string> scheduleScreen::randomFourDays()
+{
+    std::vector<std::string> days = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"};
+    std::vector<std::string> fourDays = {};
+
+    for(int i=0;i<4;i++){
+        int random = rand() % days.size();
+        std::string randomDay = days[random];
+        fourDays.push_back(randomDay);
+        days.erase(std::remove(days.begin(), days.end(), randomDay), days.end());
+    }
+
+    return fourDays;
+}
+
+void scheduleScreen::on_btn_delete_clicked()
+{
+    QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to delete this purged schedule?",
+                                                                 QMessageBox::Yes|QMessageBox::No);
+    if(question == QMessageBox::Yes){
+        QSqlQuery query;
+        query.prepare(QString("DELETE FROM purgedSchedule"));
+
+        query.exec();
+    }
 }

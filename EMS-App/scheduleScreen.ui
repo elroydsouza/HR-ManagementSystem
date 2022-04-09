@@ -285,7 +285,7 @@ QPushButton::pressed { background-color: rgb(48, 152, 185); }</string>
       <string notr="true">background-color: rgb(243, 243, 243);</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_2">
       <layout class="QVBoxLayout" name="verticalLayout_3">
