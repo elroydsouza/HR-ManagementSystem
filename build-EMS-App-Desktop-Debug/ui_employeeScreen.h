@@ -970,6 +970,7 @@ public:
         btn_back->setText(QApplication::translate("employeeScreen", "Back", nullptr));
         label_11->setText(QApplication::translate("employeeScreen", "Search through employees", nullptr));
         btn_save->setText(QApplication::translate("employeeScreen", "Save Employee Table", nullptr));
+        le_search->setPlaceholderText(QApplication::translate("employeeScreen", "Type employee name here...", nullptr));
         lbl_doubleClickToView->setText(QApplication::translate("employeeScreen", "Double click an employee to view extra employee information..", nullptr));
         label_30->setText(QApplication::translate("employeeScreen", "Phone Number:", nullptr));
         lbl_address->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));

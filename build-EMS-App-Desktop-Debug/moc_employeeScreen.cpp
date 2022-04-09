@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_employeeScreen_t {
-    QByteArrayData data[21];
-    char stringdata0[410];
+    QByteArrayData data[23];
+    char stringdata0[440];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -51,7 +51,9 @@ QT_MOC_LITERAL(16, 334, 14), // "clearAllDelete"
 QT_MOC_LITERAL(17, 349, 19), // "on_btn_save_clicked"
 QT_MOC_LITERAL(18, 369, 22), // "on_tbl_users_activated"
 QT_MOC_LITERAL(19, 392, 11), // "QModelIndex"
-QT_MOC_LITERAL(20, 404, 5) // "index"
+QT_MOC_LITERAL(20, 404, 5), // "index"
+QT_MOC_LITERAL(21, 410, 24), // "on_le_search_textChanged"
+QT_MOC_LITERAL(22, 435, 4) // "arg1"
 
     },
     "employeeScreen\0on_le_search_returnPressed\0"
@@ -64,7 +66,7 @@ QT_MOC_LITERAL(20, 404, 5) // "index"
     "on_Dtbl_users_activated\0on_Dbtn_delete_clicked\0"
     "clearAllDelete\0on_btn_save_clicked\0"
     "on_tbl_users_activated\0QModelIndex\0"
-    "index"
+    "index\0on_le_search_textChanged\0arg1"
 };
 #undef QT_MOC_LITERAL
 
@@ -74,7 +76,7 @@ static const uint qt_meta_data_employeeScreen[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      17,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -82,23 +84,24 @@ static const uint qt_meta_data_employeeScreen[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   99,    2, 0x08 /* Private */,
-       3,    0,  100,    2, 0x08 /* Private */,
-       4,    0,  101,    2, 0x08 /* Private */,
-       5,    0,  102,    2, 0x08 /* Private */,
-       6,    0,  103,    2, 0x08 /* Private */,
-       7,    0,  104,    2, 0x08 /* Private */,
-       8,    0,  105,    2, 0x08 /* Private */,
-       9,    0,  106,    2, 0x08 /* Private */,
-      10,    0,  107,    2, 0x08 /* Private */,
-      11,    0,  108,    2, 0x08 /* Private */,
-      12,    0,  109,    2, 0x08 /* Private */,
-      13,    0,  110,    2, 0x08 /* Private */,
-      14,    0,  111,    2, 0x08 /* Private */,
-      15,    0,  112,    2, 0x08 /* Private */,
-      16,    0,  113,    2, 0x08 /* Private */,
-      17,    0,  114,    2, 0x08 /* Private */,
-      18,    1,  115,    2, 0x08 /* Private */,
+       1,    0,  104,    2, 0x08 /* Private */,
+       3,    0,  105,    2, 0x08 /* Private */,
+       4,    0,  106,    2, 0x08 /* Private */,
+       5,    0,  107,    2, 0x08 /* Private */,
+       6,    0,  108,    2, 0x08 /* Private */,
+       7,    0,  109,    2, 0x08 /* Private */,
+       8,    0,  110,    2, 0x08 /* Private */,
+       9,    0,  111,    2, 0x08 /* Private */,
+      10,    0,  112,    2, 0x08 /* Private */,
+      11,    0,  113,    2, 0x08 /* Private */,
+      12,    0,  114,    2, 0x08 /* Private */,
+      13,    0,  115,    2, 0x08 /* Private */,
+      14,    0,  116,    2, 0x08 /* Private */,
+      15,    0,  117,    2, 0x08 /* Private */,
+      16,    0,  118,    2, 0x08 /* Private */,
+      17,    0,  119,    2, 0x08 /* Private */,
+      18,    1,  120,    2, 0x08 /* Private */,
+      21,    1,  123,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -118,6 +121,7 @@ static const uint qt_meta_data_employeeScreen[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 19,   20,
+    QMetaType::Void, QMetaType::QString,   22,
 
        0        // eod
 };
@@ -145,6 +149,7 @@ void employeeScreen::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 14: _t->clearAllDelete(); break;
         case 15: _t->on_btn_save_clicked(); break;
         case 16: _t->on_tbl_users_activated((*reinterpret_cast< const QModelIndex(*)>(_a[1]))); break;
+        case 17: _t->on_le_search_textChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -179,13 +184,13 @@ int employeeScreen::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 17)
+        if (_id < 18)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 17;
+        _id -= 18;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 17)
+        if (_id < 18)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 17;
+        _id -= 18;
     }
     return _id;
 }

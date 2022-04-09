@@ -342,7 +342,7 @@ QPushButton::pressed { background-color: rgb(48, 152, 185); }</string>
       <string notr="true">background-color: rgb(243, 243, 243);</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -363,7 +363,11 @@ QPushButton::pressed { background-color: rgb(48, 152, 185); }</string>
         </layout>
        </item>
        <item>
-        <widget class="QLineEdit" name="le_search"/>
+        <widget class="QLineEdit" name="le_search">
+         <property name="placeholderText">
+          <string>Type department name here...</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QTableView" name="tbl_departments">

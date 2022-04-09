@@ -454,7 +454,11 @@ QPushButton::pressed { background-color: rgb(48, 152, 185); }</string>
         </layout>
        </item>
        <item>
-        <widget class="QLineEdit" name="le_search"/>
+        <widget class="QLineEdit" name="le_search">
+         <property name="placeholderText">
+          <string>Type employee name here...</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QTableView" name="tbl_users">

@@ -38,9 +38,8 @@ void employeeScreen::run(){
     if(db.open()){
 
         try {
-
             QSqlQuery query;
-            query.prepare(QString("SELECT employeeID AS EmployeeID, CONCAT(firstName, ' ', lastName) AS Name, DOB, gender AS Gender, employDate AS EmployDate FROM users")); // ADD DEPARTMENT
+            query.prepare(QString("SELECT CONCAT(firstName, ' ', lastName) AS Name, employeeID AS EmployeeID, DOB, gender AS Gender, employDate AS EmployDate FROM users")); // ADD DEPARTMENT
 
             query.exec();
 
@@ -80,11 +79,12 @@ void employeeScreen::on_btn_search_clicked()
 {
     ui->grid_extraInfo->setVisible(false);
     ui->lbl_doubleClickToView->setVisible(true);
+    ui->le_search->clear();
 
     QSqlQueryModel *model = new QSqlQueryModel();
 
     QSqlQuery query;
-    query.prepare(QString("SELECT employeeID AS EmployeeID, CONCAT(firstName, ' ', lastName) AS Name, DOB, gender AS Gender, employDate AS EmployDate FROM users")); // ADD DEPARTMENT
+    query.prepare(QString("SELECT CONCAT(firstName, ' ', lastName) AS Name, employeeID AS EmployeeID, DOB, gender AS Gender, employDate AS EmployDate FROM users")); // ADD DEPARTMENT
 
     query.exec();
 
@@ -513,4 +513,25 @@ void employeeScreen::on_tbl_users_activated(const QModelIndex &index)
     ui->lbl_address->setText(query.value(2).toString());
 
     ui->grid_extraInfo->setVisible(true);
+}
+
+void employeeScreen::on_le_search_textChanged(const QString &text)
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSortFilterProxyModel *proxy = new QSortFilterProxyModel();
+
+    QSqlQuery query;
+    query.prepare(QString("SELECT CONCAT(firstName, ' ', lastName) AS Name, employeeID AS EmployeeID, DOB, gender AS Gender, employDate AS EmployDate FROM users")); // ADD DEPARTMENT
+
+    query.exec();
+
+    model->setQuery(query);
+
+    proxy->setSourceModel(model);
+    proxy->setFilterWildcard(text);
+
+    ui->tbl_users->setModel(proxy);
+    ui->tbl_users->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+    ui->tbl_users->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    ui->tbl_users->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }

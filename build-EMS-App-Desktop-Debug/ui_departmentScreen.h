@@ -802,7 +802,7 @@ public:
 
         retranslateUi(departmentScreen);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(departmentScreen);
@@ -818,6 +818,7 @@ public:
         btn_maintenance->setText(QApplication::translate("departmentScreen", "Maintenance", nullptr));
         btn_back->setText(QApplication::translate("departmentScreen", "Back", nullptr));
         label_11->setText(QApplication::translate("departmentScreen", "Search through departments", nullptr));
+        le_search->setPlaceholderText(QApplication::translate("departmentScreen", "Type department name here...", nullptr));
         label_5->setText(QApplication::translate("departmentScreen", "View employees based on department", nullptr));
         btn_save->setText(QApplication::translate("departmentScreen", "Save Table", nullptr));
         label_7->setText(QApplication::translate("departmentScreen", "Maintain Departments", nullptr));

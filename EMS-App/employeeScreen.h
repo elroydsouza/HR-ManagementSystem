@@ -56,6 +56,8 @@ private slots:
 
     void on_tbl_users_activated(const QModelIndex &index);
 
+    void on_le_search_textChanged(const QString &arg1);
+
 private:
     User user;
     Ui::employeeScreen *ui;

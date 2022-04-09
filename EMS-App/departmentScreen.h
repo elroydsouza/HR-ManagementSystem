@@ -45,6 +45,8 @@ private slots:
 
     void on_btn_save_clicked();
 
+    void on_le_search_textChanged(const QString &arg1);
+
 private:
     User user;
     Ui::departmentScreen *ui;

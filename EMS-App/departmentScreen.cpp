@@ -91,6 +91,8 @@ departmentScreen::~departmentScreen()
 
 void departmentScreen::on_btn_search_clicked()
 {
+    ui->le_search->clear();
+
     QSqlQueryModel *model = new QSqlQueryModel();
 
     QSqlQuery query;
@@ -392,4 +394,27 @@ void departmentScreen::on_btn_save_clicked()
         QDate date = QDate::currentDate();
         ui->tbl_employees->grab().save(QString::fromStdString("saved_documents/departmentsLog/") + QString::fromStdString(deptN) + "_" + date.toString("dd.MM.yyyy") + ".png");
     }
+}
+
+void departmentScreen::on_le_search_textChanged(const QString &text)
+{
+    QSqlQueryModel *model = new QSqlQueryModel();
+    QSortFilterProxyModel *proxy = new QSortFilterProxyModel();
+
+    QSqlQuery query;
+
+    query.prepare(QString("SELECT departmentName AS Name, departmentAbbreviation AS Abbreviation, departmentManager AS DepartmentManager, departmentContact AS DepartmentContact FROM departments"));
+
+    query.exec();
+
+    model->setQuery(query);
+
+    proxy->setSourceModel(model);
+    proxy->setFilterWildcard(text);
+
+    ui->tbl_departments->setModel(proxy);
+    ui->tbl_departments->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+    ui->tbl_departments->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+    ui->tbl_departments->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tbl_departments->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
 }
