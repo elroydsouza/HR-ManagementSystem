@@ -212,52 +212,60 @@ void scheduleScreen::on_btn_viewPurged_clicked()
 
 void scheduleScreen::on_btn_purge_clicked()
 {
-    QSqlQuery query;
-    query.prepare(QString("DELETE FROM purgedSchedule"));
-
-    query.exec();
-
-    query.prepare(QString("INSERT INTO purgedSchedule "
-                          "SELECT * FROM schedule"));
-
-    if(query.exec()){
-        QMessageBox::information(this,"Success","Schedule has been purged.");
-
-        query.prepare(QString("DELETE FROM schedule"));
+    QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to purge the current schedule?",
+                                                                 QMessageBox::Yes|QMessageBox::No);
+    if(question == QMessageBox::Yes){
+        QSqlQuery query;
+        query.prepare(QString("DELETE FROM purgedSchedule"));
 
         query.exec();
+
+        query.prepare(QString("INSERT INTO purgedSchedule "
+                              "SELECT * FROM schedule"));
+
+        if(query.exec()){
+            QMessageBox::information(this,"Success","Schedule has been purged.");
+
+            query.prepare(QString("DELETE FROM schedule"));
+
+            query.exec();
+        }
     }
 }
 
 void scheduleScreen::on_btn_purgeCurrent_clicked()
 {
-    QSqlQuery query;
-    query.prepare(QString("DELETE FROM purgedSchedule"));
-
-    query.exec();
-
-    query.prepare(QString("INSERT INTO purgedSchedule "
-                          "SELECT * FROM schedule"));
-
-    if(query.exec()){
-        QMessageBox::information(this,"Success","Schedule has been purged.");
-
-        query.prepare(QString("DELETE FROM schedule"));
-
-        query.exec();
-
-        QSqlQueryModel *model = new QSqlQueryModel();
+    QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to purge the current schedule?",
+                                                                 QMessageBox::Yes|QMessageBox::No);
+    if(question == QMessageBox::Yes){
         QSqlQuery query;
-        query.prepare(QString("SELECT CONCAT(users.firstName, ' ', users.lastName) AS name, monday, tuesday, wednesday, thursday, friday, saturday, sunday "
-                              "FROM users, schedule "
-                              "WHERE users.employeeID = schedule.employeeID"));
+        query.prepare(QString("DELETE FROM purgedSchedule"));
 
         query.exec();
-        model->setQuery(query);
-        ui->tbl_currentSchedule->setModel(model);
-        ui->tbl_currentSchedule->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
-        ui->tbl_currentSchedule->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-        ui->tbl_currentSchedule->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+        query.prepare(QString("INSERT INTO purgedSchedule "
+                              "SELECT * FROM schedule"));
+
+        if(query.exec()){
+            QMessageBox::information(this,"Success","Schedule has been purged.");
+
+            query.prepare(QString("DELETE FROM schedule"));
+
+            query.exec();
+
+            QSqlQueryModel *model = new QSqlQueryModel();
+            QSqlQuery query;
+            query.prepare(QString("SELECT CONCAT(users.firstName, ' ', users.lastName) AS name, monday, tuesday, wednesday, thursday, friday, saturday, sunday "
+                                  "FROM users, schedule "
+                                  "WHERE users.employeeID = schedule.employeeID"));
+
+            query.exec();
+            model->setQuery(query);
+            ui->tbl_currentSchedule->setModel(model);
+            ui->tbl_currentSchedule->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+            ui->tbl_currentSchedule->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+            ui->tbl_currentSchedule->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+        }
     }
 }
 
@@ -446,5 +454,17 @@ void scheduleScreen::on_btn_delete_clicked()
         query.prepare(QString("DELETE FROM purgedSchedule"));
 
         query.exec();
+
+        QSqlQueryModel *model = new QSqlQueryModel();
+        query.prepare(QString("SELECT CONCAT(users.firstName, ' ', users.lastName) AS name, monday, tuesday, wednesday, thursday, friday, saturday, sunday "
+                              "FROM users, purgedSchedule "
+                              "WHERE users.employeeID = purgedSchedule.employeeID"));
+
+        query.exec();
+        model->setQuery(query);
+        ui->tbl_purgedSchedule->setModel(model);
+        ui->tbl_purgedSchedule->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+        ui->tbl_purgedSchedule->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+        ui->tbl_purgedSchedule->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     }
 }

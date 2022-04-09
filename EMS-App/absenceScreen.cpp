@@ -26,14 +26,6 @@ void absenceScreen::run(){
         ui->btn_outstandingReq->setDisabled(true);
         ui->stackedWidget->setCurrentIndex(2);
 
-        QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-        db.setHostName("127.0.0.1");
-        db.setUserName("admin");
-        db.setPassword("5yHvkrLmMpUNKq5z");
-        db.setDatabaseName("emsApp");
-
-        db.open();
-
         QSqlQuery query;
         query.prepare(QString("SELECT ticketID AS TicketID, employeeID AS EmployeeID, type AS Type, date As Date FROM absence "
                               "WHERE status = :status"));

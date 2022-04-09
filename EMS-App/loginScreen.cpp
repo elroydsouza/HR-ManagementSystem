@@ -24,6 +24,13 @@ void loginScreen::on_btn_login_clicked()
     QString password = ui->le_password->text();
 
     if(email == "admin" && password == "At8.[#"){
+        QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+        db.setHostName("127.0.0.1");
+        db.setUserName("admin");
+        db.setPassword("5yHvkrLmMpUNKq5z");
+        db.setDatabaseName("emsApp");
+        db.open();
+
         User user = User();
         user.setUser("1", "admin", "Admin", "Account", 1);
 

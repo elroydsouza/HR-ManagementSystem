@@ -498,7 +498,7 @@ void employeeScreen::on_tbl_users_activated(const QModelIndex &index)
     ui->lbl_doubleClickToView->setVisible(false);
 
     QModelIndex  selectedRow = index;
-    QVariant selectedID = selectedRow.sibling(selectedRow.row(),0).data();
+    QVariant selectedID = selectedRow.sibling(selectedRow.row(),1).data();
     QString selectedEmployeeID = selectedID.toString();
 
     QSqlQuery query;
