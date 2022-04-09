@@ -20,6 +20,9 @@ void employeeScreen::run(){
     QDate date = QDate::currentDate();
     ui->de_employDate->setDate(date);
 
+    ui->grid_extraInfo->setVisible(false);
+    ui->lbl_doubleClickToView->setVisible(true);
+
     // Add info box to every stacked widget page explaining how to use
 
     // reference the icon person tuk something
@@ -37,7 +40,7 @@ void employeeScreen::run(){
         try {
 
             QSqlQuery query;
-            query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
+            query.prepare(QString("SELECT employeeID AS EmployeeID, CONCAT(firstName, ' ', lastName) AS Name, DOB, gender AS Gender, employDate AS EmployDate FROM users")); // ADD DEPARTMENT
 
             query.exec();
 
@@ -46,18 +49,6 @@ void employeeScreen::run(){
             ui->tbl_users->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
             ui->tbl_users->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
             ui->tbl_users->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
-//            ui->tbl_usersInsert->setModel(model);
-//            ui->tbl_usersInsert->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
-//            ui->tbl_usersInsert->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-//            ui->tbl_usersInsert->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-//            ui->tbl_users->setColumnWidth(0,85);
-//            ui->tbl_users->setColumnWidth(1,85);
-//            ui->tbl_users->setColumnWidth(2,30);
-//            ui->tbl_users->setColumnWidth(3,70);
-//            ui->tbl_users->setColumnWidth(4,100);
-//            ui->tbl_users->setColumnWidth(5,100);
-//            ui->tbl_users->setColumnWidth(6,95);
 
         } catch (std::invalid_argument& ia) {
             QMessageBox::information(this,"Error","Employee table could not be displayed");
@@ -87,10 +78,13 @@ void employeeScreen::on_le_search_returnPressed()
 
 void employeeScreen::on_btn_search_clicked()
 {
+    ui->grid_extraInfo->setVisible(false);
+    ui->lbl_doubleClickToView->setVisible(true);
+
     QSqlQueryModel *model = new QSqlQueryModel();
 
     QSqlQuery query;
-    query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
+    query.prepare(QString("SELECT employeeID AS EmployeeID, CONCAT(firstName, ' ', lastName) AS Name, DOB, gender AS Gender, employDate AS EmployDate FROM users")); // ADD DEPARTMENT
 
     query.exec();
 
@@ -120,6 +114,11 @@ void employeeScreen::on_btn_insert_clicked()
     while (query.next()) {
         departmentName = query.value(0).toString();
         ui->cb_department->addItem(departmentName);
+    }
+
+    if(user.getEmail() != "admin"){
+        int managerRoleIndex = ui->cb_department->findText("Duty Manager");
+        ui->cb_department->removeItem(managerRoleIndex);
     }
 
     ui->stackedWidget->setCurrentIndex(1);
@@ -207,9 +206,15 @@ void employeeScreen::on_btn_clear_clicked()
 
 void employeeScreen::on_btn_update_clicked()
 {
+    QString sqlWhereClause = "";
+    if(user.getEmail() != "admin"){
+        sqlWhereClause = "WHERE NOT departmentCode = 'DPT943'";
+    }
+
     QSqlQueryModel *model = new QSqlQueryModel();
     QSqlQuery query;
-    query.prepare(QString("SELECT employeeID, firstName, lastName FROM users"));
+    query.prepare(QString("SELECT employeeID AS EmployeeID, CONCAT(firstName, ' ', lastName) AS Name FROM users "
+                          ""+sqlWhereClause+""));
 
     query.exec();
     model->setQuery(query);
@@ -238,6 +243,11 @@ void employeeScreen::on_btn_update_clicked()
     while (query.next()) {
         departmentName = query.value(0).toString();
         ui->Ucb_department->addItem(departmentName);
+    }
+
+    if(user.getEmail() != "admin"){
+        int managerRoleIndex = ui->Ucb_department->findText("Duty Manager");
+        ui->Ucb_department->removeItem(managerRoleIndex);
     }
 
     ui->stackedWidget->setCurrentIndex(2);
@@ -385,7 +395,9 @@ void employeeScreen::on_btn_delete_clicked()
     QSqlQueryModel *model = new QSqlQueryModel();
 
     QSqlQuery query;
-    query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
+    query.prepare(QString("SELECT employeeID AS EmployeeID, CONCAT(firstName, ' ', lastName) AS Name, departments.departmentName AS Department, gender AS Gender, employDate AS EmploymentDate "
+                          "FROM users, departments "
+                          "WHERE users.departmentCode = departments.departmentCode")); // ADD DEPARTMENT
 
     query.exec();
 
@@ -410,14 +422,14 @@ void employeeScreen::on_Dtbl_users_activated()
     QString selectedEmployeeID = selectedID.toString();
 
     QSqlQuery query;
-    query.prepare(QString("SELECT firstName, lastName FROM users "
-                          "WHERE employeeID = '"+selectedEmployeeID+"'"));
+    query.prepare(QString("SELECT CONCAT(firstName, ' ', lastName) AS name, departments.departmentName FROM users, departments "
+                          "WHERE employeeID = '"+selectedEmployeeID+"' AND users.departmentCode = departments.departmentCode"));
 
     if(query.exec()){
         while(query.next()){
             ui->Dle_employeeID->setText(selectedEmployeeID);
-            ui->Dle_firstName->setText(query.value(0).toString());
-            ui->Dle_lastName->setText(query.value(1).toString());
+            ui->Dle_name->setText(query.value(0).toString());
+            ui->Dle_departmentName->setText(query.value(1).toString());
         }
     }
 }
@@ -425,39 +437,44 @@ void employeeScreen::on_Dtbl_users_activated()
 void employeeScreen::on_Dbtn_delete_clicked()
 {
     QString selectedID = ui->Dle_employeeID->text();
-    QString selectedFirstName = ui->Dle_firstName->text();
-    QString selectedLastName = ui->Dle_lastName->text();
+    QString selectedName = ui->Dle_name->text();
+    QString selectedDeptName = ui->Dle_departmentName->text();
 
-    QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to delete ("+ selectedID + ") "+ selectedFirstName +" "+ selectedLastName+"?",
-                                                                 QMessageBox::Yes|QMessageBox::No);
-    if(question == QMessageBox::Yes){
-        QSqlQuery query;
-        query.prepare(QString("DELETE FROM users WHERE employeeID = '"+selectedID+"'"));
+    if(user.getEmail() != "admin" && selectedDeptName == "Duty Manager"){
+        QMessageBox::information(this,"Error","Only the admin account can delete managers.");
+    } else {
 
-        if(query.exec()){
-            QSqlQueryModel *model = new QSqlQueryModel();
+        QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to delete ("+ selectedID + ") "+ selectedName +"?",
+                                                                     QMessageBox::Yes|QMessageBox::No);
+        if(question == QMessageBox::Yes){
+            QSqlQuery query;
+            query.prepare(QString("DELETE FROM users WHERE employeeID = '"+selectedID+"'"));
 
-            query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
+            if(query.exec()){
+                QSqlQueryModel *model = new QSqlQueryModel();
 
-            query.exec();
+                query.prepare(QString("SELECT employeeID, firstName, lastName, DOB, gender, email, employDate FROM users")); // ADD DEPARTMENT
 
-            model->setQuery(query);
-            ui->Dtbl_users->setModel(model);
-            ui->Dtbl_users->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
-            ui->Dtbl_users->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
-            ui->Dtbl_users->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+                query.exec();
 
-            clearAllDelete();
+                model->setQuery(query);
+                ui->Dtbl_users->setModel(model);
+                ui->Dtbl_users->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+                ui->Dtbl_users->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+                ui->Dtbl_users->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-            query.prepare(QString("DELETE FROM absenceRemaining WHERE employeeID = '"+selectedID+"'"));
-            query.exec();
+                clearAllDelete();
 
-            query.prepare(QString("DELETE FROM absence WHERE employeeID = '"+selectedID+"'"));
-            query.exec();
+                query.prepare(QString("DELETE FROM absenceRemaining WHERE employeeID = '"+selectedID+"'"));
+                query.exec();
 
-            QMessageBox::information(this,"Success","Employee has been successfully deleted");
-        } else {
-            QMessageBox::information(this,"Error","Employee could not be deleted");
+                query.prepare(QString("DELETE FROM absence WHERE employeeID = '"+selectedID+"'"));
+                query.exec();
+
+                QMessageBox::information(this,"Success","Employee has been successfully deleted");
+            } else {
+                QMessageBox::information(this,"Error","Employee could not be deleted");
+            }
         }
     }
 
@@ -465,8 +482,8 @@ void employeeScreen::on_Dbtn_delete_clicked()
 
 void employeeScreen::clearAllDelete(){
     ui->Dle_employeeID->clear();
-    ui->Dle_firstName->clear();
-    ui->Dle_lastName->clear();
+    ui->Dle_name->clear();
+    ui->Dle_departmentName->clear();
 }
 
 
@@ -474,4 +491,26 @@ void employeeScreen::on_btn_save_clicked()
 {
     QDate date = QDate::currentDate();
     ui->tbl_users->grab().save(QString::fromStdString("saved_documents/employeeLog/employees_") + date.toString("dd.MM.yyyy") + ".png");
+}
+
+void employeeScreen::on_tbl_users_activated(const QModelIndex &index)
+{
+    ui->lbl_doubleClickToView->setVisible(false);
+
+    QModelIndex  selectedRow = index;
+    QVariant selectedID = selectedRow.sibling(selectedRow.row(),0).data();
+    QString selectedEmployeeID = selectedID.toString();
+
+    QSqlQuery query;
+    query.prepare(QString("SELECT email, phoneNo, address FROM users "
+                          "WHERE employeeID = :employeeID"));
+    query.bindValue(":employeeID", selectedEmployeeID);
+    query.exec();
+    query.next();
+
+    ui->lbl_email->setText(query.value(0).toString());
+    ui->lbl_phoneNo->setText(query.value(1).toString());
+    ui->lbl_address->setText(query.value(2).toString());
+
+    ui->grid_extraInfo->setVisible(true);
 }

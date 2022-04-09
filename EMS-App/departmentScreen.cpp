@@ -40,7 +40,7 @@ void departmentScreen::run(){
 
             QSqlQuery query;
 
-            query.prepare(QString("SELECT departmentName, departmentAbbreviation, departmentManager, departmentContact FROM departments"));
+            query.prepare(QString("SELECT departmentName AS Name, departmentAbbreviation AS Abbreviation, departmentManager AS DepartmentManager, departmentContact AS DepartmentContact FROM departments"));
 
             query.exec();
 
@@ -49,6 +49,7 @@ void departmentScreen::run(){
             ui->tbl_departments->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
             ui->tbl_departments->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
             ui->tbl_departments->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+            ui->tbl_departments->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
 
         } catch (std::invalid_argument& ia) {
             QMessageBox::information(this,"Error","Department table could not be displayed");
@@ -93,7 +94,7 @@ void departmentScreen::on_btn_search_clicked()
     QSqlQueryModel *model = new QSqlQueryModel();
 
     QSqlQuery query;
-    query.prepare(QString("SELECT departmentName, departmentAbbreviation, departmentManager, departmentContact FROM departments"));
+    query.prepare(QString("SELECT departmentName AS Name, departmentAbbreviation AS Abbreviation, departmentManager AS DepartmentManager, departmentContact AS DepartmentContact FROM departments"));
 
     query.exec();
 
@@ -102,6 +103,7 @@ void departmentScreen::on_btn_search_clicked()
     ui->tbl_departments->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
     ui->tbl_departments->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     ui->tbl_departments->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tbl_departments->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
 
     fillDeptComboBox();
 
@@ -127,7 +129,7 @@ void departmentScreen::on_btn_maintenance_clicked()
     QSqlQueryModel *model = new QSqlQueryModel();
 
     QSqlQuery query;
-    query.prepare(QString("SELECT departmentCode, departmentName, departmentAbbreviation, departmentManager, departmentContact FROM departments"));
+    query.prepare(QString("SELECT departmentCode AS Code, departmentName AS Name, departmentAbbreviation AS Abbreviation, departmentManager AS DepartmentManager FROM departments"));
 
     query.exec();
 
@@ -257,7 +259,7 @@ void departmentScreen::on_btn_update_clicked()
 
     if(query.exec()){
         QSqlQueryModel *model = new QSqlQueryModel();
-        query.prepare(QString("SELECT departmentCode, departmentName, departmentAbbreviation, departmentManager, departmentContact FROM departments"));
+        query.prepare(QString("SELECT departmentCode AS Code, departmentName AS Name, departmentAbbreviation AS Abbreviation, departmentManager AS DepartmentManager FROM departments"));
 
         query.exec();
         model->setQuery(query);
@@ -292,7 +294,7 @@ void departmentScreen::on_btn_insert_clicked()
 
     if(query.exec()){
         QSqlQueryModel *model = new QSqlQueryModel();
-        query.prepare(QString("SELECT departmentCode, departmentName, departmentAbbreviation, departmentManager, departmentContact FROM departments"));
+        query.prepare(QString("SELECT departmentCode AS Code, departmentName AS Name, departmentAbbreviation AS Abbreviation, departmentManager AS DepartmentManager FROM departments"));
 
         query.exec();
         model->setQuery(query);
@@ -334,7 +336,7 @@ void departmentScreen::on_btn_delete_clicked()
 
             if(query.exec()){
                 QSqlQueryModel *model = new QSqlQueryModel();
-                query.prepare(QString("SELECT departmentCode, departmentName, departmentAbbreviation, departmentManager, departmentContact FROM departments"));
+                query.prepare(QString("SELECT departmentCode AS Code, departmentName AS Name, departmentAbbreviation AS Abbreviation, departmentManager AS DepartmentManager FROM departments"));
 
                 query.exec();
                 model->setQuery(query);
@@ -365,7 +367,7 @@ void departmentScreen::on_cb_departments_activated(const QString &arg1)
     QString departmentCode = query.value(0).toString();
 
     QSqlQueryModel *model = new QSqlQueryModel();
-    query.prepare(QString("SELECT employeeID, firstName, lastName, email FROM users "
+    query.prepare(QString("SELECT employeeID AS EmployeeID, CONCAT(firstname, ' ', lastname) AS Name, email AS Email FROM users "
                           "WHERE departmentCode = '"+departmentCode+"'"));
 
     query.exec();
@@ -374,6 +376,7 @@ void departmentScreen::on_cb_departments_activated(const QString &arg1)
     ui->tbl_employees->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
     ui->tbl_employees->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
     ui->tbl_employees->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tbl_employees->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
 }
 
 void departmentScreen::on_btn_save_clicked()

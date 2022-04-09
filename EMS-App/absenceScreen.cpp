@@ -21,6 +21,33 @@ void absenceScreen::run(){
     if(user.getPermLevel() == 2){
         ui->btn_outstandingApp->setDisabled(true);
         ui->btn_maintenance->setDisabled(true);
+    } else if (user.getEmail() == "admin"){
+        ui->btn_request->setDisabled(true);
+        ui->btn_outstandingReq->setDisabled(true);
+        ui->stackedWidget->setCurrentIndex(2);
+
+        QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+        db.setHostName("127.0.0.1");
+        db.setUserName("admin");
+        db.setPassword("5yHvkrLmMpUNKq5z");
+        db.setDatabaseName("emsApp");
+
+        db.open();
+
+        QSqlQuery query;
+        query.prepare(QString("SELECT ticketID AS TicketID, employeeID AS EmployeeID, type AS Type, date As Date FROM absence "
+                              "WHERE status = :status"));
+
+        query.bindValue(":status","waiting");
+
+        query.exec();
+
+        QSqlQueryModel *model = new QSqlQueryModel();
+        model->setQuery(query);
+        ui->tbl_outstandingApp->setModel(model);
+        ui->tbl_outstandingApp->verticalHeader()->setStyleSheet("::section{ background-color:rgb(222, 29, 29) }");
+        ui->tbl_outstandingApp->horizontalHeader()->setDefaultAlignment(Qt::AlignLeft);
+        ui->tbl_outstandingApp->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     }
 
     ui->de_date->setDate(QDate::currentDate());
@@ -212,7 +239,7 @@ void absenceScreen::on_btn_outstandingReq_clicked()
     ui->btn_request->setDown(false);
 
     QSqlQuery query;
-    query.prepare(QString("SELECT ticketID, date, status FROM absence "
+    query.prepare(QString("SELECT ticketID AS TicketID, date AS Date, status AS Status FROM absence "
                           "WHERE type = :type "
                           "AND employeeID = :employeeID"));
 
@@ -230,7 +257,7 @@ void absenceScreen::on_btn_outstandingReq_clicked()
 
 
 
-    query.prepare(QString("SELECT ticketID, date, status FROM absence "
+    query.prepare(QString("SELECT ticketID AS TicketID, date AS Date, status AS Status FROM absence "
                           "WHERE type = :type "
                           "AND employeeID = :employeeID"));
 
@@ -277,7 +304,7 @@ void absenceScreen::on_btn_outstandingApp_clicked()
     ui->btn_request->setDown(false);
 
     QSqlQuery query;
-    query.prepare(QString("SELECT ticketID, employeeID, type, date FROM absence "
+    query.prepare(QString("SELECT ticketID AS TicketID, employeeID AS EmployeeID, type AS Type, date As Date FROM absence "
                           "WHERE status = :status"));
 
     query.bindValue(":status","waiting");
@@ -385,7 +412,7 @@ void absenceScreen::on_btn_approve_clicked()
 
             }
 
-            query.prepare(QString("SELECT ticketID, employeeID, type, date FROM absence "
+            query.prepare(QString("SELECT ticketID AS TicketID, employeeID AS EmployeeID, type AS Type, date AS Date FROM absence "
                                   "WHERE status = :status"));
 
             query.bindValue(":status","waiting");
@@ -423,7 +450,7 @@ void absenceScreen::on_btn_deny_clicked()
             query.exec();
 
 
-            query.prepare(QString("SELECT ticketID, employeeID, type, date FROM absence "
+            query.prepare(QString("SELECT ticketID AS TicketID, employeeID AS EmployeeID, type AS Type, date AS Date FROM absence "
                                   "WHERE status = :status"));
 
             query.bindValue(":status","waiting");
@@ -486,7 +513,7 @@ void absenceScreen::on_btn_requestDelete_clicked()
                 ui->ORpte_reason->clear();
 
                 QSqlQuery query;
-                query.prepare(QString("SELECT ticketID, date, status FROM absence "
+                query.prepare(QString("SELECT ticketID AS TicketID, date AS Date, status AS Status FROM absence "
                                       "WHERE type = :type "
                                       "AND employeeID = :employeeID"));
 
@@ -504,7 +531,7 @@ void absenceScreen::on_btn_requestDelete_clicked()
 
 
 
-                query.prepare(QString("SELECT ticketID, date, status FROM absence "
+                query.prepare(QString("SELECT ticketID AS TicketID, date AS Date, status AS Status FROM absence "
                                       "WHERE type = :type "
                                       "AND employeeID = :employeeID"));
 
@@ -536,7 +563,7 @@ void absenceScreen::on_btn_maintenance_clicked()
     ui->btn_request->setDown(false);
 
     QSqlQuery query;
-    query.prepare(QString("SELECT employeeID, firstName, lastName FROM users "));
+    query.prepare(QString("SELECT employeeID AS EmployeeID, CONCAT(firstname, ' ', lastname) AS Name FROM users "));
 
     query.exec();
 

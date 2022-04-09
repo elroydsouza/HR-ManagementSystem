@@ -477,6 +477,79 @@ verticalHeader::section{ background-color:rgb(190,1,1) }</string>
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QLabel" name="lbl_doubleClickToView">
+         <property name="text">
+          <string>Double click an employee to view extra employee information..</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="grid_extraInfo" native="true">
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_30">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Phone Number:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLabel" name="lbl_address">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLabel" name="label_31">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Address:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="lbl_phoneNo">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_32">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Email:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="lbl_email">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="page_2">
@@ -1385,12 +1458,12 @@ verticalHeader::section{ background-color:rgb(190,1,1) }</string>
          <item>
           <widget class="QLabel" name="label_26">
            <property name="text">
-            <string>First Name:</string>
+            <string>Name:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="Dle_firstName">
+          <widget class="QLineEdit" name="Dle_name">
            <property name="readOnly">
             <bool>true</bool>
            </property>
@@ -1399,12 +1472,12 @@ verticalHeader::section{ background-color:rgb(190,1,1) }</string>
          <item>
           <widget class="QLabel" name="label_27">
            <property name="text">
-            <string>Last Name:</string>
+            <string>Department Name:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="Dle_lastName">
+          <widget class="QLineEdit" name="Dle_departmentName">
            <property name="readOnly">
             <bool>true</bool>
            </property>

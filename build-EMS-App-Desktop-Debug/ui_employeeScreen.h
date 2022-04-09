@@ -61,6 +61,15 @@ public:
     QPushButton *btn_save;
     QLineEdit *le_search;
     QTableView *tbl_users;
+    QLabel *lbl_doubleClickToView;
+    QWidget *grid_extraInfo;
+    QGridLayout *gridLayout_3;
+    QLabel *label_30;
+    QLabel *lbl_address;
+    QLabel *label_31;
+    QLabel *lbl_phoneNo;
+    QLabel *label_32;
+    QLabel *lbl_email;
     QWidget *page_2;
     QVBoxLayout *verticalLayout_3;
     QLabel *label_7;
@@ -146,9 +155,9 @@ public:
     QLabel *label_25;
     QLineEdit *Dle_employeeID;
     QLabel *label_26;
-    QLineEdit *Dle_firstName;
+    QLineEdit *Dle_name;
     QLabel *label_27;
-    QLineEdit *Dle_lastName;
+    QLineEdit *Dle_departmentName;
     QSpacerItem *verticalSpacer_12;
     QHBoxLayout *horizontalLayout_8;
     QSpacerItem *horizontalSpacer_7;
@@ -372,6 +381,51 @@ public:
         tbl_users->setCornerButtonEnabled(false);
 
         verticalLayout_2->addWidget(tbl_users);
+
+        lbl_doubleClickToView = new QLabel(page);
+        lbl_doubleClickToView->setObjectName(QString::fromUtf8("lbl_doubleClickToView"));
+
+        verticalLayout_2->addWidget(lbl_doubleClickToView);
+
+        grid_extraInfo = new QWidget(page);
+        grid_extraInfo->setObjectName(QString::fromUtf8("grid_extraInfo"));
+        gridLayout_3 = new QGridLayout(grid_extraInfo);
+        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+        label_30 = new QLabel(grid_extraInfo);
+        label_30->setObjectName(QString::fromUtf8("label_30"));
+        label_30->setFont(font);
+
+        gridLayout_3->addWidget(label_30, 0, 1, 1, 1);
+
+        lbl_address = new QLabel(grid_extraInfo);
+        lbl_address->setObjectName(QString::fromUtf8("lbl_address"));
+
+        gridLayout_3->addWidget(lbl_address, 1, 3, 1, 1);
+
+        label_31 = new QLabel(grid_extraInfo);
+        label_31->setObjectName(QString::fromUtf8("label_31"));
+        label_31->setFont(font);
+
+        gridLayout_3->addWidget(label_31, 0, 3, 1, 1);
+
+        lbl_phoneNo = new QLabel(grid_extraInfo);
+        lbl_phoneNo->setObjectName(QString::fromUtf8("lbl_phoneNo"));
+
+        gridLayout_3->addWidget(lbl_phoneNo, 1, 1, 1, 1);
+
+        label_32 = new QLabel(grid_extraInfo);
+        label_32->setObjectName(QString::fromUtf8("label_32"));
+        label_32->setFont(font);
+
+        gridLayout_3->addWidget(label_32, 0, 0, 1, 1);
+
+        lbl_email = new QLabel(grid_extraInfo);
+        lbl_email->setObjectName(QString::fromUtf8("lbl_email"));
+
+        gridLayout_3->addWidget(lbl_email, 1, 0, 1, 1);
+
+
+        verticalLayout_2->addWidget(grid_extraInfo);
 
         stackedWidget->addWidget(page);
         page_2 = new QWidget();
@@ -850,22 +904,22 @@ public:
 
         horizontalLayout_7->addWidget(label_26);
 
-        Dle_firstName = new QLineEdit(page_4);
-        Dle_firstName->setObjectName(QString::fromUtf8("Dle_firstName"));
-        Dle_firstName->setReadOnly(true);
+        Dle_name = new QLineEdit(page_4);
+        Dle_name->setObjectName(QString::fromUtf8("Dle_name"));
+        Dle_name->setReadOnly(true);
 
-        horizontalLayout_7->addWidget(Dle_firstName);
+        horizontalLayout_7->addWidget(Dle_name);
 
         label_27 = new QLabel(page_4);
         label_27->setObjectName(QString::fromUtf8("label_27"));
 
         horizontalLayout_7->addWidget(label_27);
 
-        Dle_lastName = new QLineEdit(page_4);
-        Dle_lastName->setObjectName(QString::fromUtf8("Dle_lastName"));
-        Dle_lastName->setReadOnly(true);
+        Dle_departmentName = new QLineEdit(page_4);
+        Dle_departmentName->setObjectName(QString::fromUtf8("Dle_departmentName"));
+        Dle_departmentName->setReadOnly(true);
 
-        horizontalLayout_7->addWidget(Dle_lastName);
+        horizontalLayout_7->addWidget(Dle_departmentName);
 
 
         verticalLayout_8->addLayout(horizontalLayout_7);
@@ -916,6 +970,13 @@ public:
         btn_back->setText(QApplication::translate("employeeScreen", "Back", nullptr));
         label_11->setText(QApplication::translate("employeeScreen", "Search through employees", nullptr));
         btn_save->setText(QApplication::translate("employeeScreen", "Save Employee Table", nullptr));
+        lbl_doubleClickToView->setText(QApplication::translate("employeeScreen", "Double click an employee to view extra employee information..", nullptr));
+        label_30->setText(QApplication::translate("employeeScreen", "Phone Number:", nullptr));
+        lbl_address->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));
+        label_31->setText(QApplication::translate("employeeScreen", "Address:", nullptr));
+        lbl_phoneNo->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));
+        label_32->setText(QApplication::translate("employeeScreen", "Email:", nullptr));
+        lbl_email->setText(QApplication::translate("employeeScreen", "TextLabel", nullptr));
         label_7->setText(QApplication::translate("employeeScreen", "Insert Employee", nullptr));
         label->setText(QApplication::translate("employeeScreen", "FirstName", nullptr));
         de_DOB->setDisplayFormat(QApplication::translate("employeeScreen", "yyyy-MM-dd", nullptr));
@@ -947,8 +1008,8 @@ public:
         label_24->setText(QApplication::translate("employeeScreen", "Delete employees from table", nullptr));
         label_28->setText(QApplication::translate("employeeScreen", "Employee Selected:", nullptr));
         label_25->setText(QApplication::translate("employeeScreen", "Employee ID:", nullptr));
-        label_26->setText(QApplication::translate("employeeScreen", "First Name:", nullptr));
-        label_27->setText(QApplication::translate("employeeScreen", "Last Name:", nullptr));
+        label_26->setText(QApplication::translate("employeeScreen", "Name:", nullptr));
+        label_27->setText(QApplication::translate("employeeScreen", "Department Name:", nullptr));
         Dbtn_delete->setText(QApplication::translate("employeeScreen", "DELETE", nullptr));
     } // retranslateUi
 

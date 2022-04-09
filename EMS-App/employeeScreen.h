@@ -54,6 +54,8 @@ private slots:
 
     void on_btn_save_clicked();
 
+    void on_tbl_users_activated(const QModelIndex &index);
+
 private:
     User user;
     Ui::employeeScreen *ui;
