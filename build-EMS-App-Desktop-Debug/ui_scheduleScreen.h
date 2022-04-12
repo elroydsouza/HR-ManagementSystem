@@ -541,7 +541,7 @@ public:
 
     void retranslateUi(QWidget *scheduleScreen)
     {
-        scheduleScreen->setWindowTitle(QApplication::translate("scheduleScreen", "Form", nullptr));
+        scheduleScreen->setWindowTitle(QApplication::translate("scheduleScreen", "Scheduler Screen", nullptr));
         btn_back->setText(QApplication::translate("scheduleScreen", "Back", nullptr));
         label_29->setText(QApplication::translate("scheduleScreen", "Scheduler", nullptr));
         btn_schedule->setText(QApplication::translate("scheduleScreen", "Schedule", nullptr));

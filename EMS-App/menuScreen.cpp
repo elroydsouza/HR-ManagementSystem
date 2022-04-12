@@ -31,43 +31,43 @@ menuScreen::~menuScreen()
 
 void menuScreen::on_btn_User_clicked()
 {
-    employeeScreen *openChat = new employeeScreen;
-    openChat->acceptUser(user);
-    openChat->show();
-    openChat->run();
+    employeeScreen *openUser = new employeeScreen;
+    openUser->acceptUser(user);
+    openUser->show();
+    openUser->run();
     close();
 }
 
 void menuScreen::on_btn_Department_clicked()
 {
-    departmentScreen *openChat = new departmentScreen;
-    openChat->acceptUser(user);
-    openChat->show();
-    openChat->run();
+    departmentScreen *openDepartment = new departmentScreen;
+    openDepartment->acceptUser(user);
+    openDepartment->show();
+    openDepartment->run();
     close();
 }
 
 void menuScreen::on_btn_absence_clicked()
 {
-    absenceScreen *openChat = new absenceScreen;
-    openChat->acceptUser(user);
-    openChat->show();
-    openChat->run();
+    absenceScreen *openAbsence = new absenceScreen;
+    openAbsence->acceptUser(user);
+    openAbsence->show();
+    openAbsence->run();
     close();
 }
 
 void menuScreen::on_btn_Schedule_clicked()
 {
-    scheduleScreen *openChat = new scheduleScreen;
-    openChat->acceptUser(user);
-    openChat->show();
-    openChat->run();
+    scheduleScreen *openSchedule = new scheduleScreen;
+    openSchedule->acceptUser(user);
+    openSchedule->show();
+    openSchedule->run();
     close();
 }
 
 void menuScreen::on_btn_logout_clicked()
 {
-    loginScreen *openChat = new loginScreen;
-    openChat->show();
+    loginScreen *openLogin = new loginScreen;
+    openLogin->show();
     close();
 }

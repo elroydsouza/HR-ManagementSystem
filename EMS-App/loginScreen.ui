@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Login Screen</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(243, 243, 243);</string>
@@ -47,17 +47,46 @@
         <widget class="QPushButton" name="logo">
          <property name="minimumSize">
           <size>
-           <width>125</width>
-           <height>125</height>
+           <width>50</width>
+           <height>50</height>
           </size>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(239, 41, 41);</string>
+          <string notr="true">border: 1px solid; </string>
          </property>
          <property name="text">
-          <string>B.S. LOGO</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../Bradford_Swissport_logo.png</normaloff>../../Bradford_Swissport_logo.png</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>300</width>
+           <height>90</height>
+          </size>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_11">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>10</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QLabel" name="title">
@@ -72,7 +101,7 @@
           <string notr="true">color: rgb(39, 183, 229);</string>
          </property>
          <property name="text">
-          <string>Employee Management System</string>
+          <string>HR Management System</string>
          </property>
         </widget>
        </item>

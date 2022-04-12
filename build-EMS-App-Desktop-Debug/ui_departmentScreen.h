@@ -810,7 +810,7 @@ public:
 
     void retranslateUi(QWidget *departmentScreen)
     {
-        departmentScreen->setWindowTitle(QApplication::translate("departmentScreen", "Form", nullptr));
+        departmentScreen->setWindowTitle(QApplication::translate("departmentScreen", "Department Management Screen", nullptr));
         btn_logo->setText(QApplication::translate("departmentScreen", "BRADFORD SWISSPORT", nullptr));
         lbl_name->setText(QApplication::translate("departmentScreen", "Logged in as: User", nullptr));
         label_29->setText(QApplication::translate("departmentScreen", "Department Maintenance", nullptr));

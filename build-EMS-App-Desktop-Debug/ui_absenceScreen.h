@@ -941,7 +941,7 @@ public:
 
     void retranslateUi(QWidget *absenceScreen)
     {
-        absenceScreen->setWindowTitle(QApplication::translate("absenceScreen", "Form", nullptr));
+        absenceScreen->setWindowTitle(QApplication::translate("absenceScreen", "Absence Management Screen", nullptr));
         btn_logo->setText(QApplication::translate("absenceScreen", "BRADFORD SWISSPORT", nullptr));
         lbl_name->setText(QApplication::translate("absenceScreen", "Logged in as: User", nullptr));
         label_29->setText(QApplication::translate("absenceScreen", "Absence Management", nullptr));

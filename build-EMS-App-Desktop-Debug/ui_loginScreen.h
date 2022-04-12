@@ -10,6 +10,7 @@
 #define UI_LOGINSCREEN_H
 
 #include <QtCore/QVariant>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -29,6 +30,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
     QPushButton *logo;
+    QSpacerItem *horizontalSpacer_11;
     QLabel *title;
     QSpacerItem *horizontalSpacer_2;
     QWidget *container;
@@ -74,10 +76,19 @@ public:
 
         logo = new QPushButton(loginScreen);
         logo->setObjectName(QString::fromUtf8("logo"));
-        logo->setMinimumSize(QSize(125, 125));
-        logo->setStyleSheet(QString::fromUtf8("background-color: rgb(239, 41, 41);"));
+        logo->setMinimumSize(QSize(50, 50));
+        logo->setStyleSheet(QString::fromUtf8("border: 1px solid; "));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8("../../Bradford_Swissport_logo.png"), QSize(), QIcon::Normal, QIcon::Off);
+        logo->setIcon(icon);
+        logo->setIconSize(QSize(300, 90));
+        logo->setFlat(true);
 
         horizontalLayout->addWidget(logo);
+
+        horizontalSpacer_11 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_11);
 
         title = new QLabel(loginScreen);
         title->setObjectName(QString::fromUtf8("title"));
@@ -228,9 +239,9 @@ public:
 
     void retranslateUi(QWidget *loginScreen)
     {
-        loginScreen->setWindowTitle(QApplication::translate("loginScreen", "Form", nullptr));
-        logo->setText(QApplication::translate("loginScreen", "B.S. LOGO", nullptr));
-        title->setText(QApplication::translate("loginScreen", "Employee Management System", nullptr));
+        loginScreen->setWindowTitle(QApplication::translate("loginScreen", "Login Screen", nullptr));
+        logo->setText(QString());
+        title->setText(QApplication::translate("loginScreen", "HR Management System", nullptr));
         le_email->setText(QString());
         le_email->setPlaceholderText(QApplication::translate("loginScreen", "email", nullptr));
         le_password->setPlaceholderText(QApplication::translate("loginScreen", "password", nullptr));

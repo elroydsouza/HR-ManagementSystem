@@ -40,7 +40,7 @@ public:
     {
         if (menuScreen->objectName().isEmpty())
             menuScreen->setObjectName(QString::fromUtf8("menuScreen"));
-        menuScreen->resize(260, 381);
+        menuScreen->resize(260, 383);
         menuScreen->setStyleSheet(QString::fromUtf8("background-color: rgb(243, 243, 243);"));
         verticalLayout_2 = new QVBoxLayout(menuScreen);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
@@ -122,12 +122,12 @@ public:
 
     void retranslateUi(QWidget *menuScreen)
     {
-        menuScreen->setWindowTitle(QApplication::translate("menuScreen", "Form", nullptr));
-        label->setText(QApplication::translate("menuScreen", "Employee Management System", nullptr));
+        menuScreen->setWindowTitle(QApplication::translate("menuScreen", "Main Menu Screen", nullptr));
+        label->setText(QApplication::translate("menuScreen", "HR Management System", nullptr));
         lbl_name->setText(QApplication::translate("menuScreen", "Logged in as: ", nullptr));
         btn_User->setText(QApplication::translate("menuScreen", "User Maintenance", nullptr));
-        btn_Department->setText(QApplication::translate("menuScreen", "Departments", nullptr));
-        btn_absence->setText(QApplication::translate("menuScreen", "Absence", nullptr));
+        btn_Department->setText(QApplication::translate("menuScreen", "Department Maintenance", nullptr));
+        btn_absence->setText(QApplication::translate("menuScreen", "Absence Management", nullptr));
         btn_Schedule->setText(QApplication::translate("menuScreen", "Schedule", nullptr));
         btn_logout->setText(QApplication::translate("menuScreen", "Log Out", nullptr));
     } // retranslateUi

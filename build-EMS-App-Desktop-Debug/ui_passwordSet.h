@@ -104,7 +104,7 @@ public:
 
     void retranslateUi(QWidget *passwordSet)
     {
-        passwordSet->setWindowTitle(QApplication::translate("passwordSet", "Form", nullptr));
+        passwordSet->setWindowTitle(QApplication::translate("passwordSet", "Password Setting Screen", nullptr));
         label->setText(QApplication::translate("passwordSet", "Set a password below:", nullptr));
         lbl_email->setText(QApplication::translate("passwordSet", "Logged in as: Email", nullptr));
         btn_set->setText(QApplication::translate("passwordSet", "Set", nullptr));
