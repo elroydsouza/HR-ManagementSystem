@@ -202,12 +202,16 @@ public:
 
         btn_logo = new QPushButton(verticalSidebar);
         btn_logo->setObjectName(QString::fromUtf8("btn_logo"));
-        btn_logo->setMinimumSize(QSize(0, 50));
         QFont font1;
         font1.setBold(true);
         font1.setWeight(75);
         btn_logo->setFont(font1);
-        btn_logo->setStyleSheet(QString::fromUtf8("background-color: rgb(239, 41, 41);"));
+        btn_logo->setStyleSheet(QString::fromUtf8(""));
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8("../../Bradford_Swissport_logo.png"), QSize(), QIcon::Normal, QIcon::Off);
+        btn_logo->setIcon(icon2);
+        btn_logo->setIconSize(QSize(220, 60));
+        btn_logo->setFlat(true);
 
         horizontalLayout->addWidget(btn_logo);
 
@@ -547,7 +551,7 @@ public:
         btn_schedule->setText(QApplication::translate("scheduleScreen", "Schedule", nullptr));
         btn_viewCurrent->setText(QApplication::translate("scheduleScreen", "View Current Schedule", nullptr));
         btn_viewPurged->setText(QApplication::translate("scheduleScreen", "View Purged Schedule", nullptr));
-        btn_logo->setText(QApplication::translate("scheduleScreen", "BRADFORD SWISSPORT", nullptr));
+        btn_logo->setText(QString());
         label_7->setText(QApplication::translate("scheduleScreen", "Schedule Employees", nullptr));
         lbl_name->setText(QApplication::translate("scheduleScreen", "Logged in as: User", nullptr));
         label_10->setText(QApplication::translate("scheduleScreen", "Select Employee:", nullptr));

@@ -34,10 +34,7 @@ public:
     QWidget *verticalSidebar;
     QVBoxLayout *verticalLayout;
     QSpacerItem *verticalSpacer_6;
-    QHBoxLayout *horizontalLayout_10;
-    QSpacerItem *horizontalSpacer_8;
     QPushButton *btn_logo;
-    QSpacerItem *horizontalSpacer_9;
     QHBoxLayout *horizontalLayout_12;
     QSpacerItem *horizontalSpacer_10;
     QLabel *lbl_name;
@@ -161,29 +158,20 @@ public:
 
         verticalLayout->addItem(verticalSpacer_6);
 
-        horizontalLayout_10 = new QHBoxLayout();
-        horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
-        horizontalSpacer_8 = new QSpacerItem(2, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_10->addItem(horizontalSpacer_8);
-
         btn_logo = new QPushButton(verticalSidebar);
         btn_logo->setObjectName(QString::fromUtf8("btn_logo"));
-        btn_logo->setMinimumSize(QSize(0, 50));
         QFont font;
         font.setBold(true);
         font.setWeight(75);
         btn_logo->setFont(font);
-        btn_logo->setStyleSheet(QString::fromUtf8("background-color: rgb(239, 41, 41);"));
+        btn_logo->setStyleSheet(QString::fromUtf8(""));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8("../../Bradford_Swissport_logo.png"), QSize(), QIcon::Normal, QIcon::Off);
+        btn_logo->setIcon(icon);
+        btn_logo->setIconSize(QSize(198, 48));
+        btn_logo->setFlat(true);
 
-        horizontalLayout_10->addWidget(btn_logo);
-
-        horizontalSpacer_9 = new QSpacerItem(2, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_10->addItem(horizontalSpacer_9);
-
-
-        verticalLayout->addLayout(horizontalLayout_10);
+        verticalLayout->addWidget(btn_logo);
 
         horizontalLayout_12 = new QHBoxLayout();
         horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
@@ -230,9 +218,9 @@ public:
 "QPushButton::hover { background-color: rgb(97, 199, 231); }\n"
 "\n"
 "QPushButton::pressed { background-color: rgb(48, 152, 185); }"));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8("../../ask-for-help.png"), QSize(), QIcon::Normal, QIcon::Off);
-        btn_search->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8("../../ask-for-help.png"), QSize(), QIcon::Normal, QIcon::Off);
+        btn_search->setIcon(icon1);
         btn_search->setIconSize(QSize(30, 30));
         btn_search->setCheckable(true);
         btn_search->setChecked(true);
@@ -249,9 +237,9 @@ public:
 "QPushButton::hover { background-color: rgb(97, 199, 231); }\n"
 "\n"
 "QPushButton::pressed { background-color: rgb(48, 152, 185); }"));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8("../../settings-gear-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        btn_maintenance->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8("../../settings-gear-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        btn_maintenance->setIcon(icon2);
         btn_maintenance->setIconSize(QSize(30, 30));
         btn_maintenance->setCheckable(true);
         btn_maintenance->setAutoExclusive(true);
@@ -810,8 +798,8 @@ public:
 
     void retranslateUi(QWidget *departmentScreen)
     {
-        departmentScreen->setWindowTitle(QApplication::translate("departmentScreen", "Department Management Screen", nullptr));
-        btn_logo->setText(QApplication::translate("departmentScreen", "BRADFORD SWISSPORT", nullptr));
+        departmentScreen->setWindowTitle(QApplication::translate("departmentScreen", "Department Maintenance Screen", nullptr));
+        btn_logo->setText(QString());
         lbl_name->setText(QApplication::translate("departmentScreen", "Logged in as: User", nullptr));
         label_29->setText(QApplication::translate("departmentScreen", "Department Maintenance", nullptr));
         btn_search->setText(QApplication::translate("departmentScreen", "Search", nullptr));

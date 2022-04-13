@@ -27,6 +27,8 @@ void scheduleScreen::run(){
         ui->btn_purgeCurrent->setDisabled(true);
         ui->btn_saveCurrent->setDisabled(true);
 
+        ui->btn_viewCurrent->setDown(true);
+
         QSqlQueryModel *model = new QSqlQueryModel();
         QSqlQuery query;
         query.prepare(QString("SELECT CONCAT(users.firstName, ' ', users.lastName) AS name, monday, tuesday, wednesday, thursday, friday, saturday, sunday "

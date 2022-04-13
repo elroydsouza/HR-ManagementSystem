@@ -36,10 +36,7 @@ public:
     QWidget *verticalSidebar;
     QVBoxLayout *verticalLayout;
     QSpacerItem *verticalSpacer_6;
-    QHBoxLayout *horizontalLayout_10;
-    QSpacerItem *horizontalSpacer_8;
     QPushButton *btn_logo;
-    QSpacerItem *horizontalSpacer_9;
     QHBoxLayout *horizontalLayout_12;
     QSpacerItem *horizontalSpacer_10;
     QLabel *lbl_name;
@@ -180,29 +177,20 @@ public:
 
         verticalLayout->addItem(verticalSpacer_6);
 
-        horizontalLayout_10 = new QHBoxLayout();
-        horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
-        horizontalSpacer_8 = new QSpacerItem(2, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_10->addItem(horizontalSpacer_8);
-
         btn_logo = new QPushButton(verticalSidebar);
         btn_logo->setObjectName(QString::fromUtf8("btn_logo"));
-        btn_logo->setMinimumSize(QSize(0, 50));
         QFont font;
         font.setBold(true);
         font.setWeight(75);
         btn_logo->setFont(font);
-        btn_logo->setStyleSheet(QString::fromUtf8("background-color: rgb(239, 41, 41);"));
+        btn_logo->setStyleSheet(QString::fromUtf8(""));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8("../../Bradford_Swissport_logo.png"), QSize(), QIcon::Normal, QIcon::Off);
+        btn_logo->setIcon(icon);
+        btn_logo->setIconSize(QSize(198, 48));
+        btn_logo->setFlat(true);
 
-        horizontalLayout_10->addWidget(btn_logo);
-
-        horizontalSpacer_9 = new QSpacerItem(2, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_10->addItem(horizontalSpacer_9);
-
-
-        verticalLayout->addLayout(horizontalLayout_10);
+        verticalLayout->addWidget(btn_logo);
 
         horizontalLayout_12 = new QHBoxLayout();
         horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
@@ -251,9 +239,9 @@ public:
 "QPushButton::hover { background-color: rgb(97, 199, 231); }\n"
 "\n"
 "QPushButton::pressed { background-color: rgb(48, 152, 185); }"));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8("../../add-user.png"), QSize(), QIcon::Normal, QIcon::Off);
-        btn_request->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8("../../add-user.png"), QSize(), QIcon::Normal, QIcon::Off);
+        btn_request->setIcon(icon1);
         btn_request->setIconSize(QSize(30, 30));
         btn_request->setCheckable(true);
         btn_request->setChecked(true);
@@ -270,9 +258,9 @@ public:
 "QPushButton::hover { background-color: rgb(97, 199, 231); }\n"
 "\n"
 "QPushButton::pressed { background-color: rgb(48, 152, 185); }"));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8("../../alert.png"), QSize(), QIcon::Normal, QIcon::Off);
-        btn_outstandingReq->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8("../../alert.png"), QSize(), QIcon::Normal, QIcon::Off);
+        btn_outstandingReq->setIcon(icon2);
         btn_outstandingReq->setIconSize(QSize(30, 30));
         btn_outstandingReq->setCheckable(true);
         btn_outstandingReq->setAutoExclusive(true);
@@ -289,9 +277,9 @@ public:
 "\n"
 "QPushButton::pressed { background-color: rgb(48, 152, 185); }\n"
 ""));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8("../../settings-gear-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
-        btn_outstandingApp->setIcon(icon2);
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8("../../settings-gear-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
+        btn_outstandingApp->setIcon(icon3);
         btn_outstandingApp->setIconSize(QSize(30, 30));
         btn_outstandingApp->setCheckable(true);
         btn_outstandingApp->setAutoExclusive(true);
@@ -307,9 +295,9 @@ public:
 "QPushButton::hover { background-color: rgb(97, 199, 231); }\n"
 "\n"
 "QPushButton::pressed { background-color: rgb(48, 152, 185); }"));
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8("../../ask-for-help.png"), QSize(), QIcon::Normal, QIcon::Off);
-        btn_maintenance->setIcon(icon3);
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8("../../ask-for-help.png"), QSize(), QIcon::Normal, QIcon::Off);
+        btn_maintenance->setIcon(icon4);
         btn_maintenance->setIconSize(QSize(30, 30));
         btn_maintenance->setCheckable(true);
         btn_maintenance->setChecked(false);
@@ -942,7 +930,7 @@ public:
     void retranslateUi(QWidget *absenceScreen)
     {
         absenceScreen->setWindowTitle(QApplication::translate("absenceScreen", "Absence Management Screen", nullptr));
-        btn_logo->setText(QApplication::translate("absenceScreen", "BRADFORD SWISSPORT", nullptr));
+        btn_logo->setText(QString());
         lbl_name->setText(QApplication::translate("absenceScreen", "Logged in as: User", nullptr));
         label_29->setText(QApplication::translate("absenceScreen", "Absence Management", nullptr));
         btn_request->setText(QApplication::translate("absenceScreen", "Request", nullptr));

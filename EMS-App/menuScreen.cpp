@@ -17,6 +17,8 @@ void menuScreen::run(){
 
     if(user.getPermLevel() == 2){
         ui->btn_User->setVisible(false);
+        ui->btn_Department->setText("Departments");
+        ui->btn_absence->setText("Absence");
     }
 }
 
