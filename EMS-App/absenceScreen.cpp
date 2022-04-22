@@ -495,6 +495,20 @@ void absenceScreen::on_btn_requestDelete_clicked()
         QMessageBox::StandardButton question = QMessageBox::question(this, "Confirm", "Are you sure you want to delete ("+ ticketID + ") "+ type +" leave on " + date + "?",
                                                                      QMessageBox::Yes|QMessageBox::No);
         if(question == QMessageBox::Yes){
+            QSqlQuery query4;
+            query4.prepare(QString("SELECT status, employeeID FROM absence WHERE ticketID = '"+ticketID+"'"));
+            query4.exec();
+            query4.next();
+            QString status = query4.value(0).toString();
+            QString employeeID = query4.value(1).toString();
+
+            query4.prepare(QString("SELECT remainingHoliday, remainingSick FROM absenceRemaining WHERE employeeID = :employeeID"));
+            query4.bindValue(":employeeID", employeeID);
+            query4.exec();
+            query4.next();
+            int remHol = query4.value(0).toInt();
+            int remSick = query4.value(1).toInt();
+
             QSqlQuery query;
             query.prepare(QString("DELETE FROM absence WHERE ticketID = '"+ticketID+"'"));
 
@@ -503,8 +517,28 @@ void absenceScreen::on_btn_requestDelete_clicked()
                 ui->ORle_type->clear();
                 ui->ORde_date->setDate(QDate::currentDate());
                 ui->ORpte_reason->clear();
-
                 QSqlQuery query;
+
+                if(type == "holiday" && status == "approved"){
+                    query.prepare(QString("UPDATE absenceRemaining SET remainingHoliday = :remainingHoliday WHERE employeeID = :employeeID"));
+
+                    query.bindValue(":employeeID", employeeID);
+                    query.bindValue(":remainingHoliday", remHol + 1);
+
+                    query.exec();
+
+                    QMessageBox::information(this,"Success","One holiday leave has been added back to remaining!");
+                } else if(type == "sick" && status == "approved"){
+                    query.prepare(QString("UPDATE absenceRemaining SET remainingSick = :remainingSick WHERE employeeID = :employeeID"));
+
+                    query.bindValue(":employeeID", employeeID);
+                    query.bindValue(":remainingSick", remSick + 1);
+
+                    query.exec();
+
+                    QMessageBox::information(this,"Success","One sick leave has been added back to remaining!");
+                }
+
                 query.prepare(QString("SELECT ticketID AS TicketID, date AS Date, status AS Status FROM absence "
                                       "WHERE type = :type "
                                       "AND employeeID = :employeeID"));
@@ -597,7 +631,7 @@ void absenceScreen::on_tbl_employees_activated()
     ui->Mle_employeeName->setText(query.value(0).toString() + " " + query.value(1).toString());
 }
 
-void absenceScreen::on_pushButton_clicked()
+void absenceScreen::on_btn_update_clicked()
 {
     QSqlQuery query;
     query.prepare(QString("UPDATE absenceRemaining SET remainingHoliday = :remainingHoliday, remainingSick = :remainingSick WHERE employeeID = :employeeID"));

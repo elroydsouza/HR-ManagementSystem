@@ -1,4 +1,4 @@
-#include "loginScreen.h"
+﻿#include "loginScreen.h"
 #include "ui_loginScreen.h"
 #include "menuScreen.h"
 #include "user.h"
@@ -138,23 +138,23 @@ void loginScreen::on_btn_login_clicked()
     }
 }
 
-QString loginScreen::encryptPassword(QString password) {
+QString loginScreen::encryptPassword(QString pass) {
     int key = 2;
-    std::string encryptedPassword;
+    std::string encryptedPass;
 
-    std::string standardPassword = password.toStdString();
+    std::string standardPass = pass.toStdString();
 
-    for (int charCodeValue : standardPassword) {
-        charCodeValue = charCodeValue + key;
+    for (int charCode : standardPass) {
+        charCode = charCode + key;
 
-        if (charCodeValue >= 128){
-            throw std::invalid_argument("Invalid character!");
+        if (charCode >= 128){
+            throw std::invalid_argument("Invalid character in password!");
         }
-        encryptedPassword.push_back(charCodeValue);
+        encryptedPass.push_back(charCode);
 
     }
 
-    password = QString::fromStdString(encryptedPassword);
+    pass = QString::fromStdString(encryptedPass);
 
-    return password;
+    return pass;
 }

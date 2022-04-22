@@ -22,8 +22,6 @@ public:
     ~employeeScreen();
 
 private slots:
-    void on_le_search_returnPressed();
-
     void on_btn_search_clicked();
 
     void on_btn_insert_clicked();

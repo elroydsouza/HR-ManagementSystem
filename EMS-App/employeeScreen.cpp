@@ -23,9 +23,7 @@ void employeeScreen::run(){
     ui->grid_extraInfo->setVisible(false);
     ui->lbl_doubleClickToView->setVisible(true);
 
-    // Add info box to every stacked widget page explaining how to use
-
-    // reference the icon person tuk something
+    // icons used from tuktukdesign on flaticon.com
 
     QSqlQueryModel *model = new QSqlQueryModel();
 
@@ -67,12 +65,6 @@ void employeeScreen::acceptUser(User _user){
 employeeScreen::~employeeScreen()
 {
     delete ui;
-}
-
-void employeeScreen::on_le_search_returnPressed()
-{
-    //proxy->setFilterRegExp(QRegExp(".png", Qt::CaseInsensitive, QRegExp::FixedString));
-    //proxy->setFilterKeyColumn(1);
 }
 
 void employeeScreen::on_btn_search_clicked()

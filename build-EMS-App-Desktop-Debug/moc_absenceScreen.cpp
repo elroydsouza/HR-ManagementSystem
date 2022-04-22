@@ -49,7 +49,7 @@ QT_MOC_LITERAL(14, 311, 29), // "on_tbl_holidayLeave_activated"
 QT_MOC_LITERAL(15, 341, 28), // "on_btn_requestDelete_clicked"
 QT_MOC_LITERAL(16, 370, 26), // "on_btn_maintenance_clicked"
 QT_MOC_LITERAL(17, 397, 26), // "on_tbl_employees_activated"
-QT_MOC_LITERAL(18, 424, 21) // "on_pushButton_clicked"
+QT_MOC_LITERAL(18, 424, 21) // "on_btn_update_clicked"
 
     },
     "absenceScreen\0on_btn_back_clicked\0\0"
@@ -65,7 +65,7 @@ QT_MOC_LITERAL(18, 424, 21) // "on_pushButton_clicked"
     "on_btn_requestDelete_clicked\0"
     "on_btn_maintenance_clicked\0"
     "on_tbl_employees_activated\0"
-    "on_pushButton_clicked"
+    "on_btn_update_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -145,7 +145,7 @@ void absenceScreen::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 13: _t->on_btn_requestDelete_clicked(); break;
         case 14: _t->on_btn_maintenance_clicked(); break;
         case 15: _t->on_tbl_employees_activated(); break;
-        case 16: _t->on_pushButton_clicked(); break;
+        case 16: _t->on_btn_update_clicked(); break;
         default: ;
         }
     }

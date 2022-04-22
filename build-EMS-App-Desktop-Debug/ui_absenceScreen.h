@@ -152,7 +152,7 @@ public:
     QSpacerItem *verticalSpacer_9;
     QHBoxLayout *horizontalLayout_8;
     QSpacerItem *horizontalSpacer_6;
-    QPushButton *pushButton;
+    QPushButton *btn_update;
     QSpacerItem *horizontalSpacer_7;
     QSpacerItem *verticalSpacer_13;
 
@@ -890,12 +890,12 @@ public:
 
         horizontalLayout_8->addItem(horizontalSpacer_6);
 
-        pushButton = new QPushButton(page_4);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setMinimumSize(QSize(0, 30));
-        pushButton->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
+        btn_update = new QPushButton(page_4);
+        btn_update->setObjectName(QString::fromUtf8("btn_update"));
+        btn_update->setMinimumSize(QSize(0, 30));
+        btn_update->setStyleSheet(QString::fromUtf8("background-color: rgb(39, 183, 229);"));
 
-        horizontalLayout_8->addWidget(pushButton);
+        horizontalLayout_8->addWidget(btn_update);
 
         horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
@@ -975,7 +975,7 @@ public:
         label_15->setText(QApplication::translate("absenceScreen", "Employee Name", nullptr));
         label_16->setText(QApplication::translate("absenceScreen", " Remaining Holiday Leave", nullptr));
         label_17->setText(QApplication::translate("absenceScreen", "Remaining Sick Leave", nullptr));
-        pushButton->setText(QApplication::translate("absenceScreen", "Update", nullptr));
+        btn_update->setText(QApplication::translate("absenceScreen", "Update", nullptr));
     } // retranslateUi
 
 };

@@ -51,7 +51,7 @@ private slots:
 
     void on_tbl_employees_activated();
 
-    void on_pushButton_clicked();
+    void on_btn_update_clicked();
 
 private:
     User user;
