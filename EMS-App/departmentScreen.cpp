@@ -2,10 +2,6 @@
 #include "departmentScreen.h"
 #include "ui_departmentScreen.h"
 
-#include <algorithm>
-#include <unordered_map>
-#include <iostream>
-
 departmentScreen::departmentScreen(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::departmentScreen)
@@ -193,8 +189,7 @@ void departmentScreen::on_btn_generate_clicked()
             std::string selectedCode = query.value(0).toString().toStdString();
             deptCodes.insert({selectedCode, "placeholder"});
         }
-
-        bool check = false;
+       bool check = false;
 
         while(check == false){
             int randNo = (rand() % 888) + 100;
@@ -389,7 +384,6 @@ void departmentScreen::on_btn_save_clicked()
 
         std::string::iterator end_pos = std::remove(deptN.begin(), deptN.end(), ' ');
         deptN.erase(end_pos, deptN.end());
-        std::cout << deptN << std::endl;
 
         QDate date = QDate::currentDate();
         ui->tbl_employees->grab().save(QString::fromStdString("saved_documents/departmentsLog/") + QString::fromStdString(deptN) + "_" + date.toString("dd.MM.yyyy") + ".png");

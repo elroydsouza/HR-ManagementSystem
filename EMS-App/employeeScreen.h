@@ -6,6 +6,10 @@
 #include <QMessageBox>
 #include "user.h"
 #include <QWidget>
+#include <unordered_map>
+#include <stdlib.h>
+
+#include <iostream>
 
 namespace Ui {
 class employeeScreen;

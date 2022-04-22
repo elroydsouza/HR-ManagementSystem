@@ -2,9 +2,6 @@
 #include "absenceScreen.h"
 #include "ui_absenceScreen.h"
 
-#include <unordered_map>
-#include <iostream>
-
 absenceScreen::absenceScreen(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::absenceScreen)

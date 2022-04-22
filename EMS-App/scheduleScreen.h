@@ -1,10 +1,14 @@
 #ifndef SCHEDULESCREEN_H
 #define SCHEDULESCREEN_H
 
-#include <vector>
-#include <unordered_map>
 #include "user.h"
 #include <QWidget>
+
+#include <algorithm>
+#include <unordered_map>
+#include <vector>
+#include <iostream>
+
 
 namespace Ui {
 class scheduleScreen;

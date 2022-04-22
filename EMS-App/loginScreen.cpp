@@ -4,8 +4,6 @@
 #include "user.h"
 #include "passwordSet.h"
 
-#include <iostream>
-
 loginScreen::loginScreen(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::loginScreen)

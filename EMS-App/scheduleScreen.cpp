@@ -3,11 +3,6 @@
 #include "scheduleScreen.h"
 #include "ui_scheduleScreen.h"
 
-#include <algorithm>
-#include <unordered_map>
-#include <vector>
-#include <iostream>
-
 scheduleScreen::scheduleScreen(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::scheduleScreen)

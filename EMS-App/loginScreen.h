@@ -6,6 +6,9 @@
 #include <QMessageBox>
 #include <QWidget>
 
+#include <iostream>
+
+
 namespace Ui {
 class loginScreen;
 }

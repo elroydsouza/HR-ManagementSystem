@@ -1,6 +1,5 @@
 #include "passwordSet.h"
 #include "ui_passwordSet.h"
-
 #include "loginScreen.h"
 
 passwordSet::passwordSet(QWidget *parent) :

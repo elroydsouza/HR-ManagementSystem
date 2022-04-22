@@ -4,6 +4,9 @@
 #include "user.h"
 #include <QWidget>
 
+#include <unordered_map>
+#include <iostream>
+
 namespace Ui {
 class absenceScreen;
 }

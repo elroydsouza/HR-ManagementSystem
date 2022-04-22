@@ -2,11 +2,6 @@
 #include "ui_employeeScreen.h"
 #include "menuScreen.h"
 
-#include <unordered_map>
-#include <stdlib.h>
-
-#include <iostream>
-
 employeeScreen::employeeScreen(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::employeeScreen)
